@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.informadoresBD.domain.Informador;
 
-@RestController("api/usuariosBD")
+@RestController("api/informadoresBD")
 public class InformadoresBDController {
 	
 	@PostMapping("/new")
 	public Informador newInformer(@RequestBody Informador informador) {
-		System.out.println("Estamos en UsuariosBD");
+		System.out.println("Estamos en InformadoresBD");
 		return informador;
 	}
 

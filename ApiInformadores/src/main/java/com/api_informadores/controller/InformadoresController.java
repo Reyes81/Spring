@@ -20,7 +20,7 @@ public class InformadoresController {
 		
 		System.out.println("hoola");
 		
-		final String uri = "http://localhost:8081/api/usuariosBD/new";
+		final String uri = "http://localhost:8081/api/informadoresBD/new";
 		
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForObject(
