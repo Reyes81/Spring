@@ -18,6 +18,8 @@ public class InformadoresController {
 	@PostMapping(value = "/new")
 	public Informador newInformer(@RequestBody Informador informador) {	
 		
+		System.out.println("hoola");
+		
 		final String uri = "http://localhost:8081/api/usuariosBD/new";
 		
 		RestTemplate restTemplate = new RestTemplate();
@@ -28,4 +30,5 @@ public class InformadoresController {
 	    
 		return informador;
 	}
+	
 }

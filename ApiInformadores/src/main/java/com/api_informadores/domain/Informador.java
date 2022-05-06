@@ -51,7 +51,7 @@ public class Informador {
 		return this.id;
 	}
 
-	public void setId(Integer Id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
