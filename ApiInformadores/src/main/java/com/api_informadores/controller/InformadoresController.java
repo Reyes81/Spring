@@ -1,21 +1,19 @@
 package com.api_informadores.controller;
 
-import java.util.List;
-
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_informadores.domain.Informador;
 
-@RestController("api/informador")
+@RestController
+@RequestMapping("/api/informador")
 public class InformadoresController {
 	
-	@PostMapping(value = "/new")
+	@PostMapping(value="/new")
 	public Informador newInformer(@RequestBody Informador informador) {	
 		
 		System.out.println("hoola");
@@ -26,7 +24,7 @@ public class InformadoresController {
 		restTemplate.postForObject(
 				  uri,
 				  informador,
-				  ResponseEntity.class);
+				  Informador.class);
 	    
 		return informador;
 	}
