@@ -6,6 +6,13 @@ import lombok.Data;
 @Data
 public class Informador {
 	
+	enum State {
+		PENDIENTE,
+		PREPARACION,
+		ERRONEO,
+		PUBLICADO
+	};
+	
 	private Integer id;
 	
 	private String nif_cif;
@@ -14,7 +21,7 @@ public class Informador {
 
 	private String type;
 
-	private String state;
+	private State state;
 	
 	private Double quote;
 
@@ -24,13 +31,13 @@ public class Informador {
 	
 	public Informador() {}
 	
-	public Informador(Integer id, String nif_cif, String name_company, String type, String state, Double quote, String eMail, String password ) {
+	public Informador(Integer id, String nif_cif, String name_company, String type, Double quote, String eMail, String password ) {
 		
 		this.id = id;
 		this.nif_cif = nif_cif;
 		this.name_company = name_company;
 		this.type = type;
-		this.state = state;
+		this.state = State.PENDIENTE;
 		this.quote = quote;
 		this.eMail = eMail;
 		this.password = password;
@@ -41,7 +48,7 @@ public class Informador {
 		return this.id;
 	}
 
-	public void setId(Integer Id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -69,11 +76,11 @@ public class Informador {
 		this.type = type;
 	}
 	
-	public String getState() {
+	public State getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 	
