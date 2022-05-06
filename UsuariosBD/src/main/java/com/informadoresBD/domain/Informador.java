@@ -1,10 +1,10 @@
-package com.usuariosBD.domain;
+package com.informadoresBD.domain;
 
 
 import lombok.Data;
 
 @Data
-public class Usuario {
+public class Informador {
 	
 	private Integer id;
 	
@@ -22,9 +22,9 @@ public class Usuario {
 
 	private String password;
 	
-	public Usuario() {}
+	public Informador() {}
 	
-	public Usuario(Integer id, String nif_cif, String name_company, String type, String state, Double quote, String eMail, String password ) {
+	public Informador(Integer id, String nif_cif, String name_company, String type, String state, Double quote, String eMail, String password ) {
 		
 		this.id = id;
 		this.nif_cif = nif_cif;
