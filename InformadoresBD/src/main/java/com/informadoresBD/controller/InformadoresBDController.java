@@ -24,13 +24,14 @@ public class InformadoresBDController {
 	
 	@PostMapping(value= "/new")
 	public Informador newInformer(@RequestBody Informador informador) {
+		
 		is.saveInformer(informador);
 		return informador;
 	}
 	
 	@GetMapping(value= "/informadores")
 	public List<Informador> getAllInformers() {
-		System.out.println("Hola");
+
 		List<Informador> informers = new ArrayList<Informador>();
 		informers = is.getAllInformers();
 		return informers;
