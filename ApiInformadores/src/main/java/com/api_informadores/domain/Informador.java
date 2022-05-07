@@ -10,49 +10,52 @@ public class Informador {
 	
 	enum State {
 		PENDIENTE,
-		PREPARACION,
-		ERRONEO,
-		PUBLICADO
+		ACTIVO,
+		INACTIVO
 	};
 	
-	@JsonProperty("id")
+	enum Type {
+		Fisica,
+		Juridica
+	};
+	
+	//@JsonProperty("id")
 	private Integer id;
 	
-	@JsonProperty("nif_cif")
+	//@JsonProperty("nif_cif")
 	private String nif_cif;
 	
-	@JsonProperty("name_company")
+	//@JsonProperty("name_company")
 	private String name_company;
 	
-	@JsonProperty("type")
-	private String type;
+	//@JsonProperty("type")
+	private Type type;
 	
-	@JsonProperty("state")
+	//@JsonProperty("state")
 	private State state;
 	
-	@JsonProperty("quote")
+	//@JsonProperty("quote")
 	private Double quote;
 	
-	@JsonProperty("eMail")
+	//@JsonProperty("eMail")
 	private String eMail;
 	
-	@JsonProperty("password")
+	//@JsonProperty("password")
 	private String password;
 	
 	public Informador() {}
 	
-	public Informador(Integer id, String nif_cif, String name_company, String type, Double quote, String eMail, String password ) {
+	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password ) {
 		
 		this.id = id;
 		this.nif_cif = nif_cif;
 		this.name_company = name_company;
 		this.type = type;
 		this.state = State.PENDIENTE;
-		this.quote = quote;
+		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;
 	}
-
 
 	public Integer getId() {
 		return this.id;
@@ -78,11 +81,11 @@ public class Informador {
 		this.name_company = name_company;
 	}
 	
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 	
@@ -117,6 +120,4 @@ public class Informador {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 }
