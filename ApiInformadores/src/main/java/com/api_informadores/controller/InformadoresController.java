@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.api_informadores.domain.Informador;
 
-final 
 @RestController
 @RequestMapping("/api/informador")
 public class InformadoresController {
@@ -27,17 +26,5 @@ public class InformadoresController {
 				  Informador.class);
 	    
 		return informador;
-	}
-	
-	@GetMapping(value="/informadores")
-	public void getAllInformers() {	
-		
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForObject(
-				  uriGetAllInformes,
-				  Object[].class);
-	
-	}
-	    
-	
+	}	
 }
