@@ -2,6 +2,8 @@ package com.informadoresBD.domain;
 
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,13 +14,13 @@ import lombok.Data;
 @Entity
 public class Informador {
 	
-	enum State {
+	public enum Status {
 		PENDIENTE,
 		ACTIVO,
 		INACTIVO
 	};
 	
-	enum Type {
+	public enum Type {
 		Fisica,
 		Juridica
 	};
@@ -33,11 +35,13 @@ public class Informador {
 	@JsonProperty("name_company")
 	private String name_company;
 	
+	@Enumerated(EnumType.STRING)
 	@JsonProperty("type")
 	private Type type;
 	
-	@JsonProperty("state")
-	private State state;
+	@Enumerated(EnumType.STRING)
+	@JsonProperty("status")
+	private Status status;
 	
 	@JsonProperty("quote")
 	private Double quote;
@@ -50,13 +54,25 @@ public class Informador {
 	
 	public Informador() {}
 	
+	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password,Status status, Double quote ) {
+		
+		this.id = id;
+		this.nif_cif = nif_cif;
+		this.name_company = name_company;
+		this.type = type;
+		this.status = status;
+		this.quote = quote;
+		this.eMail = eMail;
+		this.password = password;
+	}
+	
 	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password ) {
 		
 		this.id = id;
 		this.nif_cif = nif_cif;
 		this.name_company = name_company;
 		this.type = type;
-		this.state = State.PENDIENTE;
+		this.status = Status.PENDIENTE;
 		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;
@@ -94,12 +110,12 @@ public class Informador {
 		this.type = type;
 	}
 	
-	public State getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public Double getQuote() {

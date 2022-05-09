@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.informadoresBD.domain.Informador;
+import com.informadoresBD.domain.Informador.Status;
 import com.informadoresBD.repository.InformadoresRepository;
 
 @Service
@@ -29,6 +30,25 @@ public class InformadoresService {
 		for(Informador informer:informers) {
 			System.out.println("ID: " + informer.getId());
 		}
+		return informers;
+	}
+	
+	//Obtener todos los informadores que esten pendientes de aprobación
+	public List<Informador> getPendingInformers() {
+		List<Informador> informers = new ArrayList<Informador>();
+		Informador.Status status = null;
+		informers = ir.findByStatus(status.PENDIENTE);
+		
+		if(informers.isEmpty()) {
+			informers = null;
+			System.out.println("No existen informadores en estado 'Pendiente de Aprobación'");
+		}
+		else {
+			for(Informador informer:informers) {
+				System.out.println("Informador Pendiente ID: " + informer.getId());
+			}
+		}
+		
 		return informers;
 	}
 }

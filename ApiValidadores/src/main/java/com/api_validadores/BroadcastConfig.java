@@ -1,4 +1,4 @@
-package com.apil_validadores;
+package com.api_validadores;
 
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Declarables;

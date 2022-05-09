@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.informadoresBD.domain.Informador;
 import com.informadoresBD.service.InformadoresService;
@@ -34,6 +35,14 @@ public class InformadoresBDController {
 
 		List<Informador> informers = new ArrayList<Informador>();
 		informers = is.getAllInformers();
+		return informers;
+	}
+	
+	@GetMapping(value="/informadores/pendientes")
+	public List<Informador> getPendingInformers() {	
+			
+		List<Informador> informers = new ArrayList<Informador>();
+		informers = is.getPendingInformers();
 		return informers;
 	}
 

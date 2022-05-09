@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Informador {
 	
-	enum State {
+	enum Status {
 		PENDIENTE,
 		ACTIVO,
 		INACTIVO
@@ -19,31 +19,43 @@ public class Informador {
 		Juridica
 	};
 	
-	//@JsonProperty("id")
+	@JsonProperty("id")
 	private Integer id;
 	
-	//@JsonProperty("nif_cif")
+	@JsonProperty("nif_cif")
 	private String nif_cif;
 	
-	//@JsonProperty("name_company")
+	@JsonProperty("name_company")
 	private String name_company;
 	
-	//@JsonProperty("type")
+	@JsonProperty("type")
 	private Type type;
 	
-	//@JsonProperty("state")
-	private State state;
+	@JsonProperty("status")
+	private Status status;
 	
-	//@JsonProperty("quote")
+	@JsonProperty("quote")
 	private Double quote;
 	
-	//@JsonProperty("eMail")
+	@JsonProperty("eMail")
 	private String eMail;
 	
-	//@JsonProperty("password")
+	@JsonProperty("password")
 	private String password;
 	
 	public Informador() {}
+	
+	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password,Status status, Double quote ) {
+		
+		this.id = id;
+		this.nif_cif = nif_cif;
+		this.name_company = name_company;
+		this.type = type;
+		this.status = status;
+		this.quote = quote;
+		this.eMail = eMail;
+		this.password = password;
+	}
 	
 	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password ) {
 		
@@ -51,7 +63,7 @@ public class Informador {
 		this.nif_cif = nif_cif;
 		this.name_company = name_company;
 		this.type = type;
-		this.state = State.PENDIENTE;
+		this.status = Status.PENDIENTE;
 		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;
@@ -89,12 +101,12 @@ public class Informador {
 		this.type = type;
 	}
 	
-	public State getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public Double getQuote() {

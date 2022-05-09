@@ -1,4 +1,4 @@
-package com.apil_validadores;
+package com.api_validadores;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

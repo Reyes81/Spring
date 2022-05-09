@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 public class Informador {
 	
-	enum State {
+	enum Status {
 		PENDIENTE,
 		ACTIVO,
 		INACTIVO
@@ -35,8 +35,8 @@ public class Informador {
 	@JsonProperty("type")
 	private Type type;
 	
-	@JsonProperty("state")
-	private State state;
+	@JsonProperty("status")
+	private Status status;
 	
 	@JsonProperty("quote")
 	private Double quote;
@@ -49,13 +49,25 @@ public class Informador {
 	
 	public Informador() {}
 	
+	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password,Status status, Double quote ) {
+		
+		this.id = id;
+		this.nif_cif = nif_cif;
+		this.name_company = name_company;
+		this.type = type;
+		this.status = status;
+		this.quote = quote;
+		this.eMail = eMail;
+		this.password = password;
+	}
+	
 	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password ) {
 		
 		this.id = id;
 		this.nif_cif = nif_cif;
 		this.name_company = name_company;
 		this.type = type;
-		this.state = State.PENDIENTE;
+		this.status = Status.PENDIENTE;
 		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;
@@ -93,12 +105,12 @@ public class Informador {
 		this.type = type;
 	}
 	
-	public State getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	public Double getQuote() {
