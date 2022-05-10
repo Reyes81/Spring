@@ -56,7 +56,8 @@ public class InformadoresBDController {
 		return informers;
 	}
 	
-	@PutMapping(value="/informadores/validar/{id}")
+	//@PutMapping(value="/informadores/validar/{id}")
+	@RequestMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 			
 		is.approveInformer(id);
