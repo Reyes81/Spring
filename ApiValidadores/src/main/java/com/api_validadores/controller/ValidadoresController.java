@@ -93,7 +93,7 @@ public class ValidadoresController {
 	//TODO. VF1.Obtener informadores con ficheros erróneos
 	
 	//VF2. Aprobar un nuevo productor
-	@PutMapping(value="/informadores/validar/{id}")
+	@PutMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 		System.out.println("hola");
 		//RestTemplate restTemplate = new RestTemplate();
