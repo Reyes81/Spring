@@ -1,11 +1,20 @@
 package com.api_validadores.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.apil_validadores.domain.Informador;
 
 @RestController
 @RequestMapping(value="/api/validador")
@@ -17,16 +26,31 @@ public class ValidadoresController {
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar";
 	
 	
+	@GetMapping("/index")
+	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+
+	        return new ModelAndView("index.html");
+
+	    }
+	
+
+	
 	//VF1.Obtenemos todos los informadores
 	@GetMapping(value="/informadores")
-	public void getAllInformers() {	
-		
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForObject(
-				  uriGetAllInformes,
-				  Object[].class);
-	
-	}
+	 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+		 
+			RestTemplate restTemplate = new RestTemplate();
+			Informador[] informadores = restTemplate.getForObject(
+					  uriGetAllInformes,
+					  Informador[].class);
+			
+			ModelAndView modelAndView = new ModelAndView("allInformes.html");
+			modelAndView.addObject("informadores", informadores);
+	        return modelAndView;
+
+	    }
 	
 	//VF1.Obtener Informadores pendientes de Aprobación
 	@GetMapping(value="/informadores/pendientes")
@@ -48,15 +72,35 @@ public class ValidadoresController {
 					 Object[].class);
 	}
 	
+	@GetMapping("/informadores/editar/{id}")
+	 public ModelAndView handleRequestEdit(@PathVariable(value = "id") Integer id, HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+		
+			ModelAndView model = new ModelAndView("editInformer.html");
+			RestTemplate restTemplate = new RestTemplate();
+			System.out.println("HOLAAAAAAAAA");
+			System.out.println(id);
+			Informador informador = restTemplate.getForObject(
+						 uriGetAllInformes+"?id="+id,
+						 Informador.class);
+			
+			model.addObject(informador);
+
+	        return new ModelAndView("editInformer.html");
+
+	    }
+	
 	//TODO. VF1.Obtener informadores con ficheros erróneos
 	
 	//VF2. Aprobar un nuevo productor
 	@PutMapping(value="/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 		System.out.println("hola");
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.put(uriValidateInformer, restTemplate, id);
+		//RestTemplate restTemplate = new RestTemplate();
+		//restTemplate.put(uriValidateInformer, restTemplate, id);
 	}
+	
+	
 }
 
 

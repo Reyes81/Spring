@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.informadoresBD.domain.Informador;
+import com.informadoresBD.domain.Informador.Status;
 import com.informadoresBD.service.InformadoresBDService;
 
 @Component
@@ -26,7 +27,7 @@ public class InformadoresBDController {
 	
 	@PostMapping(value= "/new")
 	public Informador newInformer(@RequestBody Informador informador) {
-		
+		informador.setStatus(Status.PENDIENTE);
 		is.saveInformer(informador);
 		return informador;
 	}

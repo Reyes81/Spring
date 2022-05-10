@@ -42,8 +42,7 @@ public class InformadoresBDService {
 	//VF1. Obtener todos los informadores que esten pendientes de aprobación
 	public List<Informador> getPendingInformers() {
 		List<Informador> informers = new ArrayList<Informador>();
-		Informador.Status status = null;
-		informers = ir.findByStatus(status.PENDIENTE);
+		informers = ir.findByStatus(Status.PENDIENTE);
 		
 		if(informers.isEmpty()) {
 			informers = null;

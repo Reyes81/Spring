@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +39,10 @@ public class InformadoresController {
 	        return new ModelAndView("newInformer.html");
 
 	    }
+
 	
 	@PostMapping(value="/informador/new")
-	public Informador newInformer(@ModelAttribute Informador informador) {	
+	public ModelAndView newInformer(@ModelAttribute Informador informador) {	
 		System.out.println("Id: " + informador.getId() + "\n" +
 				   "nif: " + informador.getNif() + "\n" +
 				   "name: " + informador.getName() + "\n" +
@@ -49,12 +51,14 @@ public class InformadoresController {
 				   "quote: " + informador.getQuote() + "\n" + 
 				   "eMail: " + informador.geteMail() + "\n" +
 				   "password: " + informador.getPassword());
+		
 		RestTemplate restTemplate = new RestTemplate();
+		
 		restTemplate.postForObject(
 				  uriNewInformer,
 				  informador,
 				  Informador.class);
 	    
-		return informador;
+        return new ModelAndView("index.html");
 	}	
 }
