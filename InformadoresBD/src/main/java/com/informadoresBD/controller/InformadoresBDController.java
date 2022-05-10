@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.informadoresBD.domain.Informador;
-import com.informadoresBD.service.InformadoresService;
+import com.informadoresBD.service.InformadoresBDService;
 
 @Component
 @RestController
@@ -22,7 +22,7 @@ import com.informadoresBD.service.InformadoresService;
 public class InformadoresBDController {
 	
 	@Autowired
-	InformadoresService is;
+	InformadoresBDService is;
 	
 	@PostMapping(value= "/new")
 	public Informador newInformer(@RequestBody Informador informador) {

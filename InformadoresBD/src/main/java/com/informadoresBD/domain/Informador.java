@@ -21,19 +21,19 @@ public class Informador {
 	};
 	
 	public enum Type {
-		Fisica,
-		Juridica
+		FISICA,
+		JURIDICA
 	};
 	
 	@Id
 	@JsonProperty("id")
 	private Integer id;
 	
-	@JsonProperty("nif_cif")
-	private String nif_cif;
+	@JsonProperty("nif")
+	private String nif;
 	
-	@JsonProperty("name_company")
-	private String name_company;
+	@JsonProperty("name")
+	private String name;
 	
 	@Enumerated(EnumType.STRING)
 	@JsonProperty("type")
@@ -54,11 +54,11 @@ public class Informador {
 	
 	public Informador() {}
 	
-	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password,Status status, Double quote ) {
+	public Informador(Integer id, String nif, String name, Type type, String eMail, String password,Status status, Double quote ) {
 		
 		this.id = id;
-		this.nif_cif = nif_cif;
-		this.name_company = name_company;
+		this.nif = nif;
+		this.name = name;
 		this.type = type;
 		this.status = status;
 		this.quote = quote;
@@ -66,11 +66,11 @@ public class Informador {
 		this.password = password;
 	}
 	
-	public Informador(Integer id, String nif_cif, String name_company, Type type, String eMail, String password ) {
+	public Informador(Integer id, String nif, String name, Type type, String eMail, String password ) {
 		
 		this.id = id;
-		this.nif_cif = nif_cif;
-		this.name_company = name_company;
+		this.nif = nif;
+		this.name = name;
 		this.type = type;
 		this.status = Status.PENDIENTE;
 		this.quote = null;
@@ -86,20 +86,20 @@ public class Informador {
 		this.id = id;
 	}
 
-	public String getNif_Cif() {
-		return nif_cif;
+	public String getNif() {
+		return nif;
 	}
 
-	public void setNif_Cif(String nif_cif) {
-		this.nif_cif = nif_cif;
+	public void setNif(String nif) {
+		this.nif = nif;
 	}
 	
-	public String getName_Company() {
-		return name_company;
+	public String getName() {
+		return name;
 	}
 
-	public void setName_Company(String name_company) {
-		this.name_company = name_company;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	public Type getType() {

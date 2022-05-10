@@ -10,7 +10,7 @@
 <body>
   <div class="signupFrm">
     <div class="wrapper">
-    <form method="POST" action="/new" class="form">
+    <form method="POST" action="/api/informador/new" class="form">
       <h1 class="title">Nuevo Informador</h1>
 
 
@@ -20,13 +20,23 @@
       </div>
       
 	 <div class="inputContainer">
-        <input type="text" class="input" placeholder="nombre-empresa" name="name_company">
+        <input type="text" class="input" placeholder="nombre-empresa" name="name">
         <label for="" class="label">Nombre-Empresa</label>
       </div>
       
        <div class="inputContainer">
-        <input type="text" class="input" placeholder="nif/cif" name="nif_cif">
+        <input type="text" class="input" placeholder="nif/cif" name="nif">
         <label for="" class="label">Nif-Cif</label>
+      </div>
+      
+      <div class="inputContainer">
+        <select class="input" placeholder="tipo de persona" name="type">
+        	<option selected="selected" value>Select</option>
+        	<option value="FISICA">Persona Física</option>
+        	<option value="JURIDICA">Persona Jurídica</option>
+    
+        </select>
+        <label for="" class="label">Tipo</label>
       </div>
       
       <div class="inputContainer">
@@ -34,15 +44,14 @@
         <label for="" class="label">Email</label>
       </div>
 
-      
-
+     
       <div class="inputContainer">
-        <input type="text" class="input" placeholder="a">
+        <input type="text" class="input" placeholder="a" name="password">
         <label for="" class="label">Password</label>
       </div>
 
 
-      <input type="submit" class="submitBtn" value="Sign up">
+      <input type="submit" class="submitBtn" value="Registro">
     </form>
     </div>
   </div>

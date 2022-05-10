@@ -11,7 +11,7 @@ import com.informadoresBD.domain.Informador.Status;
 import com.informadoresBD.repository.InformadoresRepository;
 
 @Service
-public class InformadoresService {
+public class InformadoresBDService {
 	
 	@Autowired
 	InformadoresRepository ir;
@@ -28,7 +28,13 @@ public class InformadoresService {
 		informers = ir.findAll();
 		
 		for(Informador informer:informers) {
-			System.out.println("ID: " + informer.getId());
+			System.out.println("Id: " + informer.getId() + "\n" +
+					   "nif: " + informer.getNif() + "\n" +
+					   "status: " + informer.getStatus() + "\n" +
+					   "type: " + informer.getType() + "\n" + 
+					   "quote: " + informer.getQuote() + "\n" + 
+					   "eMail: " + informer.geteMail() + "\n" +
+					   "password: " + informer.getPassword());
 		}
 		return informers;
 	}
@@ -45,7 +51,13 @@ public class InformadoresService {
 		}
 		else {
 			for(Informador informer:informers) {
-				System.out.println("Informador Pendiente ID: " + informer.getId());
+				System.out.println("Id: " + informer.getId() + "\n" +
+						   "nif: " + informer.getNif() + "\n" +
+						   "status: " + informer.getStatus() + "\n" +
+						   "type: " + informer.getType() + "\n" + 
+						   "quote: " + informer.getQuote() + "\n" + 
+						   "eMail: " + informer.geteMail() + "\n" +
+						   "password: " + informer.getPassword());
 			}
 		}
 		
@@ -64,7 +76,13 @@ public class InformadoresService {
 			}
 			else {
 				for(Informador informer:informers) {
-					System.out.println("Informador con cuota agotada -  ID: " + informer.getId());
+					System.out.println("Id: " + informer.getId() + "\n" +
+							   "nif: " + informer.getNif() + "\n" +
+							   "status: " + informer.getStatus() + "\n" +
+							   "type: " + informer.getType() + "\n" + 
+							   "quote: " + informer.getQuote() + "\n" + 
+							   "eMail: " + informer.geteMail() + "\n" +
+							   "password: " + informer.getPassword());
 				}
 			}
 			
@@ -79,12 +97,11 @@ public class InformadoresService {
 			informer.setQuote(500.0);
 			
 			System.out.println("Id: " + informer.getId() + "\n" +
-							   "nif: " + informer.getNif_Cif() + "\n" +
+							   "nif: " + informer.getNif() + "\n" +
 							   "status: " + informer.getStatus() + "\n" +
 							   "type: " + informer.getType() + "\n" + 
 							   "quote: " + informer.getQuote() + "\n" + 
 							   "eMail: " + informer.geteMail() + "\n" +
-							   "password" + informer.getPassword());
+							   "password: " + informer.getPassword());
 		}
-		
 }

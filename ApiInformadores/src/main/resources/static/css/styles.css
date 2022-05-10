@@ -25,8 +25,17 @@ body {
   box-shadow: 0 10px 25px rgba(92, 99, 105, .2);
 }
 
+.menu{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	background-color: white;
+}
+
 .title {
-  font-size: 50px;
+  font-size: 30px;
   margin-bottom: 50px;
 }
 
@@ -79,6 +88,19 @@ body {
   border-radius: 6px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 30px;
+}
+
+.submitBtn2 {
+  display: block;
+  width: 350px;
+  padding: 15px 30px;
+  border: none;
+  background-color: purple;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 20px;
   margin-top: 30px;
 }
 

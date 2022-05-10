@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -17,13 +17,21 @@ import org.springframework.web.servlet.ModelAndView;
 import com.api_informadores.domain.Informador;
 
 @RestController
-@RequestMapping("/api/informador")
+@RequestMapping("/api")
 public class InformadoresController {
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	
-	 @GetMapping("/")
+	@GetMapping("/informador/index")
+	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+
+	        return new ModelAndView("index.html");
+
+	    }
+	
+	 @GetMapping("/informador/registro")
 	 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 
@@ -31,9 +39,16 @@ public class InformadoresController {
 
 	    }
 	
-	@PostMapping(value="/new")
-	public Informador newInformer(@RequestBody Informador informador) {	
-		
+	@PostMapping(value="/informador/new")
+	public Informador newInformer(@ModelAttribute Informador informador) {	
+		System.out.println("Id: " + informador.getId() + "\n" +
+				   "nif: " + informador.getNif() + "\n" +
+				   "name: " + informador.getName() + "\n" +
+				   "status: " + informador.getStatus() + "\n" +
+				   "type: " + informador.getType() + "\n" + 
+				   "quote: " + informador.getQuote() + "\n" + 
+				   "eMail: " + informador.geteMail() + "\n" +
+				   "password: " + informador.getPassword());
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.postForObject(
 				  uriNewInformer,
