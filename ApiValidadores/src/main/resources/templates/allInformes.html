@@ -50,7 +50,7 @@
       <td th:text="${informador.status}"></td>
       <td th:text="${informador.quote}"></td>
       <td>
-      <form type="hidden" name="_method" value="PUT" th:action="@{/api/validador/informadores/validar/{id}(id = ${informador.id})}" >
+      <form method="PUT" th:action="@{/api/validador/informadores/validar/{id}(id = ${informador.id})}" >
 	      <button type="submit" class="btn btn-success btn-circle">
 	      	<i class="bi bi-check-circle"></i>
 	      </button>
