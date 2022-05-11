@@ -1,4 +1,4 @@
-package com.apil_validadores.domain;
+package com.api_validadores.domain;
 
 import lombok.Data;
 
