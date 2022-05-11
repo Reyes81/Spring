@@ -24,6 +24,14 @@ public class InformadoresController {
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	
+	@GetMapping("/home")
+	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+
+	        return new ModelAndView("home.html");
+
+	    }
+	
 	@GetMapping("/informador/index")
 	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {

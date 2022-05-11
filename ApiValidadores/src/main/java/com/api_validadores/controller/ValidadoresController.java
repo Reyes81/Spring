@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.apil_validadores.domain.Informador;
+import com.api_validadores.domain.Informador;
 
 @RestController
 @RequestMapping(value="/api/validador")
@@ -23,7 +23,7 @@ public class ValidadoresController {
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	static final String uriGetPendingInformers = "http://localhost:8081/api/informadoresBD/informadores/pendientes";
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
-	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar";
+	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	
 	
 	@GetMapping("/index")
@@ -93,11 +93,20 @@ public class ValidadoresController {
 	//TODO. VF1.Obtener informadores con ficheros erróneos
 	
 	//VF2. Aprobar un nuevo productor
-	@PutMapping("/informadores/validar/{id}")
-	public void validateInformer(@PathVariable(value = "id") Integer id) {	
+	//@PutMapping("/informadores/validar/{id}")
+	@RequestMapping("/informadores/validar/{id}")
+	public ModelAndView handleRequestValidate(@PathVariable(value = "id") Integer id) {	
 		System.out.println("hola");
-		//RestTemplate restTemplate = new RestTemplate();
-		//restTemplate.put(uriValidateInformer, restTemplate, id);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.put(uriValidateInformer, Integer.class, id);
+		
+		Informador[] informadores = restTemplate.getForObject(
+				  uriGetAllInformes,
+				  Informador[].class);
+		
+		ModelAndView model = new ModelAndView("allInformes.html");
+		model.addObject(informadores);
+        return model;
 	}
 	
 	

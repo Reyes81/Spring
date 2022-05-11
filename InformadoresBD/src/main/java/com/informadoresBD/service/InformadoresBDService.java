@@ -102,5 +102,8 @@ public class InformadoresBDService {
 							   "quote: " + informer.getQuote() + "\n" + 
 							   "eMail: " + informer.geteMail() + "\n" +
 							   "password: " + informer.getPassword());
+			
+			ir.save(informer);
 		}
+		
 }
