@@ -150,4 +150,14 @@ public class Informador {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Fichero> getFicheros() {
+		return ficheros;
+	}
+
+	public void setFicheros(List<Fichero> ficheros) {
+		this.ficheros = ficheros;
+	}
+	
+	
 }

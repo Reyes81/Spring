@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.informadoresBD.domain.Fichero;
 import com.informadoresBD.domain.Informador;
 import com.informadoresBD.domain.Informador.Status;
 import com.informadoresBD.service.InformadoresBDService;
@@ -61,6 +61,13 @@ public class InformadoresBDController {
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 			
 		is.approveInformer(id);
+	}
+	
+	@PostMapping(value= "/informadores/crearFichero")
+	public Fichero newFile(@RequestBody Fichero fichero, Integer informerId) {
+		
+		is.saveFile(fichero, informerId);
+		return fichero;
 	}
 
 }

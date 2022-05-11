@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.informadoresBD.domain.Fichero;
 import com.informadoresBD.domain.Informador;
 import com.informadoresBD.domain.Informador.Status;
+import com.informadoresBD.repository.FilesRepository;
 import com.informadoresBD.repository.InformadoresRepository;
 
 @Service
@@ -15,6 +17,9 @@ public class InformadoresBDService {
 	
 	@Autowired
 	InformadoresRepository ir;
+	
+	@Autowired
+	FilesRepository fr;
 	
 	//PF1. Guardar informador
 	public Informador saveInformer(Informador informer) {
@@ -103,6 +108,16 @@ public class InformadoresBDService {
 							   "eMail: " + informer.geteMail() + "\n" +
 							   "password: " + informer.getPassword());
 			ir.save(informer);
+		}
+		
+		//Guardar un fichero
+		public void saveFile(Fichero fichero, Integer informerId) {
+			
+			Informador informer = ir.getById(informerId);
+			List <Fichero> files = informer.getFicheros();
+			files.add(fichero);
+			informer.setFicheros(files);
+			fr.save(fichero);
 		}
 	
 }

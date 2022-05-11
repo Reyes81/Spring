@@ -86,7 +86,7 @@ public class Fichero {
 		return status;
 	}
 
-	public void setState(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 

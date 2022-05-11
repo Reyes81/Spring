@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.api_informadores.domain.Fichero;
 import com.api_informadores.domain.Informador;
 
 @RestController
@@ -23,6 +23,7 @@ public class InformadoresController {
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
+	static final String uriCreateFile = "http://localhost:8081/api/informadoresBD/crearFichero";
 	
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
@@ -66,6 +67,19 @@ public class InformadoresController {
 				  uriNewInformer,
 				  informador,
 				  Informador.class);
+	    
+        return new ModelAndView("index.html");
+	}	
+	
+	@PostMapping(value="/informador/crearFichero")
+	public ModelAndView newFile(@ModelAttribute Fichero fichero) {	
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		restTemplate.postForObject(
+				  uriCreateFile,
+				  fichero,
+				  Fichero.class);
 	    
         return new ModelAndView("index.html");
 	}	
