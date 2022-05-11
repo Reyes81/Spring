@@ -1,12 +1,15 @@
 package com.informadoresBD.domain;
 
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -31,6 +34,9 @@ public class Informador {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonProperty("id")
 	private Integer id;
+	
+	@OneToMany(mappedBy = "informador")
+	private List<Fichero> ficheros;
 	
 	@JsonProperty("nif")
 	private String nif;

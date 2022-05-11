@@ -1,17 +1,32 @@
 package com.api_informadores.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import lombok.Data;
 
 @Data
 public class Fichero {
+	
+	enum Status {
+		PENDIENTE_REVISION,
+		PREPARACION,
+		ERRONEO,
+		PUBLICADO
+	};
+	
+	
+	private Integer id;
+	private Integer informer_id;
 	
 	//Conviene utilizar Date pero de momento lo dejo con String
 	private String date;
 	private String title;
 	private String keywords;
 	
-	//Conviene utilizar Enum Pendiente de Revisión, En Preparación, Erróneo, Publicado
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	private Float size;
 	private Integer previews;
@@ -21,13 +36,13 @@ public class Fichero {
 		super();
 	}
 
-	public Fichero(String date, String title, String keywords, String state, Float size, Integer previews,
+	public Fichero(String date, String title, String keywords, Float size, Integer previews,
 			Integer downloads) {
 		super();
 		this.date = date;
 		this.title = title;
 		this.keywords = keywords;
-		this.state = state;
+		this.status = Status.PENDIENTE_REVISION;
 		this.size = size;
 		this.previews = previews;
 		this.downloads = downloads;
@@ -57,12 +72,12 @@ public class Fichero {
 		this.keywords = keywords;
 	}
 
-	public String getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setState(Status status) {
+		this.status = status;
 	}
 
 	public Float getSize() {
@@ -89,4 +104,3 @@ public class Fichero {
 		this.downloads = downloads;
 	}
 }
-
