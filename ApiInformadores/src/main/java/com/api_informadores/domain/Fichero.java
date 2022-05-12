@@ -24,6 +24,7 @@ public class Fichero {
 	//Conviene utilizar Date pero de momento lo dejo con String
 	private String date;
 	private String title;
+	private String description;
 	private List<String> keywords;
 	
 	@Enumerated(EnumType.STRING)
@@ -36,12 +37,21 @@ public class Fichero {
 	public Fichero() {
 		super();
 	}
+	
+	public Fichero(String title, String description, List<String> keywords) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.keywords = keywords;
+		//this.status = Status.PENDIENTE_REVISION;
+	}
 
-	public Fichero(String date, String title, List<String> keywords, Float size, Integer previews,
+	public Fichero(String date, String title, String description, List<String> keywords, Float size, Integer previews,
 			Integer downloads) {
 		super();
 		this.date = date;
 		this.title = title;
+		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
 		this.size = size;
@@ -104,4 +114,18 @@ public class Fichero {
 	public void setDownloads(Integer downloads) {
 		this.downloads = downloads;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	
 }

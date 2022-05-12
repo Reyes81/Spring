@@ -2,19 +2,13 @@ package com.ficherosBD.domain;
 
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
-import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
-@Entity
+@Document
 public class Fichero {
 	
 	enum Status {
@@ -25,11 +19,8 @@ public class Fichero {
 	};
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
-    @JoinColumn(name = "id")
     private Informador informador;
 	
 	//Conviene utilizar Date pero de momento lo dejo con String
