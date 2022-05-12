@@ -22,7 +22,6 @@ public class InformersController {
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
-	static final String uriNewFileSQL = "http://localhost:8082/api/informadoresBD/crearFichero";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
 	@GetMapping("/home")
