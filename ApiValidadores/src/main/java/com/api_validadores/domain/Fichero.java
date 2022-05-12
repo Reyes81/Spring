@@ -1,6 +1,7 @@
 package com.api_validadores.domain;
 
-import javax.persistence.Entity;
+import java.util.List;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
@@ -22,7 +23,7 @@ public class Fichero {
 	//Conviene utilizar Date pero de momento lo dejo con String
 	private String date;
 	private String title;
-	private String keywords;
+	private List<String> keywords;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -35,7 +36,7 @@ public class Fichero {
 		super();
 	}
 
-	public Fichero(String date, String title, String keywords, Float size, Integer previews,
+	public Fichero(String date, String title, List<String> keywords, Float size, Integer previews,
 			Integer downloads) {
 		super();
 		this.date = date;
@@ -63,11 +64,11 @@ public class Fichero {
 		this.title = title;
 	}
 
-	public String getKeywords() {
+	public List<String> getKeywords() {
 		return keywords;
 	}
 
-	public void setKeywords(String keywords) {
+	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
 	}
 

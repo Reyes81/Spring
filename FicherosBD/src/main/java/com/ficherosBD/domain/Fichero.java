@@ -1,13 +1,20 @@
-package com.api_informadores.domain;
+package com.ficherosBD.domain;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
+@Entity
 public class Fichero {
 	
 	enum Status {
@@ -17,9 +24,13 @@ public class Fichero {
 		PUBLICADO
 	};
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Integer informer_id;
+	
+	@ManyToOne
+    @JoinColumn(name = "id")
+    private Informador informador;
 	
 	//Conviene utilizar Date pero de momento lo dejo con String
 	private String date;
@@ -77,7 +88,7 @@ public class Fichero {
 		return status;
 	}
 
-	public void setState(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -105,3 +116,6 @@ public class Fichero {
 		this.downloads = downloads;
 	}
 }
+
+
+
