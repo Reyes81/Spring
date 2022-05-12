@@ -23,7 +23,7 @@ public class InformersController {
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	static final String uriNewFileSQL = "http://localhost:8082/api/informadoresBD/crearFichero";
-	
+	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
@@ -41,6 +41,7 @@ public class InformersController {
 
 	    }
 	
+	
 	 @GetMapping("/informador/registro")
 	 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
@@ -49,7 +50,7 @@ public class InformersController {
 
 	    }
 
-	
+	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
 	public ModelAndView newInformer(@ModelAttribute Informer informer) {	
 		System.out.println("Id: " + informer.getId() + "\n" +
@@ -70,5 +71,29 @@ public class InformersController {
 	    
         return new ModelAndView("index.html");
 	}	
+	
+	//PF2. Editar informacion de un informador
+	@PostMapping(value="/informador/edit")
+	public Informer editInformer(@ModelAttribute Informer informer)
+	{
+		
+		System.out.println("Id: " + informer.getId() + "\n" +
+				   "nif: " + informer.getNif() + "\n" +
+				   "name: " + informer.getName() + "\n" +
+				   "status: " + informer.getStatus() + "\n" +
+				   "type: " + informer.getType() + "\n" + 
+				   "quote: " + informer.getQuote() + "\n" + 
+				   "eMail: " + informer.geteMail() + "\n" +
+				   "password: " + informer.getPassword());
+		
+		RestTemplate restTemplate = new RestTemplate();
+		
+		restTemplate.postForObject(
+				uriEditInformer,
+				informer,
+				Informer.class);
+		
+		return informer;
+	}
 		
 }

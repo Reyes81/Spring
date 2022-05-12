@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,7 @@ public class ValidatorsController {
 	static final String uriGetPendingInformers = "http://localhost:8081/api/informadoresBD/informadores/pendientes";
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
-	
+	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	
 	@GetMapping("/index")
 	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
@@ -72,24 +73,6 @@ public class ValidatorsController {
 					 Object[].class);
 	}
 	
-	@GetMapping("/informadores/editar/{id}")
-	 public ModelAndView handleRequestEdit(@PathVariable(value = "id") Integer id, HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-		
-			ModelAndView model = new ModelAndView("editInformer.html");
-			RestTemplate restTemplate = new RestTemplate();
-			System.out.println("HOLAAAAAAAAA");
-			System.out.println(id);
-			Informer informer = restTemplate.getForObject(
-						 uriGetAllInformes+"?id="+id,
-						 Informer.class);
-			
-			model.addObject(informer);
-
-	        return new ModelAndView("editInformer.html");
-
-	    }
-	
 	//TODO. VF1.Obtener informadores con ficheros erróneos
 	
 	//VF2. Aprobar un nuevo productor
@@ -98,6 +81,14 @@ public class ValidatorsController {
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriValidateInformer, Integer.class, id);
+	}
+	
+	//VF4. Eliminar un produtor
+	//@DeleteMapping("/informadores/eliminar/{id}")
+	@RequestMapping("/informadores/eliminar/{id}")
+	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.put(uriDeleteInformer, Integer.class, id);
 	}
 	
 	

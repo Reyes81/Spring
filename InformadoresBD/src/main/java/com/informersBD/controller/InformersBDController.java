@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,12 @@ public class InformersBDController {
 		informer.setStatus(Status.PENDIENTE);
 		is.saveInformer(informer);
 		return informer;
+	}
+	
+	@PostMapping(value="/modificarInfo")
+	public Informer editInformer(@RequestBody Informer informer){
+		Informer new_informer = is.updateInformer(informer);
+		return new_informer;
 	}
 	
 	@GetMapping(value= "/informadores")
@@ -63,11 +70,18 @@ public class InformersBDController {
 		is.approveInformer(id);
 	}
 	
+	//@DeleteMapping(value="/informadores/eliminar/{id}")
+	@RequestMapping("/informadores/eliminar/{id}")
+	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
+			
+		is.deleteInformer(id);
+	}
+	
 	@PostMapping(value= "/informadores/crearFichero")
 	public File newFile(@RequestBody File file) {
 		
 		is.saveFile(file);
 		return file;
 	}
-
+	
 }

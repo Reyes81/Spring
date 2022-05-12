@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.informersBD.domain.File;
 import com.informersBD.domain.Informer;
 import com.informersBD.domain.Informer.Status;
+import com.informersBD.domain.Informer.Type;
 import com.informersBD.repository.InformersBDRepository;
 
 @Service
@@ -111,6 +112,28 @@ public class InformersBDService {
 		public void saveFile(File file) {
 			
 			//fr.save(fichero);
+		}
+		
+		//PF2. Editar informacion de un informador
+		public Informer updateInformer(Informer informer)
+		{
+			Informer old_informer = ir.getById(informer.getId());
+			
+			old_informer.setNif(informer.getNif());
+			old_informer.setName(informer.getName());
+			old_informer.setPassword(informer.getPassword());
+			old_informer.setType(informer.getType());
+			old_informer.seteMail(informer.geteMail());
+			
+			ir.save(old_informer);
+			
+			//return old_informer; Da error no se por que
+			return informer;
+		}
+		
+		public void deleteInformer(Integer id)
+		{
+			ir.deleteById(id);
 		}
 	
 }
