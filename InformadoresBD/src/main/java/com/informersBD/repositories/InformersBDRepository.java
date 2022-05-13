@@ -1,4 +1,4 @@
-package com.informersBD.repository;
+package com.informersBD.repositories;
 
 import java.util.List;
 import java.util.Optional;

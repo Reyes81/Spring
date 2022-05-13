@@ -10,7 +10,7 @@ import com.informersBD.domain.File;
 import com.informersBD.domain.Informer;
 import com.informersBD.domain.Informer.Status;
 import com.informersBD.domain.Informer.Type;
-import com.informersBD.repository.InformersBDRepository;
+import com.informersBD.repositories.InformersBDRepository;
 
 @Service
 public class InformersBDService {

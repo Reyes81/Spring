@@ -2,8 +2,13 @@ package com.informersBD.domain;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Data;
 
@@ -11,6 +16,7 @@ import lombok.Data;
 
 
 @Data
+@Entity
 public class File {
 	
 	enum Status {
@@ -20,13 +26,16 @@ public class File {
 		PUBLICADO
 	};
 
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String date;
 	private String title;
 	private String description;
+	
+	@ElementCollection(targetClass=String.class)
 	private List<String> keywords;
-	private List<Object> data;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -39,18 +48,20 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, List<Object> data) {
+	public File(Integer id, String title, String description, List<String> keywords) {
 		super();
+		this.id =id;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
-		this.data = data;
+		
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Float size, Integer previews,
-			Integer downloads, List<Object> data) {
+	public File(Integer id,String date, String title, String description, List<String> keywords, Float size, Integer previews,
+			Integer downloads) {
 		super();
+		this.id = id;
 		this.date = date;
 		this.title = title;
 		this.description = description;
@@ -59,7 +70,6 @@ public class File {
 		this.size = size;
 		this.previews = previews;
 		this.downloads = downloads;
-		this.data = data;
 	}
 
 	public String getDate() {

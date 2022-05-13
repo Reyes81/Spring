@@ -23,7 +23,7 @@ import com.api_informers.services.FileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/informadores")
 public class FileController {
 
 	static final String uriNewFileSQL = "http://localhost:8082/api/informadoresBD/crearFichero";

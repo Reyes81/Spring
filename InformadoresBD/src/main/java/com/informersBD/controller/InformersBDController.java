@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.informersBD.domain.File;
 import com.informersBD.domain.Informer;
 import com.informersBD.domain.Informer.Status;
+import com.informersBD.service.FilesBDService;
 import com.informersBD.service.InformersBDService;
 
 @Component
@@ -25,6 +27,9 @@ public class InformersBDController {
 	
 	@Autowired
 	InformersBDService is;
+	
+	@Autowired
+	FilesBDService fs;
 	
 	@PostMapping(value= "/new")
 	public Informer newInformer(@RequestBody Informer informer) {
@@ -75,13 +80,6 @@ public class InformersBDController {
 	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
 			
 		is.deleteInformer(id);
-	}
-	
-	@PostMapping(value= "/informadores/crearFichero")
-	public File newFile(@RequestBody File file) {
-		
-		is.saveFile(file);
-		return file;
 	}
 	
 }
