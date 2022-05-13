@@ -142,6 +142,30 @@ public class File {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public String getAdded_date() {
+		return added_date;
+	}
+
+	public void setAdded_date(String added_date) {
+		this.added_date = added_date;
+	}
+
+	public List<Object> getData() {
+		return data;
+	}
+
+	public void setData(List<Object> data) {
+		this.data = data;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	
 }

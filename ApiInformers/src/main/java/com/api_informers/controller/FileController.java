@@ -23,10 +23,10 @@ import com.api_informers.services.FileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("/api/informadores")
+@RequestMapping("/api/informador")
 public class FileController {
 
-	static final String uriNewFileSQL = "http://localhost:8082/api/informadoresBD/crearFichero";
+	static final String uriNewFileSQL = "http://localhost:8081/api/informadoresBD/newFile";
 	@Autowired FileService fs;
 	
 	@PostMapping("/newFile")
@@ -41,7 +41,6 @@ public class FileController {
 		//File f = fs.create(new File(added_date,title, description, keywords, data,size));
 		
 		File f = fs.createFileMongoDB(added_date, title, description, keywords, data, size);
-		System.out.println("Numero de descargas: " + f.getDownloads());
 		
 		File f2 = fs.createFileSQL(added_date, title, description, keywords, size);
 		RestTemplate restTemplate = new RestTemplate();
