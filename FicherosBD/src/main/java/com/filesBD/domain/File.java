@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
-import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
+@Document
 public class File {
 	
 	enum Status {
@@ -17,7 +18,7 @@ public class File {
 		PUBLICADO
 	};
 
-	
+	@Id
 	private Integer id;
 	private String added_date;
 	private String title;

@@ -1,4 +1,4 @@
-package com.filesBD.repository;
+package com.filesBD.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
