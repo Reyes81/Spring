@@ -19,7 +19,7 @@ public class File {
 
 	
 	private Integer id;
-	private String date;
+	private String added_date;
 	private String title;
 	private String description;
 	private List<String> keywords;
@@ -28,7 +28,7 @@ public class File {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	private Float size;
+	private Integer size;
 	private Integer previews;
 	private Integer downloads;
 	
@@ -36,19 +36,34 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, List<Object> data) {
+	public File(String title, String description, List<String> keywords, List<Object> data, Integer size) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
+		this.previews = 0;
+		this.downloads = 0;
 		this.data = data;
+		this.size = size;
+	}
+	
+	public File(String title, String description, List<String> keywords, Integer size) {
+		super();
+		
+		this.title = title;
+		this.description = description;
+		this.keywords = keywords;
+		this.status = Status.PENDIENTE_REVISION;
+		this.previews = 0;
+		this.downloads = 0;
+		this.size = size;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Float size, Integer previews,
+	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
-		this.date = date;
+		this.added_date = date;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -60,11 +75,11 @@ public class File {
 	}
 
 	public String getDate() {
-		return date;
+		return added_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate(String added_date) {
+		this.added_date = added_date;
 	}
 
 	public String getTitle() {
@@ -91,11 +106,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Float getSize() {
+	public Integer getSize() {
 		return size;
 	}
 
-	public void setSize(Float size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 
@@ -125,6 +140,30 @@ public class File {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getAdded_date() {
+		return added_date;
+	}
+
+	public void setAdded_date(String added_date) {
+		this.added_date = added_date;
+	}
+
+	public List<Object> getData() {
+		return data;
+	}
+
+	public void setData(List<Object> data) {
+		this.data = data;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

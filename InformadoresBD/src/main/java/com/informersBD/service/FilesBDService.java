@@ -1,7 +1,5 @@
 package com.informersBD.service;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +14,7 @@ public class FilesBDService {
 	
 	public File newFile(File file) {
 		
+		System.out.println(file.getTitle());
 		fr.save(file);
 		
 		return file;

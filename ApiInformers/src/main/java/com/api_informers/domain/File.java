@@ -4,11 +4,18 @@ import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
 public class File {
+	
+	final int maxSize=500;
 	
 	enum Status {
 		PENDIENTE_REVISION,
@@ -17,28 +24,40 @@ public class File {
 		PUBLICADO
 	};
 
-	
+
 	private Integer id;
+
 	private String added_date;
+	
+	@NotNull
 	private String title;
+	
+	@NotNull
 	private String description;
+	
+	@NotNull
 	private List<String> keywords;
+	
+	@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")
 	private List<Object> data;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	private Float size;
+	@NotNull
+	@Size(max=maxSize)
+	private Integer size;
+
 	private Integer previews;
+	
 	private Integer downloads;
 	
 	public File() {
 		super();
 	}
 	
-	public File(String added_date,String title, String description, List<String> keywords, List<Object> data, Float size) {
+	public File(String title, String description, List<String> keywords, List<Object> data, Integer size) {
 		super();
-		this.added_date = added_date;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -49,9 +68,9 @@ public class File {
 		this.size = size;
 	}
 	
-	public File(String added_date,String title, String description, List<String> keywords, Float size) {
+	public File(String title, String description, List<String> keywords, Integer size) {
 		super();
-		this.added_date = added_date;
+		
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -61,7 +80,7 @@ public class File {
 		this.size = size;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Float size, Integer previews,
+	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
 		this.added_date = date;
@@ -107,11 +126,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Float getSize() {
+	public Integer getSize() {
 		return size;
 	}
 
-	public void setSize(Float size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 

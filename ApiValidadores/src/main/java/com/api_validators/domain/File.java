@@ -20,7 +20,7 @@ public class File {
 
 	
 	private Integer id;
-	private String date;
+	private String added_date;
 	private String title;
 	private String description;
 	private List<String> keywords;
@@ -29,7 +29,7 @@ public class File {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	private Float size;
+	private Integer size;
 	private Integer previews;
 	private Integer downloads;
 	
@@ -37,19 +37,20 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, List<Object> data) {
+	public File(String title, String description, List<String> keywords, List<Object> data, Integer size) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
 		this.data = data;
+		this.size = size;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Float size, Integer previews,
+	public File(String added_date, String title, String description, List<String> keywords, Integer size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
-		this.date = date;
+		this.added_date = added_date;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -60,12 +61,12 @@ public class File {
 		this.data = data;
 	}
 
-	public String getDate() {
-		return date;
+	public String getadded_added_date() {
+		return added_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setadded_date(String added_date) {
+		this.added_date = added_date;
 	}
 
 	public String getTitle() {
@@ -92,11 +93,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Float getSize() {
+	public Integer getSize() {
 		return size;
 	}
 
-	public void setSize(Float size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 

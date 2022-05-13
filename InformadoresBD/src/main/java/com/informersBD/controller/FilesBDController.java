@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.informersBD.domain.File;
 import com.informersBD.service.FilesBDService;
 
-@Component
 @RestController
-@RequestMapping("/api/informadoresBD/")
+@RequestMapping("/api/informadoresBD")
 public class FilesBDController {
 	
 	@Autowired
 	FilesBDService fs;
 	
-	@PostMapping(value= "/newFile")
-	public ResponseEntity<File> newInformer(@RequestBody File file) {
+	@PostMapping("/newFile")
+	public ResponseEntity<File> newFile(@RequestBody File file) {
 		fs.newFile(file);
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}

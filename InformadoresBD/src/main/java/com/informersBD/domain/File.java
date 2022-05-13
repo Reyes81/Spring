@@ -12,9 +12,6 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-//@Document
-
-
 @Data
 @Entity
 public class File {
@@ -30,17 +27,17 @@ public class File {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String date;
+	private String added_date;
 	private String title;
 	private String description;
 	
-	@ElementCollection(targetClass=String.class)
+	@ElementCollection(targetClass = String.class)
 	private List<String> keywords;
-	
+
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
-	private Float size;
+	private Integer size;
 	private Integer previews;
 	private Integer downloads;
 	
@@ -48,21 +45,23 @@ public class File {
 		super();
 	}
 	
-	public File(Integer id, String title, String description, List<String> keywords) {
+	public File(String title, String description, List<String> keywords, Integer size) {
 		super();
-		this.id =id;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
-		
+		this.previews = 0;
+		this.downloads = 0;
+		this.size = size;
 	}
+	
 
-	public File(Integer id,String date, String title, String description, List<String> keywords, Float size, Integer previews,
+
+	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
 			Integer downloads) {
 		super();
-		this.id = id;
-		this.date = date;
+		this.added_date = date;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -73,11 +72,11 @@ public class File {
 	}
 
 	public String getDate() {
-		return date;
+		return added_date;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setDate(String added_date) {
+		this.added_date = added_date;
 	}
 
 	public String getTitle() {
@@ -104,11 +103,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Float getSize() {
+	public Integer getSize() {
 		return size;
 	}
 
-	public void setSize(Float size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 
@@ -138,6 +137,22 @@ public class File {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public String getAdded_date() {
+		return added_date;
+	}
+
+	public void setAdded_date(String added_date) {
+		this.added_date = added_date;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

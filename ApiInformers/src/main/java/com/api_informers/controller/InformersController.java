@@ -48,6 +48,8 @@ public class InformersController {
 	        return new ModelAndView("newInformer.html");
 
 	    }
+	 
+	 
 
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
