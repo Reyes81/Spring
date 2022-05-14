@@ -1,8 +1,8 @@
-package com.filesBD.repositories;
+package com.mongoBD.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.filesBD.domain.File;
+import com.mongoBD.domain.File;
 
 public interface FilesRepository  extends MongoRepository<File, String>{
 

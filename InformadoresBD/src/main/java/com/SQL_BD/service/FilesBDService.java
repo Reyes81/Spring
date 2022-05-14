@@ -1,10 +1,10 @@
-package com.informersBD.service;
+package com.SQL_BD.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.informersBD.domain.File;
-import com.informersBD.repositories.FilesBDRepository;
+import com.SQL_BD.domain.File;
+import com.SQL_BD.repositories.FilesBDRepository;
 
 @Service
 public class FilesBDService {
@@ -12,9 +12,9 @@ public class FilesBDService {
 	@Autowired
 	FilesBDRepository fr;
 	
-	public File newFile(File file) {
+	public File newFile(String id) {
 		
-		System.out.println(file.getTitle());
+		File file = new File(id);
 		fr.save(file);
 		
 		return file;

@@ -19,12 +19,4 @@ public class FileService {
 	return file;
 	}
 	
-	public File createFileSQL(String title,String description, String keywords, Integer size) {
-		
-		List <String> keywords_list = new ArrayList<String>();
-		keywords_list.add(keywords);
-		File file = new File(title,description, keywords_list,size);
-		
-	return file;
-	}
 }

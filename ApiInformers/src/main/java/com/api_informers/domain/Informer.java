@@ -1,8 +1,5 @@
 package com.api_informers.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 
 @Data
@@ -19,28 +16,13 @@ public class Informer {
 		JURIDICA
 	};
 	
-	@JsonProperty("id")
 	private Integer id;
-	
-	@JsonProperty("nif")
 	private String nif;
-	
-	@JsonProperty("name")
 	private String name;
-	
-	@JsonProperty("type")
 	private Type type;
-	
-	@JsonProperty("status")
 	private Status status;
-	
-	@JsonProperty("quote")
 	private Double quote;
-	
-	@JsonProperty("eMail")
 	private String eMail;
-	
-	@JsonProperty("password")
 	private String password;
 	
 	public Informer() {}

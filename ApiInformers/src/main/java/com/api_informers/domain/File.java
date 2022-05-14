@@ -25,7 +25,7 @@ public class File {
 	};
 
 
-	private Integer id;
+	private String id;
 
 	private String added_date;
 	
@@ -178,11 +178,11 @@ public class File {
 		this.data = data;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

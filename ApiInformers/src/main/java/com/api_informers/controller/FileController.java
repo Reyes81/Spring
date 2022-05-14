@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +26,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/api/informador")
 public class FileController {
 
-	static final String uriNewFileSQL = "http://localhost:8081/api/informadoresBD/newFile";
+	static final String uriNewFileSQL =  "http://localhost:8081/api/files/newFile";
+	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
+	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files";
 	
-	@Autowired FileService fs;
+	@Autowired 
+	FileService fs;
 	
 	@GetMapping("/newFile")
 	 public ModelAndView handleRequestNewFile(HttpServletRequest request, HttpServletResponse response)
@@ -50,25 +52,43 @@ public class FileController {
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
 		//File f = fs.create(new File(added_date,title, description, keywords, data,size));
 		
-		File f = fs.createFileMongoDB(title, description, keywords, data, size);
+		File f1 = fs.createFileMongoDB(title, description, keywords, data, size);
 		
-		File f2 = fs.createFileSQL(title, description, keywords, size);
-	
-	RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate1 = new RestTemplate();
+		RestTemplate restTemplate2 = new RestTemplate();
 		
-		restTemplate.postForObject(
-				uriNewFileSQL,
-				f2,
+		//Fichero a la BD de MongoDB
+		File f2 = restTemplate1.postForObject(
+				uriNewFileMongo,
+				f1,
 				File.class);
+	
+		String id_file = f2.getId();
+	
+		//Fichero a la BD de sQL
+		restTemplate2.postForObject(
+				uriNewFileSQL,
+				id_file,
+				Object.class);
 		
 		return new ModelAndView("index.html");
 	} 
 	
-	/*
-	@GetMapping()
-	public ResponseEntity<List<File>> getAll(HttpServletRequest request) {
-		List<File> files = fs.findAll();
-		return new ResponseEntity<>(files, HttpStatus.OK);
-	}
-	*/
+	
+	//VF1.Obtenemos todos los informadores
+		@GetMapping("/files")
+		 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
+		            throws ServletException, IOException {
+			 
+				RestTemplate restTemplate = new RestTemplate();
+				File[] files = restTemplate.getForObject(
+						uriGetAllFilesMongo,
+						  File[].class);
+				
+				ModelAndView modelAndView = new ModelAndView("allFiles.html");
+				modelAndView.addObject("ficheros", files);
+		        return modelAndView;
+
+		    }
+	
 }

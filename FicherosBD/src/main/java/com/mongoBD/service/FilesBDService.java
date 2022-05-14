@@ -1,16 +1,18 @@
-package com.filesBD.service;
+package com.mongoBD.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.filesBD.domain.File;
-import com.filesBD.repositories.FilesRepository;
+import com.mongoBD.domain.File;
+import com.mongoBD.repository.FilesBDRepository;
 
+@Service
 public class FilesBDService {
 	
 	@Autowired 
-	FilesRepository fr;
+	FilesBDRepository fr;
 	
 	public List<File> findAll(){
 		return this.fr.findAll();

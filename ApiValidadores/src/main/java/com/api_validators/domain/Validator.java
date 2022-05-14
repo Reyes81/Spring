@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Validator {
 	
-	private Integer Id;
+	private Integer id;
 	private String name;
 	private String eMail;
 	private String password;
@@ -14,7 +14,7 @@ public class Validator {
 
 	public Validator(Integer id, String name, String eMail, String password) {
 
-		Id = id;
+		this.id = id;
 		this.name = name;
 		this.eMail = eMail;
 		this.password = password;

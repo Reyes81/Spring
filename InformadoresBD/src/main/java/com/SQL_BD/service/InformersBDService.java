@@ -1,4 +1,4 @@
-package com.informersBD.service;
+package com.SQL_BD.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.informersBD.domain.File;
-import com.informersBD.domain.Informer;
-import com.informersBD.domain.Informer.Status;
-import com.informersBD.domain.Informer.Type;
-import com.informersBD.repositories.InformersBDRepository;
+import com.SQL_BD.domain.File;
+import com.SQL_BD.domain.Informer;
+import com.SQL_BD.domain.Informer.Status;
+import com.SQL_BD.domain.Informer.Type;
+import com.SQL_BD.repositories.InformersBDRepository;
 
 @Service
 public class InformersBDService {

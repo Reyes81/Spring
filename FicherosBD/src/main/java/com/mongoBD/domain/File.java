@@ -1,11 +1,8 @@
-package com.filesBD.domain;
+package com.mongoBD.domain;
 
 import java.util.List;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -19,14 +16,13 @@ public class File {
 	};
 
 	@Id
-	private Integer id;
+	private String id;
 	private String added_date;
 	private String title;
 	private String description;
 	private List<String> keywords;
 	private List<Object> data;
 	
-	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	private Integer size;
@@ -159,11 +155,11 @@ public class File {
 		this.data = data;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

@@ -1,10 +1,9 @@
-package com.informersBD.controller;
+package com.SQL_BD.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.informersBD.domain.Informer;
-import com.informersBD.domain.Informer.Status;
-import com.informersBD.service.FilesBDService;
-import com.informersBD.service.InformersBDService;
+import com.SQL_BD.domain.Informer;
+import com.SQL_BD.domain.Informer.Status;
+import com.SQL_BD.service.FilesBDService;
+import com.SQL_BD.service.InformersBDService;
 
 @RestController
 @RequestMapping("/api/informadoresBD")

@@ -1,4 +1,4 @@
-package com.informersBD.domain;
+package com.SQL_BD.domain;
 
 
 import java.util.List;
@@ -32,33 +32,24 @@ public class Informer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty("id")
 	private Integer id;
 	
-	//@OneToMany(mappedBy = "informador")
-	//private List<Fichero> ficheros;
+	@OneToMany(mappedBy = "informer")
+	private List<File> files;
 	
-	@JsonProperty("nif")
 	private String nif;
 	
-	@JsonProperty("name")
+
 	private String name;
 	
 	@Enumerated(EnumType.STRING)
-	@JsonProperty("type")
 	private Type type;
 	
 	@Enumerated(EnumType.STRING)
-	@JsonProperty("status")
 	private Status status;
 	
-	@JsonProperty("quote")
 	private Double quote;
-	
-	@JsonProperty("eMail")
 	private String eMail;
-	
-	@JsonProperty("password")
 	private String password;
 	
 	public Informer() {}

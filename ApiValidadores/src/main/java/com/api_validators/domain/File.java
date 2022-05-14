@@ -19,7 +19,7 @@ public class File {
 	};
 
 	
-	private Integer id;
+	private String id;
 	private String added_date;
 	private String title;
 	private String description;
@@ -61,13 +61,7 @@ public class File {
 		this.data = data;
 	}
 
-	public String getadded_added_date() {
-		return added_date;
-	}
-
-	public void setadded_date(String added_date) {
-		this.added_date = added_date;
-	}
+	
 
 	public String getTitle() {
 		return title;
@@ -128,6 +122,17 @@ public class File {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public void setAdded_date(String added_date) {
+		this.added_date = added_date;
+	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 }

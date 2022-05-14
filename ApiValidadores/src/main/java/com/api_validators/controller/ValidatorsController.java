@@ -35,8 +35,6 @@ public class ValidatorsController {
 
 	    }
 	
-
-	
 	//VF1.Obtenemos todos los informadores
 	@GetMapping(value="/informadores")
 	 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
