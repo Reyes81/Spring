@@ -20,7 +20,11 @@ import com.api_informers.domain.Informer;
 @RequestMapping("/api")
 public class InformersController {
 	
+	//@Autowired
+	//UsersService us; 
+	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
+	static final String uriNewUser = "http://localhost:8081/api/users/new";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
@@ -49,8 +53,6 @@ public class InformersController {
 
 	    }
 	 
-	 
-
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
 	public ModelAndView newInformer(@ModelAttribute Informer informer) {	
@@ -63,13 +65,22 @@ public class InformersController {
 				   "eMail: " + informer.geteMail() + "\n" +
 				   "password: " + informer.getPassword());
 		
-		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate1 = new RestTemplate();
 		
-		restTemplate.postForObject(
+		RestTemplate restTemplate2 = new RestTemplate();
+		
+		restTemplate1.postForObject(
 				  uriNewInformer,
 				  informer,
 				  Informer.class);
-	    
+		
+		//User user = us.createUser(informer.geteMail(),informer.getPassword());
+		/*
+		restTemplate2.postForObject(
+				  uriNewUser,
+				  user,
+				  User.class);
+	    */
         return new ModelAndView("index.html");
 	}	
 	
