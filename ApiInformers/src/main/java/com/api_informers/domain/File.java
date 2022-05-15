@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -29,10 +30,10 @@ public class File {
 
 	private String added_date;
 	
-	@NotNull
+	@NotEmpty
 	private String title;
 	
-	@NotNull
+	@NotEmpty
 	private String description;
 	
 	@NotNull
