@@ -1,7 +1,6 @@
 package com.api_informers.domain;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -21,18 +20,19 @@ public class Informer {
 	
 	private Integer id;
 	
-
+	@NotEmpty()
 	private String nif;
-
+	
+	@NotEmpty()
 	private String name;
 	private Type type;
 	private Status status;
 	private Double quote;
 	
-
+	@NotEmpty()
 	private String eMail;
 	
-
+	@NotEmpty()
 	private String password;
 	
 	public Informer() {}
