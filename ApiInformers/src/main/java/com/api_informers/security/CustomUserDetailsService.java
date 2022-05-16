@@ -22,13 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService{
 	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
 	
 	@Override
-	public UserDetails loadUserByUsername(String userName){
+	public UserDetails loadUserByUsername(String userName)
+			throws UsernameNotFoundException {
+		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		User user = restTemplate.getForObject(
 					 uriGetUserName,
 					 User.class,userName);
-		
 		return new org.springframework.security.core.userdetails.User(
 				user.getUsername(), 
 				user.getPassword(),
