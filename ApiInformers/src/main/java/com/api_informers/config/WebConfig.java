@@ -10,13 +10,10 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-
-import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
@@ -50,6 +47,11 @@ public class WebConfig implements WebMvcConfigurer{
 	    final CookieLocaleResolver localeResolver = new CookieLocaleResolver();
 	    localeResolver.setDefaultLocale(new Locale("es", "ES"));
 	    return localeResolver;
+	}
+	
+    @Bean
+	public SpringSecurityDialect securityDialect() {
+	    return new SpringSecurityDialect();
 	}
 	
 

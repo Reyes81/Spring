@@ -16,8 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	//@Autowired
-	//private UserDetailsService customUserDetailsService;
+	@Autowired
+	private UserDetailsService customUserDetailsService;
 	
 	@Bean
     public PasswordEncoder passwordEncoder() {
@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
     }
-    
+    /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -64,11 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.and()
         	.withUser("user2").password(passwordEncoder().encode("1234")).roles("VALIDATOR");
     }
+    */
     
-    /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(customUserDetailsService)
 	    	.passwordEncoder(passwordEncoder());
-    }*/
+    }
 }

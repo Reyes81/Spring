@@ -20,7 +20,7 @@ public class UsersBDController {
 	
 	@PostMapping(value= "/new")
 	public User newUser(@RequestBody User user) {
-		System.out.println(user.getUsername());
+		System.out.println("Estamos en el POST");
 		user.setRole("INFORMER");
 		us.saveUser(user);
 		return user;
@@ -28,11 +28,8 @@ public class UsersBDController {
 	
 	@GetMapping(value= "/username/{username}")
 	public User getUserByUserName(@PathVariable(value = "username") String username) {
-		
+		System.out.println("Estamos en el GET");
 		User user =us.getUserByUserName(username);
 		return user;
 	}
-	
-	
-
 }

@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,13 +16,19 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.api_informers.domain.Informer;
+import com.api_informers.domain.User;
+import com.api_informers.security.CustomUserDetailsService;
+import com.api_informers.services.UsersService;
 
 @RestController
 @RequestMapping("/api")
 public class InformersController {
 	
-	//@Autowired
-	//UsersService us; 
+	@Autowired
+	UsersService us; 
+	
+	@Autowired
+	CustomUserDetailsService cs;
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
@@ -74,13 +81,14 @@ public class InformersController {
 				  informer,
 				  Informer.class);
 		
-		//User user = us.createUser(informer.geteMail(),informer.getPassword());
-		/*
+		User user = us.createUser(informer.geteMail(),informer.getPassword());
+		
+		
 		restTemplate2.postForObject(
 				  uriNewUser,
 				  user,
 				  User.class);
-	    */
+	    
         return new ModelAndView("index.html");
 	}	
 	
