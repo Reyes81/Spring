@@ -3,6 +3,7 @@ package com.SQL_BD.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,6 +20,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name="Informer")
 public class Informer {
 	
 	public enum Status {
@@ -38,18 +41,27 @@ public class Informer {
 	@OneToMany(mappedBy = "informer")
 	private List<File> files;
 	
+	@Column(name="nif_cif", nullable=false)
 	private String nif;
 	
+	@Column(name="name", nullable=false)
 	private String name;
 	
+	@Column(name="type", nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	
+	@Column(name="status", nullable=false)
 	@Enumerated(EnumType.STRING)
 	private Status status;
 	
+	@Column(name="quote")
 	private Double quote;
+	
+	@Column(name="eMail", nullable=false)
 	private String eMail;
+	
+	@Column(name="password", nullable=false)
 	private String password;
 	
 	public Informer() {}

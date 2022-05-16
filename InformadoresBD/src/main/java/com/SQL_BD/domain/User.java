@@ -18,22 +18,22 @@ import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-@Table(name="users")
+@Table(name="User")
 public class User {
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
-	@Column(nullable=false, unique=true)
+	@Column(name="userName", nullable=false, unique=true)
 	@NotEmpty
 	private String username;
 	
-	@Column(nullable=false)
+	@Column(name="password", nullable=false)
 	@NotEmpty
 	@Size(min=4)
 	private String password;
 	
-	@Column(nullable=false)
+	@Column(name="role", nullable=false)
 	@NotEmpty
 	private String role;
 	
