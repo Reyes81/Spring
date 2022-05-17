@@ -38,7 +38,7 @@ public class Informer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-	@Column(name="User_id",nullable=false)
+	@Column(name="user_id",nullable=false)
 	private Integer id;
 	
 	@OneToMany(mappedBy = "informer")
