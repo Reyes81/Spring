@@ -2,11 +2,15 @@ package com.api_informers.controller;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +27,7 @@ import com.api_informers.services.UsersService;
 @RestController
 @RequestMapping("/api")
 public class InformersController {
-	
+	private Informer informer = null;
 	@Autowired
 	UsersService us; 
 	
@@ -32,9 +36,24 @@ public class InformersController {
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
-	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
+	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informer/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
+	/*
+	@PostConstruct
+	public void init() {
+	    org.springframework.security.core.Authentication auth = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication();
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    
+	    RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getForObject(
+					 uriGetInformer,
+					 Informer[].class,userDetail.getUsername());
+	}
+	    
+	*/
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
