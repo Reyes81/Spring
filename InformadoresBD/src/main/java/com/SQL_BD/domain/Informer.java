@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Informer")
+@Table(name="informer")
 public class Informer {
 	
 	public enum Status {

@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Validator")
+@Table(name="validator")
 public class Validator {
 	
 	@Id
