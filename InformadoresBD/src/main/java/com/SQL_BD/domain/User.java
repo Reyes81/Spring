@@ -22,9 +22,10 @@ import javax.validation.constraints.NotEmpty;
 public class User {
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
 	private Integer id;
 	
-	@Column(name="userName", nullable=false, unique=true)
+	@Column(name="user_name", nullable=false, unique=true)
 	@NotEmpty
 	private String username;
 	

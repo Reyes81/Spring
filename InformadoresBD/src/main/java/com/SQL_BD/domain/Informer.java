@@ -7,14 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
@@ -35,7 +30,7 @@ public class Informer {
 	};
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="User_id",nullable=false)
 	private Integer id;
 	
 	@OneToMany(mappedBy = "informer")
@@ -48,17 +43,17 @@ public class Informer {
 	private String name;
 	
 	@Column(name="type", nullable=false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Type type;
 	
 	@Column(name="status", nullable=false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 	
 	@Column(name="quote")
 	private Double quote;
 	
-	@Column(name="eMail", nullable=false)
+	@Column(name="e_mail", nullable=false)
 	private String eMail;
 	
 	@Column(name="password", nullable=false)
@@ -84,7 +79,7 @@ public class Informer {
 		this.nif = nif;
 		this.name = name;
 		this.type = type;
-		this.status = Status.PENDIENTE;
+		//this.status = Status.PENDIENTE;
 		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;

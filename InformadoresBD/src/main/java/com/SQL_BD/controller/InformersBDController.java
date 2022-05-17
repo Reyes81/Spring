@@ -28,7 +28,7 @@ public class InformersBDController {
 	
 	@PostMapping(value= "/new")
 	public Informer newInformer(@RequestBody Informer informer) {
-		informer.setStatus(Status.PENDIENTE);
+		//informer.setStatus(Status.PENDIENTE);
 		is.saveInformer(informer);
 		return informer;
 	}

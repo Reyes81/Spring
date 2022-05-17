@@ -75,20 +75,19 @@ public class InformersController {
 		RestTemplate restTemplate1 = new RestTemplate();
 		
 		RestTemplate restTemplate2 = new RestTemplate();
+		User user = us.createUser(informer.geteMail(),informer.getPassword());
+		
+		restTemplate2.postForObject(
+				  uriNewUser,
+				  user,
+				  User.class);
 		
 		restTemplate1.postForObject(
 				  uriNewInformer,
 				  informer,
 				  Informer.class);
 		
-		User user = us.createUser(informer.geteMail(),informer.getPassword());
-		
-		
-		restTemplate2.postForObject(
-				  uriNewUser,
-				  user,
-				  User.class);
-	    
+	
         return new ModelAndView("index.html");
 	}	
 	
