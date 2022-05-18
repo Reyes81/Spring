@@ -41,19 +41,25 @@ public class InformersController {
 	
 	/*
 	@PostConstruct
-	public void init() {
+	public void init(Authentication auth) {
 	    org.springframework.security.core.Authentication auth = SecurityContextHolder
 	            .getContext()
 	            .getAuthentication();
-	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
-	    
-	    RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForObject(
-					 uriGetInformer,
-					 Informer[].class,userDetail.getUsername());
+	    if((UserDetails) auth.getPrincipal()!=null) {
+	    	  UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	  	    
+	  	    RestTemplate restTemplate = new RestTemplate();
+	  	    
+	  		informer = restTemplate.getForObject(
+	  					 uriGetInformer,
+	  					 Informer.class,userDetail.getUsername());
+	  		
+	  		System.out.println("Informador: " + informer.getName());
+	    }
+	  
 	}
-	    
-	*/
+	    */
+	
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {

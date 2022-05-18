@@ -15,5 +15,7 @@ public interface InformersBDRepository  extends JpaRepository<Informer, Integer>
 	
 	public List<Informer> findByQuote(Double quote);
 	
+	public Informer findByEmail(String email);
+	
 
 }

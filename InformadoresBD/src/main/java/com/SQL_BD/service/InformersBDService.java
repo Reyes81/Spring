@@ -42,6 +42,15 @@ public class InformersBDService {
 		return informers;
 	}
 	
+	// Obtener un informador por eMail
+		public Informer getInformer(String username){
+	
+			//Crear una excepción por si no existe el informador
+			Informer informer = ir.findByEmail(username);
+			
+			return informer;
+		}
+	
 	//VF1. Obtener todos los informadores que esten pendientes de aprobación
 	public List<Informer> getPendingInformers() {
 		List<Informer> informers = new ArrayList<Informer>();
