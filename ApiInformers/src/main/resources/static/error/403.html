@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head th:replace="layout.html :: head"> </head>
+  
+  <body>
+     <nav class="navbar navbar-inverse navbar-fixed-top" th:replace="layout.html :: navbar"> </nav>
+
+    <div class="container">
+      <div th:fragment="content">
+      
+	     <h3>Access Denied</h3>
+	     <h5>You are not authorized to view this page!!</h5>
+	     
+	  </div>
+    </div>
+
+    <script th:src="@{'/assets/js/jquery-2.1.4.min.js'}"></script>
+    <script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+    
+  </body>
+</html>

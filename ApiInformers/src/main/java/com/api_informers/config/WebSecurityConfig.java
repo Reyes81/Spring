@@ -1,5 +1,7 @@
 package com.api_informers.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private UserDetailsService customUserDetailsService;
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Bean
     public PasswordEncoder passwordEncoder() {
@@ -45,9 +51,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .permitAll()
                 .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/api/informador/index")
+                .successHandler(new com.api_informers.config.AuthSuccessHandler())
             .and()
             .logout()
-                .permitAll();
+                .permitAll()
+	        .and()
+	    	.rememberMe()
+	    		.key("my-secure-key")
+	    		.rememberMeCookieName("my-remember-me-cookie")
+	    		.tokenRepository(persistentTokenRepository())
+	    		.tokenValiditySeconds(24 * 60 * 60)
+	    	.and()
+	        .exceptionHandling()
+	        	.accessDeniedPage("/403");
     }
     
     @Override
@@ -67,14 +84,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     */
     
-    @Bean
-    public HttpSessionSecurityContextRepository httpSessionSecurityContextRepository() {
-        return new HttpSessionSecurityContextRepository();
-    }
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(customUserDetailsService)
 	    	.passwordEncoder(passwordEncoder());
+    }
+    
+    PersistentTokenRepository persistentTokenRepository(){
+    	JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+    	tokenRepositoryImpl.setDataSource(dataSource);
+    	return tokenRepositoryImpl;
     }
 }

@@ -46,7 +46,7 @@ public class InformersBDService {
 		public Informer getInformer(String username){
 	
 			//Crear una excepción por si no existe el informador
-			Informer informer = ir.findByEmail(username);
+			Informer informer = ir.findByeMail(username);
 			
 			return informer;
 		}

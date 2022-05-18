@@ -30,10 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 		User user = restTemplate.getForObject(
 					 uriGetUserName,
 					 User.class,userName);
-		return new org.springframework.security.core.userdetails.User(
-				user.getUsername(), 
-				user.getPassword(),
-				getAuthorities(user));
+		
+		return new AuthUser(user);
 		
 	}
 

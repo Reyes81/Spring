@@ -2,15 +2,11 @@ package com.api_informers.controller;
 
 import java.io.IOException;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,26 +35,6 @@ public class InformersController {
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informer/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
-	/*
-	@PostConstruct
-	public void init(Authentication auth) {
-	    org.springframework.security.core.Authentication auth = SecurityContextHolder
-	            .getContext()
-	            .getAuthentication();
-	    if((UserDetails) auth.getPrincipal()!=null) {
-	    	  UserDetails userDetail = (UserDetails) auth.getPrincipal();
-	  	    
-	  	    RestTemplate restTemplate = new RestTemplate();
-	  	    
-	  		informer = restTemplate.getForObject(
-	  					 uriGetInformer,
-	  					 Informer.class,userDetail.getUsername());
-	  		
-	  		System.out.println("Informador: " + informer.getName());
-	    }
-	  
-	}
-	    */
 	
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
