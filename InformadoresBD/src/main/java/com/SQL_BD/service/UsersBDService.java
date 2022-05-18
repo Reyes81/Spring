@@ -14,7 +14,8 @@ public class UsersBDService {
 	
 	public User saveUser(User user) {
 		ur.save(user);
-		return user;
+		User user_rec = ur.findByUsername(user.getUsername()); 
+		return user_rec;
 	}
 	
 	public User getUserByUserName(String username) {

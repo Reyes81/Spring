@@ -20,6 +20,8 @@ public class Informer {
 	
 	private Integer id;
 	
+	private Integer user_id;
+	
 	@NotEmpty()
 	private String nif;
 	
@@ -63,6 +65,14 @@ public class Informer {
 
 	public Integer getId() {
 		return this.id;
+	}
+
+	public void setUserId(Integer user_id) {
+		this.user_id = user_id;
+	}
+	
+	public Integer getUserId() {
+		return this.user_id;
 	}
 
 	public void setId(Integer id) {

@@ -38,6 +38,14 @@ public class User {
 	@NotEmpty
 	private String role;
 	
+	public User(Integer id, @NotEmpty String username, @NotEmpty @Size(min = 4) String password,
+			@NotEmpty String role) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
 	public Integer getId() {
 		return id;
 	}

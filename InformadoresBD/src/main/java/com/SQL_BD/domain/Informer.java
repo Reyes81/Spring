@@ -35,13 +35,16 @@ public class Informer {
 		JURIDICA
 	};
 	
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
 	@Column(name="informer_id",nullable=false)
 	private Integer id;
 	
 	@OneToMany(mappedBy = "informer")
 	private List<File> files;
+	
+	@Column(name="User_id")
+	private Integer user_id;
 	
 	@Column(name="nif_cif", nullable=false)
 	private String nif;
@@ -99,6 +102,14 @@ public class Informer {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	public Integer getUserId() {
+		return this.user_id;
+	}
+
+	public void setUserId(Integer user_id) {
+		this.id = user_id;
+	}
 
 	public String getNif() {
 		return nif;
@@ -155,6 +166,8 @@ public class Informer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
 
 	/*
 	public List<Fichero> getFicheros() {

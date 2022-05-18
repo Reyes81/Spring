@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,14 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String userName)
 			throws UsernameNotFoundException {
 		
+		//Falta Capturar excepción
 		RestTemplate restTemplate = new RestTemplate();
 		
 		User user = restTemplate.getForObject(
 					 uriGetUserName,
 					 User.class,userName);
 		
-		return new AuthUser(user);
-		
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), 
+	              user.getPassword(),
+	              getAuthorities(user));
 	}
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {		

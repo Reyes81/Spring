@@ -82,7 +82,8 @@ public class InformersController {
 				  uriNewUser,
 				  user,
 				  User.class);
-		informer.setId(user2.getId());
+		informer.setUserId(user2.getId());
+		
 		restTemplate1.postForObject(
 				  uriNewInformer,
 				  informer,

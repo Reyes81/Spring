@@ -22,8 +22,9 @@ public class UsersBDController {
 	public User newUser(@RequestBody User user) {
 		System.out.println("Estamos en el POST");
 		user.setRole("INFORMER");
-		us.saveUser(user);
-		return user;
+		User user_ret = us.saveUser(user);
+		
+		return user_ret;
 	}
 	
 	@GetMapping(value= "/username/{username}")
