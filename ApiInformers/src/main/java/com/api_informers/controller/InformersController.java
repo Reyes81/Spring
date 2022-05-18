@@ -78,11 +78,11 @@ public class InformersController {
 		RestTemplate restTemplate2 = new RestTemplate();
 		User user = us.createUser(informer.geteMail(),informer.getPassword());
 		
-		restTemplate2.postForObject(
+		User user2 = restTemplate2.postForObject(
 				  uriNewUser,
 				  user,
 				  User.class);
-		
+		informer.setId(user2.getId());
 		restTemplate1.postForObject(
 				  uriNewInformer,
 				  informer,
