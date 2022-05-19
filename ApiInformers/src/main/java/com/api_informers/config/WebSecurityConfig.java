@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     		.formLogin().disable()
     		.logout().disable()
     		.authorizeRequests()
-    		.antMatchers("/authenticate","/authenticate/refresh", "/api/users/**","/api/informador/registro").permitAll()
+    		.antMatchers("/authenticate","/authenticate/refresh", "/api/users/**","/api/informador/new").permitAll()
     	    .antMatchers("/api/informador/edit").hasAuthority("INFORMER")
     	    .antMatchers("/api/informador/newFile").hasAuthority("INFORMER")
     	    .antMatchers("/api/informador/files").hasAuthority("INFORMER")
