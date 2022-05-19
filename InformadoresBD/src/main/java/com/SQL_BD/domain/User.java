@@ -38,6 +38,10 @@ public class User {
 	@NotEmpty
 	private String role;
 	
+	
+	public User() {
+		super();
+	}
 	public User(Integer id, @NotEmpty String username, @NotEmpty @Size(min = 4) String password,
 			@NotEmpty String role) {
 		super();

@@ -35,7 +35,7 @@ public class InformersController {
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informer/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
 	
-	
+	/*
 	@GetMapping("/home")
 	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
@@ -60,7 +60,8 @@ public class InformersController {
 	        return new ModelAndView("newInformer.html");
 
 	    }
-	 
+	 */
+	
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
 	public ModelAndView newInformer(@ModelAttribute Informer informer) {	
