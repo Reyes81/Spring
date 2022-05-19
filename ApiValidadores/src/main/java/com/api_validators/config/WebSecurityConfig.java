@@ -1,6 +1,4 @@
-package com.api_informers.config;
-
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+package com.api_validators.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.api_informers.security.CustomAuthenticationFilter;
-import com.api_informers.security.CustomAuthorizationFilter;
-import com.api_informers.security.RestAuthenticationSuccessHandler;
+import com.api_validators.security.CustomAuthorizationFilter;
+import com.api_validators.security.RestAuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -45,23 +42,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
       	// customize login endpoint by overriding the AuthenticationFilter processor url
-    	CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager());
-    	customAuthenticationFilter.setFilterProcessesUrl("/authenticate");
-    	
+    
     		http.csrf().disable()
     		.formLogin().disable()
     		.logout().disable()
     		.authorizeRequests()
-    		.antMatchers("/authenticate","/authenticate/refresh", "/api/users/**","/api/informador/registro").permitAll()
-    	    .antMatchers("/api/informador/edit").hasAuthority("INFORMER")
-    	    .antMatchers("/api/informador/newFile").hasAuthority("INFORMER")
-    	    .antMatchers("/api/informador/files").hasAuthority("INFORMER")
-    	    .antMatchers("/api/informador/editFile").hasAuthority("INFORMER")
-    	    .antMatchers("/api/informador/deleteFile").hasAuthority("INFORMER")
+    	    .antMatchers("/api/validador/**").hasAuthority("VALIDATOR")
     	    .anyRequest().authenticated()
     		.and()
-    		.addFilter(customAuthenticationFilter)
     		.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 	
 }
+

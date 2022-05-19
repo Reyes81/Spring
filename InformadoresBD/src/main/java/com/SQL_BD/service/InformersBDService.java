@@ -124,20 +124,34 @@ public class InformersBDService {
 		}
 		
 		//PF2. Editar informacion de un informador
+		
 		public Informer updateInformer(Informer informer)
 		{
+			//Hay que buscarlo po el username de sesión para que coja el informador
 			Informer old_informer = ir.getById(informer.getId());
 			
-			old_informer.setNif(informer.getNif());
-			old_informer.setName(informer.getName());
-			old_informer.setPassword(informer.getPassword());
-			old_informer.setType(informer.getType());
-			old_informer.seteMail(informer.geteMail());
+			if(old_informer.getStatus()==Status.ACTIVO) {
 			
-			ir.save(old_informer);
-			
+				if(informer.getNif()!=null)
+					old_informer.setNif(informer.getNif());
+				if(informer.getName()!=null)
+					old_informer.setName(informer.getName());
+				if(informer.getPassword()!=null)
+					old_informer.setPassword(informer.getPassword());
+				if(informer.getType()!=null)
+					old_informer.setType(informer.getType());
+				if(informer.geteMail()!=null)
+					old_informer.seteMail(informer.geteMail());
+				
+				ir.save(old_informer);
+			}
 			//return old_informer; Da error no se por que
-			return informer;
+			else 
+				System.out.println("No se puede editar el informador ya que su estado es: " + old_informer.getStatus());
+			
+			return old_informer;
+		
+			
 		}
 		
 		public void deleteInformer(Integer id)

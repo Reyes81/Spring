@@ -1,15 +1,9 @@
 package com.api_informers.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -64,7 +58,7 @@ public class InformersController {
 	
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
-	public ModelAndView newInformer(@ModelAttribute Informer informer) {	
+	public Informer newInformer(@RequestBody Informer informer) {	
 		System.out.println("Id: " + informer.getId() + "\n" +
 				   "nif: " + informer.getNif() + "\n" +
 				   "name: " + informer.getName() + "\n" +
@@ -91,12 +85,12 @@ public class InformersController {
 				  Informer.class);
 		
 	
-        return new ModelAndView("index.html");
+        return informer;
 	}	
 	
 	//PF2. Editar informacion de un informador
 	@PostMapping(value="/informador/edit")
-	public Informer editInformer(@ModelAttribute Informer informer)
+	public Informer editInformer(@RequestBody Informer informer)
 	{
 		
 		System.out.println("Id: " + informer.getId() + "\n" +
