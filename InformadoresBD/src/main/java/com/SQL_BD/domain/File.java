@@ -19,19 +19,18 @@ public class File {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
 	@Column(name="id",nullable=false)
-	private String id;
+	private Integer id;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "informer_user_id", nullable=false)
 	private Informer informer;
 	
 	@ManyToOne
-    //@JoinColumn(name = "id")
+    @JoinColumn(name = "validator_user_id",nullable=false)
 	private Validator validator;
 
-	public File(String id) {
+	public File(Integer id) {
 		super();
 		this.id = id;
 	}

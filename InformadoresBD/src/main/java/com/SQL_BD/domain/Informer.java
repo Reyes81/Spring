@@ -43,7 +43,7 @@ public class Informer {
 	@OneToMany(mappedBy = "informer")
 	private List<File> files;
 	
-	@Column(name="User_id")
+	@Column(name="user_id")
 	private Integer user_id;
 	
 	@Column(name="nif_cif", nullable=false)

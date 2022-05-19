@@ -19,7 +19,7 @@ public class FilesBDController {
 	FilesBDService fs;
 	
 	@PostMapping(value="/newFile")
-	public ResponseEntity<File> newFile(@RequestBody String id) {
+	public ResponseEntity<File> newFile(@RequestBody Integer id) {
 		File file = fs.newFile(id);
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}

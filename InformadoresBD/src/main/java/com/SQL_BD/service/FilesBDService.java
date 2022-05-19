@@ -12,7 +12,7 @@ public class FilesBDService {
 	@Autowired
 	FilesBDRepository fr;
 	
-	public File newFile(String id) {
+	public File newFile(Integer id) {
 		
 		File file = new File(id);
 		fr.save(file);

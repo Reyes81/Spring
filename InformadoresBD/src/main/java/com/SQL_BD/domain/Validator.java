@@ -22,6 +22,9 @@ public class Validator {
 	@Column(name="validator_id",nullable=false)
 	private Integer id;
 	
+	@Column(name="user_id")
+	private Integer user_id;
+	
 	@OneToMany(mappedBy = "validator")
 	private List<File> files;
 	
@@ -29,8 +32,7 @@ public class Validator {
 	private String eMail;
 	private String password;
 	
-	
-	
+
 	public Validator() {}
 
 	public Validator(Integer id, String name, String eMail, String password) {

@@ -36,7 +36,7 @@ public class File {
 	@NotEmpty
 	private String description;
 	
-	@NotNull
+	@NotEmpty
 	private List<String> keywords;
 	
 	@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")

@@ -10,11 +10,9 @@ import com.api_informers.domain.File;
 @Service
 public class FileService {
 	
-	public File createFileMongoDB(String title,String description, String keywords, List<Object> data, Integer size) {
+	public File createFileMongoDB(String title,String description, List<String> keywords, List<Object> data, Integer size) {
 	
-	List <String> keywords_list = new ArrayList<String>();
-	keywords_list.add(keywords);
-	File file = new File(title,description, keywords_list, data,size);
+	File file = new File(title,description, keywords, data,size);
 	
 	return file;
 	}

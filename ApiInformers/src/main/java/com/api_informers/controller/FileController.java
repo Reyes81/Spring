@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,9 +41,9 @@ public class FileController {
 
 	    }
 	
-	@PostMapping("/newFile")
+	@PostMapping(value="/newFile", consumes={"application/json"})
 	public ModelAndView createPost(@RequestParam MultipartFile file, @RequestParam String title, 
-										   @RequestParam String description, @RequestParam String keywords,
+										   @RequestParam String description, @RequestParam List<String> keywords,
 										   @RequestParam Integer size,
 										   HttpServletRequest request) throws IOException {
 		
