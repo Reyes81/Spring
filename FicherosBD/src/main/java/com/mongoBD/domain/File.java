@@ -17,6 +17,7 @@ public class File {
 
 	@Id
 	private String id;
+	private Integer informerId;
 	private String added_date;
 	private String title;
 	private String description;
@@ -33,7 +34,7 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, List<Object> data, Integer size) {
+	public File(Integer informerId,String title, String description, List<String> keywords, List<Object> data, Integer size) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -43,6 +44,7 @@ public class File {
 		this.downloads = 0;
 		this.data = data;
 		this.size = size;
+		this.informerId=informerId;
 	}
 	
 	public File(String title, String description, List<String> keywords, Integer size) {
@@ -149,6 +151,14 @@ public class File {
 
 	public List<Object> getData() {
 		return data;
+	}
+
+	public Integer getInformerId() {
+		return informerId;
+	}
+
+	public void setInformerId(Integer informerId) {
+		this.informerId = informerId;
 	}
 
 	public void setData(List<Object> data) {

@@ -31,8 +31,10 @@ public class FileController {
 
 	static final String uriNewFileSQL =  "http://localhost:8081/api/files/newFile";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
-	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files";
+	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/{informerId}";
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
+	private static final int List = 0;
+	private static final int File = 0;
 	
 	@Autowired 
 	FileService fs;
@@ -88,21 +90,22 @@ public class FileController {
 	} 
 	
 	
-	//VF1.Obtenemos todos los informadores
+	//VF1.Obtenemos todos los ficheros de un informador
 		@GetMapping("/files")
-		 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
-		            throws ServletException, IOException {
+		 public File[] getFiles() {
+			User user_session = us.getUserSession();
 			
+			RestTemplate restTemplate2 = new RestTemplate();
+			Informer informer_session  = restTemplate2.getForObject(
+					uriGetInformer,
+					 Informer.class,user_session.getUsername());
 			
 			 
 				RestTemplate restTemplate = new RestTemplate();
-				File[] files = restTemplate.getForObject(
+				File[] files= restTemplate.getForObject(
 						uriGetAllFilesMongo,
-						  File[].class);
-				
-				ModelAndView modelAndView = new ModelAndView("allFiles.html");
-				modelAndView.addObject("ficheros", files);
-		        return modelAndView;
+						  File[].class,informer_session.getId());
+		        return files;
 
 		    }
 	

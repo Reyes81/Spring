@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mongoBD.domain.File;
-import com.mongoBD.repository.FilesBDRepository;
+import com.mongoBD.repositories.FilesRepository;
 
 @Service
 public class FilesBDService {
 	
 	@Autowired 
-	FilesBDRepository fr;
+	FilesRepository fr;
 	
 	public List<File> findAll(){
 		return this.fr.findAll();
@@ -24,6 +24,13 @@ public class FilesBDService {
 	
 	public void createAll(List<File> posts) {
 		this.fr.saveAll(posts);
+	}
+	
+	public List<File> findByInformerId(Integer informerId){
+		
+		List<File> files = fr.findByInformerId(informerId);
+		
+		return files;
 	}
 
 }
