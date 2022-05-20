@@ -19,7 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.api_informers.domain.File;
+import com.api_informers.domain.Informer;
+import com.api_informers.domain.User;
 import com.api_informers.services.FileService;
+import com.api_informers.services.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
@@ -29,9 +32,13 @@ public class FileController {
 	static final String uriNewFileSQL =  "http://localhost:8081/api/files/newFile";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
 	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files";
+	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	
 	@Autowired 
 	FileService fs;
+	
+	@Autowired 
+	UsersService us;
 	
 	@GetMapping("/newFile")
 	 public ModelAndView handleRequestNewFile(HttpServletRequest request, HttpServletResponse response)
@@ -41,18 +48,26 @@ public class FileController {
 
 	    }
 	
-	@PostMapping(value="/newFile", consumes="multipart/form-data")
-	public ModelAndView createPost(@RequestParam MultipartFile file, @RequestParam String title, 
+	@PostMapping(value="/newFile")
+	public void createPost(@RequestParam MultipartFile file, @RequestParam String title, 
 										   @RequestParam String description, @RequestParam List<String> keywords,
 										   @RequestParam Integer size,
 										   HttpServletRequest request) throws IOException {
+		
+		User user_session = us.getUserSession();
+		
+		RestTemplate restTemplate = new RestTemplate();
+		Informer informer_session  = restTemplate.getForObject(
+				uriGetInformer,
+				 Informer.class,user_session.getUsername());
 		
 		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
 		//File f = fs.create(new File(added_date,title, description, keywords, data,size));
 		
-		File f1 = fs.createFileMongoDB(title, description, keywords, data, size);
+		
+		File f1 = fs.createFileMongoDB(informer_session.getId(),title, description, keywords, data, size);
 		
 		RestTemplate restTemplate1 = new RestTemplate();
 		RestTemplate restTemplate2 = new RestTemplate();
@@ -69,7 +84,7 @@ public class FileController {
 				id_file,
 				Object.class);
 		*/
-		return new ModelAndView("index.html");
+		
 	} 
 	
 	

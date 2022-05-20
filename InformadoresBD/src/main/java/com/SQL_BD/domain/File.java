@@ -34,11 +34,11 @@ public class File {
 	
 	private Integer downloads;
 
-	public File(Integer id, Integer previews, Integer downloads) {
+	public File(Integer id) {
 		super();
 		this.id = id;
-		this.previews = previews;
-		this.downloads =downloads;
+		this.previews = 0;
+		this.downloads =0;
 	}
 	
 	public File() {

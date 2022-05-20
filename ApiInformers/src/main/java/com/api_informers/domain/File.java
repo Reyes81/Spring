@@ -53,11 +53,13 @@ public class File {
 	
 	private Integer downloads;
 	
+	private Integer informer_id;
+	
 	public File() {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, List<Object> data, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Integer size) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -67,9 +69,10 @@ public class File {
 		this.downloads = 0;
 		this.data = data;
 		this.size = size;
+		this.informer_id = informer_id;
 	}
 	
-	public File(String title, String description, List<String> keywords, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, Integer size) {
 		super();
 		
 		this.title = title;
@@ -79,6 +82,7 @@ public class File {
 		this.previews = 0;
 		this.downloads = 0;
 		this.size = size;
+		this.informer_id = informer_id;
 	}
 
 	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
