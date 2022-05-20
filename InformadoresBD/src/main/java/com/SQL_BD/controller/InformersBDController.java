@@ -32,13 +32,13 @@ public class InformersBDController {
 		is.saveInformer(informer);
 		return informer;
 	}
-	
+	/*
 	@PostMapping(value="/modificarInfo")
 	public Informer editInformer(@RequestBody Informer informer){
 		Informer new_informer = is.updateInformer(informer);
 		return new_informer;
 	}
-	
+	*/
 	@GetMapping(value= "/informadores")
 	public List<Informer> getAllInformers() {
 
@@ -49,7 +49,7 @@ public class InformersBDController {
 	
 	@GetMapping(value= "/informador/{username}")
 	public Informer getInformer(@PathVariable(value = "username") String username) {
-
+		System.out.println(username);
 		Informer informer = is.getInformer(username);
 		return informer;
 	}
@@ -76,6 +76,13 @@ public class InformersBDController {
 			
 		is.approveInformer(id);
 	}
+	
+	
+		@RequestMapping("/informadores/modificarInfo")
+		public void updateInformer(@RequestBody Informer informer) {	
+				
+			is.updateInformer(informer);
+		}
 	
 	//@DeleteMapping(value="/informadores/eliminar/{id}")
 	@RequestMapping("/informadores/eliminar/{id}")

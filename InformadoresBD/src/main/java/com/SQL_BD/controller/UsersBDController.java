@@ -33,4 +33,12 @@ public class UsersBDController {
 		User user =us.getUserByUserName(username);
 		return user;
 	}
+	
+	@RequestMapping(value= "/update")
+	public User updtaeUser(@RequestBody User user) {
+		System.out.println("Estamos en el Put del Updtae");
+		User user_update = us.saveUser(user);
+		
+		return user_update;
+	}
 }

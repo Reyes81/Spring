@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Informer {
 	
-	enum Status {
+	public enum Status {
 		PENDIENTE,
 		ACTIVO,
 		INACTIVO

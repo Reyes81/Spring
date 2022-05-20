@@ -1,17 +1,17 @@
 package com.api_informers.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.api_informers.domain.Informer;
 import com.api_informers.domain.User;
 import com.api_informers.security.CustomUserDetailsService;
+import com.api_informers.services.InformersService;
 import com.api_informers.services.UsersService;
 
 @RestController
@@ -22,22 +22,23 @@ public class InformersController {
 	UsersService us; 
 	
 	@Autowired
+	InformersService is; 
+	
+	@Autowired
 	CustomUserDetailsService cs;
 	
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
-	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informer/{username}";
-	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/modificarInfo";
+	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
+	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
 	
-	/*
-	@GetMapping("/home")
-	 public ModelAndView handleRequestHome(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-
-	        return new ModelAndView("home.html");
-
+	
+	@GetMapping("/user")
+	 public User getUser(){
+		User user_session = us.getUserSession();
+		return user_session;
 	    }
-	
+	/*
 	@GetMapping("/informador/index")
 	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
@@ -88,6 +89,7 @@ public class InformersController {
         return informer;
 	}	
 	
+	/*
 	//PF2. Editar informacion de un informador
 	@PostMapping(value="/informador/edit")
 	public Informer editInformer(@RequestBody Informer informer)
@@ -109,6 +111,21 @@ public class InformersController {
 				informer,
 				Informer.class);
 		
+		return informer;
+	}*/
+	
+	@RequestMapping(value="/informador/edit")
+	public Informer editInformer(@RequestBody Informer informer)
+	{
+		
+		Informer informer_update= is.updateInformer(informer);
+		RestTemplate restTemplate = new RestTemplate();
+		
+		restTemplate.put(
+				uriEditInformer,
+				informer_update,
+				Informer.class);
+
 		return informer;
 	}
 		

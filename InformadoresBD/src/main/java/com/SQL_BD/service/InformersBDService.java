@@ -124,6 +124,7 @@ public class InformersBDService {
 			//fr.save(fichero);
 		}
 		
+		/*
 		//PF2. Editar informacion de un informador
 		
 		public Informer updateInformer(Informer informer)
@@ -156,6 +157,13 @@ public class InformersBDService {
 			return old_informer;
 			
 
+		}*/
+		
+		public Informer updateInformer(Informer informer)
+		{
+			Informer informer_update = ir.save(informer);
+			
+			return informer_update;
 		}
 		
 		public void deleteInformer(Integer id)
