@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.SQL_BD.domain.File;
 import com.SQL_BD.domain.Informer;
 import com.SQL_BD.domain.Informer.Status;
-import com.SQL_BD.domain.Informer.Type;
 import com.SQL_BD.repositories.InformersBDRepository;
 
 @Service
@@ -18,7 +17,9 @@ public class InformersBDService {
 	@Autowired
 	InformersBDRepository ir;
 	
-
+	@Autowired
+	UsersBDService us;
+	
 	//PF1. Guardar informador
 	public Informer saveInformer(Informer informer) {
 		ir.save(informer);
@@ -129,6 +130,7 @@ public class InformersBDService {
 		{
 			//Hay que buscarlo po el username de sesión para que coja el informador
 			Informer old_informer = ir.getById(informer.getId());
+			String old_username = old_informer.geteMail();
 			
 			if(old_informer.getStatus()==Status.ACTIVO) {
 			
@@ -143,6 +145,8 @@ public class InformersBDService {
 				if(informer.geteMail()!=null)
 					old_informer.seteMail(informer.geteMail());
 				
+				us.updateUser(old_username,old_informer.geteMail(),old_informer.getPassword());
+	
 				ir.save(old_informer);
 			}
 			//return old_informer; Da error no se por que
@@ -150,8 +154,8 @@ public class InformersBDService {
 				System.out.println("No se puede editar el informador ya que su estado es: " + old_informer.getStatus());
 			
 			return old_informer;
-		
 			
+
 		}
 		
 		public void deleteInformer(Integer id)
