@@ -41,7 +41,7 @@ public class FileController {
 
 	    }
 	
-	@PostMapping(value="/newFile", consumes={"application/json"})
+	@PostMapping(value="/newFile", consumes="multipart/form-data")
 	public ModelAndView createPost(@RequestParam MultipartFile file, @RequestParam String title, 
 										   @RequestParam String description, @RequestParam List<String> keywords,
 										   @RequestParam Integer size,
@@ -62,15 +62,13 @@ public class FileController {
 				uriNewFileMongo,
 				f1,
 				File.class);
-	
-		String id_file = f2.getId();
-	
+	/*
 		//Fichero a la BD de sQL
 		restTemplate2.postForObject(
 				uriNewFileSQL,
 				id_file,
 				Object.class);
-		
+		*/
 		return new ModelAndView("index.html");
 	} 
 	

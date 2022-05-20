@@ -29,10 +29,16 @@ public class File {
 	@ManyToOne
     @JoinColumn(name = "validator_user_id",nullable=false)
 	private Validator validator;
+	
+	private Integer previews;
+	
+	private Integer downloads;
 
-	public File(Integer id) {
+	public File(Integer id, Integer previews, Integer downloads) {
 		super();
 		this.id = id;
+		this.previews = previews;
+		this.downloads =downloads;
 	}
 	
 	public File() {

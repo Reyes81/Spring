@@ -39,7 +39,7 @@ public class File {
 	@NotEmpty
 	private List<String> keywords;
 	
-	@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")
+	//@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")
 	private List<Object> data;
 	
 	@Enumerated(EnumType.STRING)
