@@ -12,6 +12,7 @@ import com.api_informers.domain.User;
 public class InformersService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
+	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
 	
 	@Autowired
 	UsersService us;
@@ -39,6 +40,13 @@ public class InformersService {
 				informer_update.seteMail(informer.geteMail());
 			
 			us.updateUser(informer_update.geteMail(),informer_update.getPassword());
+			
+			RestTemplate restTemplate2 = new RestTemplate();
+			
+			restTemplate2.put(
+					uriEditInformer,
+					informer_update,
+					Informer.class);
 
 		}
 		//return old_informer; Da error no se por que
@@ -47,7 +55,6 @@ public class InformersService {
 		
 		return informer_update;
 		
-
 	}
 	
 

@@ -6,16 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.api_validators.domain.Informer;
+import com.api_validators.services.ValidatorsService;
 
 @RestController
 @RequestMapping(value="/api/validador")
@@ -27,6 +28,8 @@ public class ValidatorsController {
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	
+	@Autowired
+	ValidatorsService vs;
 	
 	//VF1.Obtenemos todos los informadores
 	@GetMapping(value="/informadores")
@@ -81,6 +84,13 @@ public class ValidatorsController {
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriValidateInformer, Integer.class, id);
+	}
+	
+	//VF3. Editar un Informador
+	@RequestMapping("/informadores/edit/{id}")
+	public void updateInformer(@PathVariable(value="id") Integer id, @RequestBody Informer informer) {
+		
+		vs.updateInformer(id, informer);
 	}
 	
 	//VF4. Eliminar un produtor

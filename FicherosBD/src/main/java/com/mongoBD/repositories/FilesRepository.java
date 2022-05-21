@@ -10,5 +10,4 @@ public interface FilesRepository  extends MongoRepository<File, String>{
 
 	public List<File> findByInformerId(Integer informer_id);
 	
-	
 }

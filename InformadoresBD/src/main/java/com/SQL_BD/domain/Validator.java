@@ -10,10 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @Table(name="validator")
 public class Validator {
 	
@@ -37,7 +40,6 @@ public class Validator {
 
 	public Validator(Integer id, String name, String eMail, String password) {
 
-		
 		this.id = id;
 		this.name = name;
 		this.eMail = eMail;

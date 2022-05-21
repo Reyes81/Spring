@@ -23,6 +23,11 @@ public class UsersBDService {
 		return user;
 	}
 	
+	public User getUserById(Integer id) {
+		User user = ur.getById(id);
+		return user;
+	}
+	
 	public User updateUser(User user) {
 		ur.save(user); 
 		return user;

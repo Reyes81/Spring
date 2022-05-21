@@ -15,6 +15,7 @@ public class UsersService {
 	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
 	static final String uriUpdatdeUser = "http://localhost:8081/api/users/update";
 	
+	
 	public User createUser(String username, String password) {
 		
 		User user= new User(username,password);

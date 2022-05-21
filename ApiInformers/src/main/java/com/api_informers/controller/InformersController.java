@@ -30,7 +30,6 @@ public class InformersController {
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
-	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
 	
 	
 	@GetMapping("/user")
@@ -117,16 +116,8 @@ public class InformersController {
 	@RequestMapping(value="/informador/edit")
 	public Informer editInformer(@RequestBody Informer informer)
 	{
-		
 		Informer informer_update= is.updateInformer(informer);
-		RestTemplate restTemplate = new RestTemplate();
-		
-		restTemplate.put(
-				uriEditInformer,
-				informer_update,
-				Informer.class);
-
-		return informer;
+		return informer_update;
 	}
 		
 }

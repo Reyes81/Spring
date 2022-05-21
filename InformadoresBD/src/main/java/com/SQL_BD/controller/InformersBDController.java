@@ -54,6 +54,12 @@ public class InformersBDController {
 		return informer;
 	}
 	
+	@GetMapping(value= "/informador/id/{id}")
+	public Informer getInformer(@PathVariable(value = "id") Integer id) {
+		Informer informer = is.getInformerId(id);
+		return informer;
+	}
+	
 	@GetMapping(value="/informadores/pendientes")
 	public List<Informer> getPendingInformers() {	
 			

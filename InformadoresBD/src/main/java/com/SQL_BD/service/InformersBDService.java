@@ -43,12 +43,20 @@ public class InformersBDService {
 		return informers;
 	}
 	
-	// Obtener un informador por eMail
+		// Obtener un informador por eMail
 		public Informer getInformer(String username){
 	
 			//Crear una excepción por si no existe el informador
 			Informer informer = ir.findByeMail(username);
 			
+			return informer;
+		}
+		
+		// Obtener un informador por id
+		public Informer getInformerId(Integer id){
+			
+			//Crear una excepción por si no existe el informador
+			Informer informer = ir.getById(id);
 			return informer;
 		}
 	

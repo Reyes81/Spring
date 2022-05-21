@@ -8,6 +8,6 @@ import com.SQL_BD.domain.User;
 
 public interface UsersBDRepository extends JpaRepository<User, Integer>  {
 	
-	 	User findByUsername(String username);
-
+	 public User findByUsername(String username);
+	
 }

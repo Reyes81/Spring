@@ -27,10 +27,15 @@ public class UsersBDController {
 		return user_ret;
 	}
 	
-	@GetMapping(value= "/username/{username}")
+	@GetMapping(value="/username/{username}")
 	public User getUserByUserName(@PathVariable(value = "username") String username) {
-		System.out.println("Estamos en el GET");
 		User user =us.getUserByUserName(username);
+		return user;
+	}
+	
+	@GetMapping(value="/id/{id}")
+	public User getUserByUserName(@PathVariable(value = "id") Integer id) {
+		User user =us.getUserById(id);
 		return user;
 	}
 	

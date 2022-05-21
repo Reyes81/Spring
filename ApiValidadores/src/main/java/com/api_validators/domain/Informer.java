@@ -3,15 +3,14 @@ package com.api_validators.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
 @Data
-@Entity
 public class Informer {
 	
-	enum Status {
+	public enum Status {
 		PENDIENTE,
 		ACTIVO,
 		INACTIVO
@@ -24,6 +23,7 @@ public class Informer {
 	
 	@Id
 	private Integer id;
+	private Integer user_id;
 	private String nif;
 	private String name;
 	private Type type;
@@ -76,6 +76,14 @@ public class Informer {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Integer getUserId() {
+		return this.user_id;
+	}
+
+	public void setUserId(Integer user_id) {
+		this.id = user_id;
 	}
 
 	public void setName(String name) {
