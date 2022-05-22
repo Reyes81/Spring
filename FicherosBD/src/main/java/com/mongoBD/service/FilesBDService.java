@@ -1,6 +1,7 @@
 package com.mongoBD.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,4 +54,10 @@ public class FilesBDService {
 		
 		return file_update;
 	}
+	
+	public void deleteFile(String id) {
+		
+		this.fr.deleteById(id);
+	}
+	
 }

@@ -50,4 +50,10 @@ public class FilesBDController {
 			
 		fs.updateFile(file);
 	}
+	
+	@RequestMapping("file/delete/{id}")
+	public void deleteFile(@PathVariable(value = "id") String id) {
+		
+		fs.deleteFile(id);
+	}
 }

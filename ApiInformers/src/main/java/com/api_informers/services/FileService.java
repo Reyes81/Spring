@@ -19,6 +19,7 @@ public class FileService {
 	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/informador/{informerId}";
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
+	static final String uriDeleteFileMongo= "http://localhost:8083/api/files/file/delete/{id}";
 	
 	
 	@Autowired
@@ -119,4 +120,17 @@ public class FileService {
 		
 		return file_update;
 	}
+	
+	public void deleteFile(String id) {
+		Informer informer_session = getInformerSession();
+		
+		if(informer_session.getStatus() == Status.ACTIVO) {
+			RestTemplate restTemplate = new RestTemplate();
+			
+			restTemplate.delete(
+					uriEditFileMongo,
+					String.class, id);
+		}
+	}
 }
+

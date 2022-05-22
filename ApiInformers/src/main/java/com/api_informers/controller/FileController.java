@@ -82,5 +82,14 @@ public class FileController {
 			
 			fs.editFile(id, file);
 		}
+		
+		//PF4. Editar un archivo
+		@RequestMapping("/file/delete/{id}")
+		public void deleteFile(@PathVariable(value="id") String id) {
+					
+			fs.deleteFile(id);
+		}
+		
+		
 	
 }
