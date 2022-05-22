@@ -13,6 +13,8 @@ public class InformersService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
+	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
+	static final String uriNewUser = "http://localhost:8081/api/users/new";
 	
 	@Autowired
 	UsersService us;
@@ -55,6 +57,36 @@ public class InformersService {
 		
 		return informer_update;
 		
+	}
+	
+	public Informer newInformer (Informer informer) {
+		
+		System.out.println("Id: " + informer.getId() + "\n" +
+				   "nif: " + informer.getNif() + "\n" +
+				   "name: " + informer.getName() + "\n" +
+				   "status: " + informer.getStatus() + "\n" +
+				   "type: " + informer.getType() + "\n" + 
+				   "quote: " + informer.getQuote() + "\n" + 
+				   "eMail: " + informer.geteMail() + "\n" +
+				   "password: " + informer.getPassword());
+		
+		RestTemplate restTemplate1 = new RestTemplate();
+		
+		RestTemplate restTemplate2 = new RestTemplate();
+		User user = us.createUser(informer.geteMail(),informer.getPassword());
+		
+		User user2 = restTemplate2.postForObject(
+				  uriNewUser,
+				  user,
+				  User.class);
+		informer.setUserId(user2.getId());
+		
+		restTemplate1.postForObject(
+				  uriNewInformer,
+				  informer,
+				  Informer.class);
+		
+		return informer;
 	}
 	
 

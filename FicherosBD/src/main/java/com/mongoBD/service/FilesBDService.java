@@ -15,11 +15,15 @@ public class FilesBDService {
 	FilesRepository fr;
 	
 	public List<File> findAll(){
+		
 		return this.fr.findAll();
 	}
 	
 	public File create(File file) {
-		return this.fr.save(file);
+		
+		
+		File file_save = fr.save(file);
+		return file_save;
 	}
 	
 	public void createAll(List<File> posts) {
@@ -28,9 +32,18 @@ public class FilesBDService {
 	
 	public List<File> findByInformerId(Integer informerId){
 		
-		List<File> files = fr.findByInformerId(informerId);
+		System.out.println("Estoy en el findByInformerId");
+		
+		List<File> files = fr.findByinformerId(informerId);
+		
+		//List<File> files = fr.findAll();
+		for(File file:files) {
+			System.out.println("ID: " + file.getId() + "\n");
+			System.out.println("Title: " + file.getTitle() + "\n");
+			System.out.println("Description: " + file.getDescription() + "\n");
+			System.out.println("InformerId: " + file.getInformerId() + "\n");
+		}
 		
 		return files;
 	}
-
 }

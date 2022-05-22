@@ -30,9 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FileController {
 
 	static final String uriNewFileSQL =  "http://localhost:8081/api/files/newFile";
-	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
-	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/{informerId}";
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
+	
 	private static final int List = 0;
 	private static final int File = 0;
 	
@@ -57,35 +56,11 @@ public class FileController {
 										   HttpServletRequest request) throws IOException {
 		
 		User user_session = us.getUserSession();
-		
-		RestTemplate restTemplate = new RestTemplate();
-		Informer informer_session  = restTemplate.getForObject(
-				uriGetInformer,
-				 Informer.class,user_session.getUsername());
-		
 		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
-		//File f = fs.create(new File(added_date,title, description, keywords, data,size));
 		
-		
-		File f1 = fs.createFileMongoDB(informer_session.getId(),title, description, keywords, data, size);
-		
-		RestTemplate restTemplate1 = new RestTemplate();
-		RestTemplate restTemplate2 = new RestTemplate();
-		
-		//Fichero a la BD de MongoDB
-		File f2 = restTemplate1.postForObject(
-				uriNewFileMongo,
-				f1,
-				File.class);
-	/*
-		//Fichero a la BD de sQL
-		restTemplate2.postForObject(
-				uriNewFileSQL,
-				id_file,
-				Object.class);
-		*/
+		fs.createFileMongoDB(user_session,title, description, keywords, size, data);
 		
 	} 
 	
@@ -93,20 +68,10 @@ public class FileController {
 	//VF1.Obtenemos todos los ficheros de un informador
 		@GetMapping("/files")
 		 public File[] getFiles() {
-			User user_session = us.getUserSession();
 			
-			RestTemplate restTemplate2 = new RestTemplate();
-			Informer informer_session  = restTemplate2.getForObject(
-					uriGetInformer,
-					 Informer.class,user_session.getUsername());
+			File[] files = fs.getFiles();
 			
-			 
-				RestTemplate restTemplate = new RestTemplate();
-				File[] files= restTemplate.getForObject(
-						uriGetAllFilesMongo,
-						  File[].class,informer_session.getId());
-		        return files;
-
-		    }
+		  return files;
+		  }
 	
 }

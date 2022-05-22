@@ -26,7 +26,7 @@ public class FilesBDController {
 
 	@PostMapping("/newFile")
 	public ResponseEntity<File> createPost(@RequestBody File file) {
-		
+		System.out.println("Id informador: " + file.getInformerId());
 		File f = fs.create(file);
 		
 		return new ResponseEntity<>(f, HttpStatus.OK);
@@ -38,8 +38,9 @@ public class FilesBDController {
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
 	
-	@GetMapping("/informer/{informerId}")
+	@GetMapping("/informador/{informerId}")
 	public List<File> getAllFilesInformer(@PathVariable(value = "informerId") Integer informerId) {
+		
 		List<File> files = fs.findByInformerId(informerId);
 		return files;
 	}

@@ -99,6 +99,14 @@ public class File {
 		this.data = data;
 	}
 
+	public Integer getInformerId() {
+		return informer_id;
+	}
+
+	public void setInformerId(Integer informer_id) {
+		this.informer_id = informer_id;
+	}
+	
 	public String getDate() {
 		return added_date;
 	}

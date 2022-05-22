@@ -82,6 +82,7 @@ public class ValidatorsController {
 	//@PutMapping("/informadores/validar/{id}")
 	@RequestMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
+		System.out.println(id);
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriValidateInformer, Integer.class, id);
 	}

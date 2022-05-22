@@ -34,20 +34,7 @@ public class File {
 		super();
 	}
 	
-	public File(Integer informerId,String title, String description, List<String> keywords, List<Object> data, Integer size) {
-		super();
-		this.title = title;
-		this.description = description;
-		this.keywords = keywords;
-		this.status = Status.PENDIENTE_REVISION;
-		this.previews = 0;
-		this.downloads = 0;
-		this.data = data;
-		this.size = size;
-		this.informerId=informerId;
-	}
-	
-	public File(String title, String description, List<String> keywords, Integer size) {
+	public File(Integer informerId,String title, String description, List<String> keywords, Integer size) {
 		super();
 		
 		this.title = title;
@@ -57,6 +44,7 @@ public class File {
 		this.previews = 0;
 		this.downloads = 0;
 		this.size = size;
+		this.informerId = informerId;
 	}
 
 	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
@@ -72,6 +60,7 @@ public class File {
 		this.downloads = downloads;
 		this.data = data;
 	}
+
 
 	public String getDate() {
 		return added_date;
