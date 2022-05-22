@@ -28,13 +28,7 @@ public class InformersController {
 	CustomUserDetailsService cs;
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
-	
-	
-	@GetMapping("/user")
-	 public User getUser(){
-		User user_session = us.getUserSession();
-		return user_session;
-	    }
+
 	/*
 	@GetMapping("/informador/index")
 	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +46,31 @@ public class InformersController {
 	        return new ModelAndView("newInformer.html");
 
 	    }
-	 */
+	    
+		@PostMapping(value="/informador/edit")
+		public Informer editInformer(@RequestBody Informer informer)
+		{
+			
+			System.out.println("Id: " + informer.getId() + "\n" +
+					   "nif: " + informer.getNif() + "\n" +
+					   "name: " + informer.getName() + "\n" +
+					   "status: " + informer.getStatus() + "\n" +
+					   "type: " + informer.getType() + "\n" + 
+					   "quote: " + informer.getQuote() + "\n" + 
+					   "eMail: " + informer.geteMail() + "\n" +
+					   "password: " + informer.getPassword());
+			
+			RestTemplate restTemplate = new RestTemplate();
+			
+			restTemplate.postForObject(
+					uriEditInformer,
+					informer,
+					Informer.class);
+			
+			return informer;
+		}
+	*/
+	 
 	
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
@@ -62,36 +80,20 @@ public class InformersController {
         return newInformer;
 	}	
 	
-	/*
-	//PF2. Editar informacion de un informador
-	@PostMapping(value="/informador/edit")
-	public Informer editInformer(@RequestBody Informer informer)
-	{
-		
-		System.out.println("Id: " + informer.getId() + "\n" +
-				   "nif: " + informer.getNif() + "\n" +
-				   "name: " + informer.getName() + "\n" +
-				   "status: " + informer.getStatus() + "\n" +
-				   "type: " + informer.getType() + "\n" + 
-				   "quote: " + informer.getQuote() + "\n" + 
-				   "eMail: " + informer.geteMail() + "\n" +
-				   "password: " + informer.getPassword());
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		restTemplate.postForObject(
-				uriEditInformer,
-				informer,
-				Informer.class);
-		
-		return informer;
-	}*/
 	
+	//PF2. Editar informacion de un informador
 	@RequestMapping(value="/informador/edit")
 	public Informer editInformer(@RequestBody Informer informer)
 	{
 		Informer informer_update= is.updateInformer(informer);
 		return informer_update;
 	}
+	
+	//Devolver la sesion del usuario
+	@GetMapping("/user")
+	 public User getUser(){
+		User user_session = us.getUserSession();
+		return user_session;
+	 }
 		
 }

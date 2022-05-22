@@ -43,8 +43,8 @@ public class Informer {
 	@Column(name="informer_id",nullable=false)
 	private Integer id;
 	
-	@OneToMany(mappedBy = "informer")
-	private List<File> files;
+	/*@OneToMany(mappedBy = "informer")
+	private List<File> files;*/
 	
 	@Column(name="user_id")
 	private Integer user_id;

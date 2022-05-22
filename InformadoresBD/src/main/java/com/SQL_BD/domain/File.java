@@ -22,28 +22,27 @@ public class File {
 	@Column(name="id",nullable=false)
 	private Integer id;
 	
-	@ManyToOne
-    @JoinColumn(name = "informer_user_id", nullable=false)
-	private Informer informer;
+    @Column(name = "informer_user_id", nullable=false)
+	private Integer informer_id;
 	
-	@ManyToOne
-    @JoinColumn(name = "validator_user_id",nullable=false)
-	private Validator validator;
+    @Column(name = "validator_user_id")
+	private Integer validator;
 	
 	private Integer previews;
 	
 	private Integer downloads;
+	
+	private String nosql_id;
 
 	public File(Integer id) {
 		super();
-		this.id = id;
 		this.previews = 0;
 		this.downloads =0;
+		this.nosql_id = "0";
 	}
 	
 	public File() {
 		super();
-	
 	}
 	
 	

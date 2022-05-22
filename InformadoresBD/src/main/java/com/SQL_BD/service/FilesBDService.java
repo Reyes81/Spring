@@ -19,5 +19,16 @@ public class FilesBDService {
 		
 		return file;
 	}
+	
+	public File newFile(String nosql_id, Integer user_id)
+	{
+		File file = new File();
+		file.setInformer_id(user_id);
+		file.setNosql_id(nosql_id);
+		fr.save(file);
+		
+		return file;
+	}
+	
 
 }

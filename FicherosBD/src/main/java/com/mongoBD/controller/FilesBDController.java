@@ -56,4 +56,13 @@ public class FilesBDController {
 		
 		fs.deleteFile(id);
 	}
+	
+	@GetMapping("/pendientes")
+	public File[] getPendingFiles()
+	{
+		System.out.println("Ficheros pendientes");
+		File[] files = fs.getPendingFiles();
+		return files;
+		
+	}
 }

@@ -60,4 +60,10 @@ public class FilesBDService {
 		this.fr.deleteById(id);
 	}
 	
+	public File[] getPendingFiles()
+	{
+		File[] files = fr.findByStatus("PENDIENTE_REVISION");
+		return files;
+	}
+	
 }

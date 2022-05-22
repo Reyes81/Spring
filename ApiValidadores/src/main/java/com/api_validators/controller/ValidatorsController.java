@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.api_validators.domain.File;
 import com.api_validators.domain.Informer;
 import com.api_validators.services.ValidatorsService;
 
@@ -27,15 +28,16 @@ public class ValidatorsController {
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
+	static final String uriGetPendingFiles = "http://localhost:8083/api/files/pendientes";
 	
 	@Autowired
 	ValidatorsService vs;
 	
-	//VF1.Obtenemos todos los informadores
-	@GetMapping(value="/informadores")
-	 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-		 
+	/*
+		@GetMapping(value="/informadores")
+		 public ModelAndView handleRequestAll(HttpServletRequest request, HttpServletResponse response)
+		            throws ServletException, IOException {
+			 
 			RestTemplate restTemplate = new RestTemplate();
 			Informer[] informadores = restTemplate.getForObject(
 					  uriGetAllInformes,
@@ -44,47 +46,88 @@ public class ValidatorsController {
 			ModelAndView modelAndView = new ModelAndView("allInformes.html");
 			modelAndView.addObject("informadores", informadores);
 	        return modelAndView;
+	
+		}
+	    
+		@GetMapping(value="/informadores/pendientes")
+		public ModelAndView getPendingInformers(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {	
+				
+			RestTemplate restTemplate = new RestTemplate();
+			Informer[] informadores = restTemplate.getForObject(
+						 uriGetPendingInformers,
+						 Informer[].class);
+			
+			ModelAndView modelAndView = new ModelAndView("allInformes.html");
+			modelAndView.addObject("informadores", informadores);
+	        return modelAndView;
+		}
+		
+		@GetMapping(value="/informadores/cuota")
+		public ModelAndView getInformersQuoteConsumed() {	
+				
+			RestTemplate restTemplate = new RestTemplate();
+			Informer[] informadores = restTemplate.getForObject(
+						 uriGetInformersQuote,
+						 Informer[].class);
+			
+			ModelAndView modelAndView = new ModelAndView("allInformes.html");
+			modelAndView.addObject("informadores", informadores);
+	        return modelAndView;
+		}
+	    
+	    
+	    */
+	
+	//VF1.Obtenemos todos los informadores
+	@GetMapping(value="/informadores")
+	 public Informer[] handleRequestAll(HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+		 
+			RestTemplate restTemplate = new RestTemplate();
+			Informer[] informadores = restTemplate.getForObject(
+					  uriGetAllInformes,
+					  Informer[].class);
+			
+			return informadores;
 
 	    }
 	
 	//VF1.Obtener Informadores pendientes de Aprobación
 	@GetMapping(value="/informadores/pendientes")
-	public ModelAndView getPendingInformers(HttpServletRequest request, HttpServletResponse response)
+	public Informer[] getPendingInformers(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {	
 			
 		RestTemplate restTemplate = new RestTemplate();
 		Informer[] informadores = restTemplate.getForObject(
 					 uriGetPendingInformers,
 					 Informer[].class);
-		
-		ModelAndView modelAndView = new ModelAndView("allInformes.html");
-		modelAndView.addObject("informadores", informadores);
-        return modelAndView;
+
+        return informadores;
 	}
 	
 	//VF1.Obtener informadores que hayan consumido su cuota anual
 	@GetMapping(value="/informadores/cuota")
-	public ModelAndView getInformersQuoteConsumed() {	
+	public Informer[] getInformersQuoteConsumed() {	
 			
 		RestTemplate restTemplate = new RestTemplate();
 		Informer[] informadores = restTemplate.getForObject(
 					 uriGetInformersQuote,
 					 Informer[].class);
-		
-		ModelAndView modelAndView = new ModelAndView("allInformes.html");
-		modelAndView.addObject("informadores", informadores);
-        return modelAndView;
+
+        return informadores;
 	}
 	
 	//TODO. VF1.Obtener informadores con ficheros erróneos
 	
-	//VF2. Aprobar un nuevo productor
+	//VF2. Aprobar un nuevo informador
 	//@PutMapping("/informadores/validar/{id}")
 	@RequestMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
 		System.out.println(id);
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriValidateInformer, Integer.class, id);
+		
 	}
 	
 	//VF3. Editar un Informador
@@ -100,6 +143,18 @@ public class ValidatorsController {
 	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriDeleteInformer, Integer.class, id);
+	}
+	
+	//VF5. Obtener el listado de ficheros pendientes de revision
+	@GetMapping(value="/files/pendientes")
+	public File[] getPendingFiles(){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		File[] files = restTemplate.getForObject(
+					 uriGetPendingFiles,
+					 File[].class);
+		
+		return files;
 	}
 	
 	

@@ -1,6 +1,8 @@
 package com.api_informers.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import com.api_informers.domain.User;
 public class FileService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
+	static final String uriNewFileSQL= "http://localhost:8081/api/files/newFile";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
 	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/informador/{informerId}";
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
@@ -41,6 +44,7 @@ public class FileService {
 	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Integer size, List<Object> data) {
 	
 		File file = null;
+		File new_file = null;
 		
 		Informer informer_session = getInformerSession();
 		
@@ -50,7 +54,7 @@ public class FileService {
 			RestTemplate restTemplate2 = new RestTemplate();
 			
 			//Fichero a la BD de MongoDB
-				restTemplate2.postForObject(
+			new_file = restTemplate2.postForObject(
 				uriNewFileMongo,
 				file,
 				File.class);
@@ -60,7 +64,26 @@ public class FileService {
 			System.out.println("No se puede crear un fichero ya que el estado del informador es: " + informer_session.getStatus());
 		}	
 	
-	return file;
+	return new_file;
+	}
+	
+	public File createFileSQL(String nosql_id, Integer informer_id)
+	{
+		RestTemplate restTemplate = new RestTemplate();
+		File file = new File();
+		file.setInformerId(informer_id);
+		file.setId(nosql_id);
+
+		System.out.println(file.getId()); //Id bien
+		//Fichero a la BD SQL
+		//No va porque alli salen los ids a null
+		restTemplate.postForObject(
+		uriNewFileSQL,
+		file,
+		File.class);
+		
+		return file;
+		
 	}
 	
 	public File[] getFiles() {

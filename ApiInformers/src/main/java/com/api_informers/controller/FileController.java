@@ -42,7 +42,7 @@ public class FileController {
 	
 	@Autowired 
 	UsersService us;
-	
+
 	@GetMapping("/newFile")
 	 public ModelAndView handleRequestNewFile(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
@@ -51,6 +51,7 @@ public class FileController {
 
 	    }
 	
+	//PF3. Subir un fichero de datos
 	@PostMapping(value="/newFile")
 	public void createPost(@RequestParam MultipartFile file, @RequestParam String title, 
 										   @RequestParam String description, @RequestParam List<String> keywords,
@@ -62,33 +63,33 @@ public class FileController {
 		ObjectMapper mapper = new ObjectMapper();
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
 		
-		fs.createFileMongoDB(user_session,title, description, keywords, size, data);
+		File fichero = fs.createFileMongoDB(user_session,title, description, keywords, size, data);
+		
+		System.out.println(fichero.getId()); //Tiene el id puesto
+		fs.createFileSQL(fichero.getId(), fichero.getInformerId());
 		
 	} 
 	
 	
-		//VF1.Obtenemos todos los ficheros de un informador
-		@GetMapping("/files")
-		 public File[] getFiles() {
-			
-			File[] files = fs.getFiles();
-			
-		  return files;
-		  }
+	//VF1.Obtenemos todos los ficheros de un informador
+	@GetMapping("/files")
+	 public File[] getFiles() {
 		
-		//PF4. Editar un archivo
-		@RequestMapping("/file/edit/{id}")
-		public void updateFile(@PathVariable(value="id") String id, @RequestBody File file) {
-			
-			fs.editFile(id, file);
-		}
+		File[] files = fs.getFiles();
+		return files;
+	  }
 		
-		//PF4. Editar un archivo
-		@RequestMapping("/file/delete/{id}")
-		public void deleteFile(@PathVariable(value="id") String id) {
-					
-			fs.deleteFile(id);
-		}
+	//PF4. Editar un archivo
+	@RequestMapping("/file/edit/{id}")
+	public void updateFile(@PathVariable(value="id") String id, @RequestBody File file) {
+		fs.editFile(id, file);
+	}
+		
+	//PF4. Editar un archivo
+	@RequestMapping("/file/delete/{id}")
+	public void deleteFile(@PathVariable(value="id") String id) {
+		fs.deleteFile(id);
+	}
 		
 		
 	
