@@ -44,4 +44,10 @@ public class FilesBDController {
 		List<File> files = fs.findByInformerId(informerId);
 		return files;
 	}
+	
+	@RequestMapping("/edit")
+	public void updateFile(@RequestBody File file) {	
+			
+		fs.updateFile(file);
+	}
 }

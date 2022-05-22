@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,7 +67,7 @@ public class FileController {
 	} 
 	
 	
-	//VF1.Obtenemos todos los ficheros de un informador
+		//VF1.Obtenemos todos los ficheros de un informador
 		@GetMapping("/files")
 		 public File[] getFiles() {
 			
@@ -73,5 +75,12 @@ public class FileController {
 			
 		  return files;
 		  }
+		
+		//PF4. Editar un archivo
+		@RequestMapping("/file/edit/{id}")
+		public void updateFile(@PathVariable(value="id") String id, @RequestBody File file) {
+			
+			fs.editFile(id, file);
+		}
 	
 }

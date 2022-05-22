@@ -46,4 +46,11 @@ public class FilesBDService {
 		
 		return files;
 	}
+	
+	public File updateFile(File file)
+	{
+		File file_update = fr.save(file);
+		
+		return file_update;
+	}
 }

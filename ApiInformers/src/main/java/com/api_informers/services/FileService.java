@@ -17,18 +17,31 @@ public class FileService {
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
 	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/informador/{informerId}";
+	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
+	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
+	
 	
 	@Autowired
 	UsersService us;
 	
-	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Integer size, List<Object> data) {
-	
-		File file = null;
+	public Informer getInformerSession() {
+		
+		User user_session = us.getUserSession();
 		RestTemplate restTemplate = new RestTemplate();
+		
 		Informer informer_session  = restTemplate.getForObject(
 				uriGetInformer,
 				 Informer.class,user_session.getUsername());
 		
+		return informer_session;
+	}
+	
+	
+	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Integer size, List<Object> data) {
+	
+		File file = null;
+		
+		Informer informer_session = getInformerSession();
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			file = new File(informer_session.getId(),title,description, keywords, data,size);
@@ -44,8 +57,7 @@ public class FileService {
 		}
 		else {
 			System.out.println("No se puede crear un fichero ya que el estado del informador es: " + informer_session.getStatus());
-		}
-		
+		}	
 	
 	return file;
 	}
@@ -53,12 +65,9 @@ public class FileService {
 	public File[] getFiles() {
 		
 		File[] files = null;
-		User user_session = us.getUserSession();
-		
-		RestTemplate restTemplate2 = new RestTemplate();
-		Informer informer_session  = restTemplate2.getForObject(
-				uriGetInformer,
-				 Informer.class,user_session.getUsername());
+
+		Informer informer_session = getInformerSession();
+	
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			RestTemplate restTemplate = new RestTemplate();
@@ -76,5 +85,38 @@ public class FileService {
 			System.out.println("No se puede obtener el listado de ficheros ya que el estado del informador es: " + informer_session.getStatus());
 	
 		return files;
+	}
+	
+	public File editFile(String id, File file) {
+		
+		File file_update = null;
+		
+		Informer informer_session = getInformerSession();
+		
+		//Meter en excepción
+		
+		if(informer_session.getStatus() == Status.ACTIVO) {
+			
+			RestTemplate restTemplate = new RestTemplate();
+			file_update= restTemplate.getForObject(
+			uriGetFileMongoId,
+			File.class,id);
+			
+			if(file.getTitle()!=null)
+				file_update.setTitle(file.getTitle());
+			if(file.getDescription()!=null)
+				file_update.setDescription(file.getDescription());
+			if(file.getKeywords()!=null)
+				file_update.setKeywords(file.getKeywords());
+			
+			RestTemplate restTemplate2 = new RestTemplate();
+			
+			restTemplate2.put(
+					uriEditFileMongo,
+					file_update,
+					File.class);
+		}
+		
+		return file_update;
 	}
 }
