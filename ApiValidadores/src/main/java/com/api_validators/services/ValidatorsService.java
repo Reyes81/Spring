@@ -12,8 +12,11 @@ public class ValidatorsService {
 	@Autowired
 	UsersService us;
 	
+	static final String uriGetPendingInformers = "http://localhost:8081/api/informadoresBD/informadores/pendientes";
 	static final String uriGetInformerId = "http://localhost:8081/api/informadoresBD/informador/id/{id}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
+	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
+	
 	
 	public Informer updateInformer(Integer id, Informer informer)
 	{
@@ -50,4 +53,23 @@ public class ValidatorsService {
 			
 		return informer_update;
 		}
+	
+	public Informer[] getAllInformers () {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		Informer[] informadores = restTemplate.getForObject(
+				  uriGetAllInformes,
+				  Informer[].class);
+		return informadores;
+	}
+	
+	public Informer[] getPendingInformers(){
+		
+		RestTemplate restTemplate = new RestTemplate();
+		Informer[] informadores = restTemplate.getForObject(
+					 uriGetPendingInformers,
+					 Informer[].class);
+		
+		return informadores;
+	}
 }
