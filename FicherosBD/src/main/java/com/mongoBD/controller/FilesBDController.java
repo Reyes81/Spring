@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.mongoBD.domain.File;
 import com.mongoBD.service.FilesBDService;
@@ -60,8 +61,10 @@ public class FilesBDController {
 	@GetMapping("/pendientes")
 	public File[] getPendingFiles()
 	{
-		System.out.println("Ficheros pendientes");
+		RestTemplate restTemplate = new RestTemplate();
+		
 		File[] files = fs.getPendingFiles();
+		
 		return files;
 		
 	}

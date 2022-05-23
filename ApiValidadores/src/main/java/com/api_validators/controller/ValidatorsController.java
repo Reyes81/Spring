@@ -29,6 +29,8 @@ public class ValidatorsController {
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	static final String uriGetPendingFiles = "http://localhost:8083/api/files/pendientes";
+	static final String uriPublishFile = "http://localhost:8082/api/files/publish/{id}";
+	static final String uriGetPendingFilesInformers = "http://localhost:8081/api/informadoresBD/pendientes";
 	
 	@Autowired
 	ValidatorsService vs;
@@ -98,11 +100,23 @@ public class ValidatorsController {
 	public File[] getPendingFiles(){
 		
 		RestTemplate restTemplate = new RestTemplate();
+		RestTemplate restTemplate2 = new RestTemplate();
 		File[] files = restTemplate.getForObject(
 					 uriGetPendingFiles,
 					 File[].class);
 		
 		return files;
+	}
+	
+	//VF6. Publicar un fichero
+	@RequestMapping("/files/publish/{id}")
+	public void publishFile(@PathVariable(value = "id") Integer id) {
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getForObject(
+					 uriPublishFile,
+					 Integer.class,
+					 id);
+		
 	}
 	
 	

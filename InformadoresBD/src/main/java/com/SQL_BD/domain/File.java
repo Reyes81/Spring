@@ -18,9 +18,8 @@ import lombok.Data;
 public class File {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id",nullable=false)
-	private Integer id;
+	private String id;
 	
     @Column(name = "informer_user_id", nullable=false)
 	private Integer informer_id;
@@ -32,13 +31,11 @@ public class File {
 	
 	private Integer downloads;
 	
-	private String nosql_id;
 
 	public File(Integer id) {
 		super();
 		this.previews = 0;
 		this.downloads =0;
-		this.nosql_id = "0";
 	}
 	
 	public File() {

@@ -73,10 +73,10 @@ public class FileService {
 		File file = new File();
 		file.setInformerId(informer_id);
 		file.setId(nosql_id);
-
-		System.out.println(file.getId()); //Id bien
 		//Fichero a la BD SQL
 		//No va porque alli salen los ids a null
+		
+		System.out.println(file);
 		restTemplate.postForObject(
 		uriNewFileSQL,
 		file,

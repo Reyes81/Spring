@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.Data;
 
@@ -18,11 +19,14 @@ public class File {
 		PUBLICADO
 	};
 
-	
 	private String id;
+	
 	private String added_date;
+	
 	private String title;
+	
 	private String description;
+	
 	private List<String> keywords;
 	private List<Object> data;
 	

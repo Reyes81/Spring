@@ -22,17 +22,11 @@ public class FilesBDController {
 	
 	@PostMapping(value="/newFile")
 	public ResponseEntity<File> newFile(@RequestBody File file) {
-		System.out.println(file.getNosql_id());
-		//File new_file = fs.newFile(id);
+		System.out.println(file);
+		fs.newFile(file);
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
-	
-	/*@PostMapping(value="/newFile2")
-	public void newFile(File file)
-	{
-		System.out.println(file); //Todo a null
-		
-	}*/
+
 
 }
 

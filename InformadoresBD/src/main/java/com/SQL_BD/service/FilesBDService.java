@@ -1,9 +1,13 @@
 package com.SQL_BD.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.SQL_BD.domain.File;
+import com.SQL_BD.domain.Informer;
 import com.SQL_BD.repositories.FilesBDRepository;
 
 @Service
@@ -12,19 +16,11 @@ public class FilesBDService {
 	@Autowired
 	FilesBDRepository fr;
 	
-	public File newFile(Integer id) {
-		
-		File file = new File(id);
-		fr.save(file);
-		
-		return file;
-	}
 	
-	public File newFile(String nosql_id, Integer user_id)
+	public File newFile(File file)
 	{
-		File file = new File();
-		file.setInformer_id(user_id);
-		file.setNosql_id(nosql_id);
+		file.setPreviews(0);
+		file.setDownloads(0);
 		fr.save(file);
 		
 		return file;

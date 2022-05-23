@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SQL_BD.domain.File;
 import com.SQL_BD.domain.Informer;
 import com.SQL_BD.domain.Informer.Status;
 import com.SQL_BD.service.FilesBDService;
@@ -96,5 +97,4 @@ public class InformersBDController {
 			
 		is.deleteInformer(id);
 	}
-	
 }

@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.Data;
 
@@ -24,7 +25,6 @@ public class File {
 		ERRONEO,
 		PUBLICADO
 	};
-
 
 	private String id;
 

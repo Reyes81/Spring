@@ -1,5 +1,6 @@
 package com.mongoBD.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +38,6 @@ public class FilesBDService {
 		
 		List<File> files = fr.findByinformerId(informerId);
 		
-		//List<File> files = fr.findAll();
 		for(File file:files) {
 			System.out.println("ID: " + file.getId() + "\n");
 			System.out.println("Title: " + file.getTitle() + "\n");
