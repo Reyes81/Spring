@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_validators.domain.Informer;
+import com.api_validators.domain.User;
+import com.api_validators.domain.Validator;
 
 @Service
 public class ValidatorsService {
@@ -16,8 +18,22 @@ public class ValidatorsService {
 	static final String uriGetInformerId = "http://localhost:8081/api/informadoresBD/informador/id/{id}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
+	static final String uriGetValidator = "http://localhost:8081/api/informadoresBD/validador/{username}";
 	
-	
+	public Validator getValidatorSession() {
+		Validator validator_session = null;
+		
+		User user_session = us.getUserSession();
+		
+		RestTemplate restTemplate = new RestTemplate();
+		validator_session = restTemplate.getForObject(
+				uriGetValidator,
+				 Validator.class,user_session.getUsername());
+		
+		System.out.println("Name: " + validator_session.getName());
+		
+		return validator_session; 
+	}
 	public Informer updateInformer(Integer id, Informer informer)
 	{
 

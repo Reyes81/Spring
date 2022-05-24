@@ -111,12 +111,14 @@ public class ValidatorsController {
 	//VF6. Publicar un fichero
 	@RequestMapping("/files/publish/{id}")
 	public void publishFile(@PathVariable(value = "id") Integer id) {
+		/*
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getForObject(
 					 uriPublishFile,
 					 Integer.class,
 					 id);
-		
+		*/
+		vs.getValidatorSession();
 	}
 	
 	
