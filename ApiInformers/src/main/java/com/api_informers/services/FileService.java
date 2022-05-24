@@ -28,25 +28,15 @@ public class FileService {
 	@Autowired
 	UsersService us;
 	
-	public Informer getInformerSession() {
-		
-		User user_session = us.getUserSession();
-		RestTemplate restTemplate = new RestTemplate();
-		
-		Informer informer_session  = restTemplate.getForObject(
-				uriGetInformer,
-				 Informer.class,user_session.getUsername());
-		
-		return informer_session;
-	}
+	@Autowired
+	InformersService is;
 	
-	
-	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Integer size, List<Object> data) {
+	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Double size, List<Object> data) {
 	
 		File file = null;
 		File new_file = null;
 		
-		Informer informer_session = getInformerSession();
+		Informer informer_session = is.getInformerSession();
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			file = new File(informer_session.getId(),title,description, keywords, data,size);
@@ -90,7 +80,7 @@ public class FileService {
 		
 		File[] files = null;
 
-		Informer informer_session = getInformerSession();
+		Informer informer_session = is.getInformerSession();
 	
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
@@ -115,7 +105,7 @@ public class FileService {
 		
 		File file_update = null;
 		
-		Informer informer_session = getInformerSession();
+		Informer informer_session = is.getInformerSession();
 		
 		//Meter en excepción
 		
@@ -145,7 +135,7 @@ public class FileService {
 	}
 	
 	public void deleteFile(String id) {
-		Informer informer_session = getInformerSession();
+		Informer informer_session = is.getInformerSession();
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			RestTemplate restTemplate = new RestTemplate();

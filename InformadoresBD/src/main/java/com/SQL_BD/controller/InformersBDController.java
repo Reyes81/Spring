@@ -90,6 +90,14 @@ public class InformersBDController {
 				
 			is.updateInformer(informer);
 		}
+		
+		@RequestMapping("/informadores/updateQuote")
+		public void updateQuote(@RequestBody Informer informer) {	
+				
+			is.updateQuote(informer);
+		}
+		
+		
 	
 	//@DeleteMapping(value="/informadores/eliminar/{id}")
 	@RequestMapping("/informadores/eliminar/{id}")

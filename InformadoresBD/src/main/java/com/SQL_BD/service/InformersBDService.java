@@ -174,6 +174,10 @@ public class InformersBDService {
 			return informer_update;
 		}
 		
+		public void updateQuote(Informer informer) {
+			ir.save(informer);
+		}
+		
 		public void deleteInformer(Integer id)
 		{
 			ir.deleteById(id);

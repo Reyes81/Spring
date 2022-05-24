@@ -47,7 +47,7 @@ public class File {
 	
 	@NotNull
 	@Size(max=maxSize)
-	private Integer size;
+	private Double size;
 
 	private Integer previews;
 	
@@ -59,7 +59,7 @@ public class File {
 		super();
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Double size) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -72,7 +72,7 @@ public class File {
 		this.informer_id = informer_id;
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
 		super();
 		
 		this.title = title;
@@ -85,7 +85,7 @@ public class File {
 		this.informer_id = informer_id;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
+	public File(String date, String title, String description, List<String> keywords, Double size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
 		this.added_date = date;
@@ -139,11 +139,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Integer getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 

@@ -13,11 +13,24 @@ public class InformersService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
+	static final String uriUpdateQuote = "http://localhost:8081/api/informadoresBD/informadores/updateQuote";
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
 	
 	@Autowired
 	UsersService us;
+	
+	public Informer getInformerSession() {
+		
+		User user_session = us.getUserSession();
+		RestTemplate restTemplate = new RestTemplate();
+		
+		Informer informer_session  = restTemplate.getForObject(
+				uriGetInformer,
+				 Informer.class,user_session.getUsername());
+		
+		return informer_session;
+	}
 	
 	public Informer updateInformer(Informer informer)
 	{
@@ -87,6 +100,28 @@ public class InformersService {
 				  Informer.class);
 		
 		return informer;
+	}
+	
+	public Double updateQuote(Double size) {
+		
+		Informer informer_session = getInformerSession();
+		
+		Double quote = informer_session.getQuote() - size;
+		
+		if(quote>=0) {
+			informer_session.setQuote(quote);
+			System.out.println(informer_session.getId());
+			/*
+			RestTemplate restTemplate = new RestTemplate();
+			
+			restTemplate.put(
+					uriUpdateQuote,
+					informer_session,
+					Informer.class);
+				*/
+		}
+		return quote;
+			
 	}
 	
 

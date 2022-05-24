@@ -27,7 +27,7 @@ public class File {
 	
 	private Status status;
 	
-	private Integer size;
+	private Double size;
 	private Integer previews;
 	private Integer downloads;
 	
@@ -35,7 +35,7 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, Integer size,Integer informerId,Integer validatorId) {
+	public File(String title, String description, List<String> keywords, Double size,Integer informerId,Integer validatorId) {
 		super();
 		
 		this.title = title;
@@ -49,7 +49,7 @@ public class File {
 		this.validatorId = validatorId;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
+	public File(String date, String title, String description, List<String> keywords, Double size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
 		this.added_date = date;
@@ -96,11 +96,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Integer getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 
