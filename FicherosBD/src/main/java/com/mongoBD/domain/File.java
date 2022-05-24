@@ -18,6 +18,7 @@ public class File {
 	@Id
 	private String id;
 	private Integer informerId;
+	private Integer validatorId;
 	private String added_date;
 	private String title;
 	private String description;
@@ -34,7 +35,7 @@ public class File {
 		super();
 	}
 	
-	public File(Integer informerId,String title, String description, List<String> keywords, Integer size) {
+	public File(String title, String description, List<String> keywords, Integer size,Integer informerId,Integer validatorId) {
 		super();
 		
 		this.title = title;
@@ -45,6 +46,7 @@ public class File {
 		this.downloads = 0;
 		this.size = size;
 		this.informerId = informerId;
+		this.validatorId = validatorId;
 	}
 
 	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
@@ -148,6 +150,14 @@ public class File {
 
 	public void setInformerId(Integer informerId) {
 		this.informerId = informerId;
+	}
+	
+	public Integer getInValidatorId() {
+		return validatorId;
+	}
+
+	public void setValidatorId(Integer validatorId) {
+		this.validatorId = validatorId;
 	}
 
 	public void setData(List<Object> data) {

@@ -68,4 +68,13 @@ public class FilesBDController {
 		return files;
 		
 	}
+	
+	@GetMapping("/file/{id}")
+	public File getFileId(@PathVariable(value = "id") String id) {
+		
+		File file = fs.getFileId(id);
+		
+		return file;
+		
+	}
 }

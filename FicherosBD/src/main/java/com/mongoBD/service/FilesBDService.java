@@ -50,6 +50,8 @@ public class FilesBDService {
 	
 	public File updateFile(File file)
 	{
+		
+		System.out.println("Validator ID " + file.getInValidatorId());
 		File file_update = fr.save(file);
 		
 		return file_update;
@@ -64,6 +66,13 @@ public class FilesBDService {
 	{
 		File[] files = fr.findByStatus("PENDIENTE_REVISION");
 		return files;
+	}
+	
+	public File getFileId(String id)
+	{
+		Optional<File> file_optional = fr.findById(id);
+		File file = file_optional.get();
+		return file;
 	}
 	
 }
