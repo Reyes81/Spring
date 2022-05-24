@@ -24,7 +24,6 @@ import com.api_informers.domain.File;
 import com.api_informers.domain.Informer;
 import com.api_informers.domain.User;
 import com.api_informers.services.FileService;
-import com.api_informers.services.InformersService;
 import com.api_informers.services.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,14 +43,11 @@ public class FileController {
 	@Autowired 
 	UsersService us;
 	
-	@Autowired
-	InformersService is;
-	
 	//PF3. Subir un fichero de datos
 	@PostMapping(value="/newFile")
 	public void createPost(@RequestParam MultipartFile file, @RequestParam String title, 
 										   @RequestParam String description, @RequestParam List<String> keywords,
-										   @RequestParam Double size,
+										   @RequestParam Integer size,
 										   HttpServletRequest request) throws IOException {
 		
 		//Comprobar que el archivo subido es de formato JSON
@@ -59,10 +55,6 @@ public class FileController {
 		
 		if(!format.equals("application/json")) {
 			throw new IOException("File format not supported. Only JSON is supported.");
-		}
-		
-		if(is.updateQuote(size) < 0) {
-			throw new IOException("The size of the file exceeds the assigned annual quota.");
 		}
 		
 		User user_session = us.getUserSession();
