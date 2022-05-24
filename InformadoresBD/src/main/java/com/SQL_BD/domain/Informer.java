@@ -43,8 +43,8 @@ public class Informer {
 	@Column(name="informer_id",nullable=false)
 	private Integer id;
 	
-	/*@OneToMany(mappedBy = "informer")
-	private List<File> files;*/
+	@OneToMany(mappedBy = "informer_id")
+	private List<File> files;
 	
 	@Column(name="user_id")
 	private Integer user_id;
@@ -171,15 +171,13 @@ public class Informer {
 	}
 	
 	
-
-	/*
-	public List<Fichero> getFicheros() {
-		return ficheros;
+	public List<File> getFiles() {
+		return files;
 	}
 
-	public void setFicheros(List<Fichero> ficheros) {
-		this.ficheros = ficheros;
+	public void setFiles(List<File> files) {
+		this.files = files;
 	}
-	*/
+	
 	
 }

@@ -26,5 +26,18 @@ public class FilesBDService {
 		return file;
 	}
 	
+	public File updateFile(File file)
+	{
+		File file_update = fr.save(file);
+		
+		return file_update;
+	}
+	
+	public File[] findInformerByFileId(String id)
+	{
+		File[] files = fr.findInformerUserIdById(id);
+		return files;
+	}
+	
 
 }

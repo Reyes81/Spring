@@ -28,7 +28,7 @@ public class Validator {
 	@Column(name="user_id")
 	private Integer user_id;
 	
-	@OneToMany(mappedBy = "validator")
+	@OneToMany(mappedBy = "validator_id")
 	private List<File> files;
 	
 	private String name;

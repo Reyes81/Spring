@@ -25,7 +25,7 @@ public class File {
 	private Integer informer_id;
 	
     @Column(name = "validator_user_id")
-	private Integer validator;
+	private Integer validator_id;
 	
 	private Integer previews;
 	

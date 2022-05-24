@@ -14,5 +14,6 @@ import com.SQL_BD.domain.Informer;
 @Repository
 public interface FilesBDRepository extends JpaRepository<File, Integer>{
 	
+	public File[] findInformerUserIdById(String id);
 
 }

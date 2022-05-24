@@ -42,14 +42,6 @@ public class FileController {
 	
 	@Autowired 
 	UsersService us;
-
-	@GetMapping("/newFile")
-	 public ModelAndView handleRequestNewFile(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-
-	        return new ModelAndView("newFile.html");
-
-	    }
 	
 	//PF3. Subir un fichero de datos
 	@PostMapping(value="/newFile")
@@ -58,9 +50,16 @@ public class FileController {
 										   @RequestParam Integer size,
 										   HttpServletRequest request) throws IOException {
 		
+		//Comprobar que el archivo subido es de formato JSON
+		String format = file.getContentType();
+		
+		if(!format.equals("application/json")) {
+			throw new IOException("File format not supported. Only JSON is supported.");
+		}
+		
 		User user_session = us.getUserSession();
-		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
 		ObjectMapper mapper = new ObjectMapper();
+		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
 		
 		File fichero = fs.createFileMongoDB(user_session,title, description, keywords, size, data);

@@ -179,5 +179,5 @@ public class InformersBDService {
 			ir.deleteById(id);
 		}
 		
-	
+		
 }

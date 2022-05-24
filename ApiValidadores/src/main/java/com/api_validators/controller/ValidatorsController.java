@@ -1,10 +1,13 @@
 package com.api_validators.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.api_validators.domain.File;
+import com.api_validators.domain.FileInformers;
 import com.api_validators.domain.Informer;
 import com.api_validators.services.ValidatorsService;
 
@@ -23,14 +27,13 @@ import com.api_validators.services.ValidatorsService;
 @RequestMapping(value="/api/validador")
 public class ValidatorsController {
 	
-	
-	
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	static final String uriGetPendingFiles = "http://localhost:8083/api/files/pendientes";
 	static final String uriPublishFile = "http://localhost:8082/api/files/publish/{id}";
-	static final String uriGetPendingFilesInformers = "http://localhost:8081/api/informadoresBD/pendientes";
+	static final String uriGetPendingFilesInformers= "http://localhost:8081/api/files/informers";
+
 	
 	@Autowired
 	ValidatorsService vs;
@@ -97,15 +100,33 @@ public class ValidatorsController {
 	
 	//VF5. Obtener el listado de ficheros pendientes de revision
 	@GetMapping(value="/files/pendientes")
-	public File[] getPendingFiles(){
+	public FileInformers[] getPendingFiles(){
 		
 		RestTemplate restTemplate = new RestTemplate();
 		RestTemplate restTemplate2 = new RestTemplate();
+		
+		//Ficheros pendientes de revision
 		File[] files = restTemplate.getForObject(
 					 uriGetPendingFiles,
 					 File[].class);
 		
-		return files;
+		List<FileInformers> file_informers = new ArrayList<FileInformers>();
+		
+		for(File file:files) {
+			FileInformers file_informer = new FileInformers();
+			file_informer.setId(file.getId());
+			file_informer.setDescription(file.getDescription());
+			file_informer.setData(file.getData());
+			file_informer.setTitle(file.getTitle());
+			file_informers.add(file_informer);
+		}
+	
+		FileInformers[] complete_files_informers = restTemplate.postForObject(
+							uriGetPendingFilesInformers,
+							file_informers,
+							FileInformers[].class);
+		
+		return complete_files_informers;
 	}
 	
 	//VF6. Publicar un fichero

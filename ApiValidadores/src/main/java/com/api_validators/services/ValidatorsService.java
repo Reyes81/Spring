@@ -23,16 +23,22 @@ public class ValidatorsService {
 	static final String uriGetValidator = "http://localhost:8081/api/informadoresBD/validador/{username}";
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
+	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit";
 	
 	public Validator getValidatorSession() {
 		Validator validator_session = null;
 		
 		User user_session = us.getUserSession();
 		
+		System.out.println(user_session);
+		
 		RestTemplate restTemplate = new RestTemplate();
+		
 		validator_session = restTemplate.getForObject(
 				uriGetValidator,
 				 Validator.class,user_session.getUsername());
+		
+		System.out.println(validator_session);
 		
 		return validator_session; 
 	}
@@ -104,11 +110,19 @@ public class ValidatorsService {
 		file.setValidatorId(validator_session.getId());
 		
 		RestTemplate restTemplate2 = new RestTemplate();
+		RestTemplate restTemplate3 = new RestTemplate();
 		
 		restTemplate2.put(
 				uriEditFileMongo,
 				file,
 				File.class);
+		
+		restTemplate3.put(
+				uriEditFileSQL,
+				file,
+				File.class);
+		
+		
 		
 		/*
 		RestTemplate restTemplate = new RestTemplate();
