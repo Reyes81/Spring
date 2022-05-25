@@ -178,6 +178,7 @@ public class InformersBDService {
 			informer_bd.setType(informer.getType());
 			informer_bd.seteMail(informer.geteMail());
 			informer_bd.setPassword(informer.getPassword());
+			informer_bd.setQuote(informer.getQuote());
 			
 			ir.save(informer_bd);
 			

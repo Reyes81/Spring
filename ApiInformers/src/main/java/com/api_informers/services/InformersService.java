@@ -19,16 +19,21 @@ public class InformersService {
 	@Autowired
 	UsersService us;
 	
-	public Informer updateInformer(Informer informer)
-	{
+	public Informer getInformerSession() {
 		User user_session = us.getUserSession();
-	
+		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		Informer informer_update  = restTemplate.getForObject(
+		Informer informer_session  = restTemplate.getForObject(
 				uriGetInformer,
 				 Informer.class,user_session.getUsername());
 		
+		return informer_session;
+	}
+	
+	public Informer updateInformer(Informer informer)
+	{
+		Informer informer_update = getInformerSession();
 		if(informer_update.getStatus()==Status.ACTIVO) {
 		
 			if(informer.getNif()!=null)
@@ -91,5 +96,25 @@ public class InformersService {
 		return informer;
 	}
 	
-
+	public Double updateQuote(Double size) {
+		
+		Informer informer = getInformerSession();
+		
+		Double quote = informer.getQuote() - size;
+		RestTemplate restTemplate = new RestTemplate();
+		
+				
+		if(quote >= 0) {
+			System.out.println("Quote: " + quote);
+			informer.setQuote(quote);
+			RestTemplate restTemplate2 = new RestTemplate();
+			
+			restTemplate2.put(
+					uriEditInformer,
+					informer,
+					Informer.class);
+		}
+		
+		return quote;
+	}
 }

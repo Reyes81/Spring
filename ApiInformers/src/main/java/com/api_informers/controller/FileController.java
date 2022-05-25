@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.api_informers.domain.File;
-import com.api_informers.domain.Informer;
 import com.api_informers.domain.User;
 import com.api_informers.services.FileService;
+import com.api_informers.services.InformersService;
 import com.api_informers.services.UsersService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -43,6 +39,9 @@ public class FileController {
 	@Autowired 
 	UsersService us;
 	
+	@Autowired 
+	InformersService is;
+	
 	//PF3. Subir un fichero de datos
 	@PostMapping(value="/newFile")
 	public void createPost(@RequestParam MultipartFile file, @RequestParam String title, 
@@ -55,6 +54,10 @@ public class FileController {
 		
 		if(!format.equals("application/json")) {
 			throw new IOException("File format not supported. Only JSON is supported.");
+		}
+		
+		if(is.updateQuote(size) < 0) {
+			throw new IOException("The size of the file exceeds the assigned annual quota.");
 		}
 		
 		User user_session = us.getUserSession();
