@@ -1,9 +1,11 @@
 package com.api_validators.services;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.api_validators.BroadcastConfig;
 import com.api_validators.domain.File;
 import com.api_validators.domain.File.Status;
 import com.api_validators.domain.Informer;
@@ -12,6 +14,9 @@ import com.api_validators.domain.Validator;
 
 @Service
 public class ValidatorsService {
+	
+	@Autowired
+	RabbitTemplate rabbitTemplate;
 	
 	@Autowired
 	UsersService us;
@@ -122,9 +127,11 @@ public class ValidatorsService {
 				file,
 				File.class);
 		
+		String routingKey = "file.validador";
+		rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
 		
 		
-		/*
+		/*// No sé si esta llamada se hace desde el procesador
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.getForObject(
 					 uriPublishFile,
