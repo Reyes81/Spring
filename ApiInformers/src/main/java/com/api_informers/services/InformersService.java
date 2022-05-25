@@ -24,6 +24,7 @@ public class InformersService {
 		User user_session = us.getUserSession();
 	
 		RestTemplate restTemplate = new RestTemplate();
+		
 		Informer informer_update  = restTemplate.getForObject(
 				uriGetInformer,
 				 Informer.class,user_session.getUsername());
@@ -40,6 +41,7 @@ public class InformersService {
 				informer_update.setType(informer.getType());
 			if(informer.geteMail()!=null)
 				informer_update.seteMail(informer.geteMail());
+			
 			
 			us.updateUser(informer_update.geteMail(),informer_update.getPassword());
 			

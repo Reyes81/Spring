@@ -2,6 +2,7 @@ package com.SQL_BD.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -169,9 +170,18 @@ public class InformersBDService {
 		
 		public Informer updateInformer(Informer informer)
 		{
-			Informer informer_update = ir.save(informer);
+			Integer id = informer.getId();
 			
-			return informer_update;
+			Informer informer_bd = ir.getById(id);
+			informer_bd.setNif(informer.getNif());
+			informer_bd.setName(informer.getName());
+			informer_bd.setType(informer.getType());
+			informer_bd.seteMail(informer.geteMail());
+			informer_bd.setPassword(informer.getPassword());
+			
+			ir.save(informer_bd);
+			
+			return informer_bd;
 		}
 		
 		public void deleteInformer(Integer id)

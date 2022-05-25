@@ -5,21 +5,12 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import lombok.Data;
 
 @Data
-public class File {
+public class FileConsumer {
 	
-	final int maxSize=500;
-	
-	enum Status {
-		PENDIENTE_REVISION,
-		PREPARACION,
-		ERRONEO,
-		PUBLICADO
-	};
 
 	private String id;
 
@@ -37,61 +28,27 @@ public class File {
 	//@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")
 	private List<Object> data;
 	
-	private Status status;
-	
-	private Integer downloads;
-	private Integer previews;
-	
 	@NotNull
-	@Size(max=maxSize)
 	private Double size;
 	
 	private Integer informer_id;
 	
-	public File() {
+	public FileConsumer() {
 		super();
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Double size) {
+	public FileConsumer(String id, String title, String description, LocalDateTime added_date, List<Object> data, List<String> keywords, Integer informer_id,  Double size) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.added_date = added_date;
 		this.keywords = keywords;
-		this.status = Status.PENDIENTE_REVISION;
 		this.data = data;
-		this.downloads = 0;
-		this.previews = 0;
 		this.size = size;
 		this.informer_id = informer_id;
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
-		super();
-		
-		this.title = title;
-		this.description = description;
-		this.keywords = keywords;
-		this.status = Status.PENDIENTE_REVISION;
-		this.size = size;
-		this.downloads = 0;
-		this.previews = 0;
-		this.informer_id = informer_id;
-	}
-
-	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
-			Integer downloads, List<Object> data) {
-		super();
-		this.added_date = date;
-		this.title = title;
-		this.description = description;
-		this.keywords = keywords;
-		this.status = Status.PENDIENTE_REVISION;
-		this.size = size;
-		this.data = data;
-		this.downloads = 0;
-		this.previews = 0;
-	}
-
 	public Integer getInformerId() {
 		return informer_id;
 	}
@@ -124,14 +81,6 @@ public class File {
 		this.keywords = keywords;
 	}
 
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setState(Status status) {
-		this.status = status;
-	}
-
 	public Double getSize() {
 		return size;
 	}
@@ -147,11 +96,7 @@ public class File {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
+	
 	public List<Object> getData() {
 		return data;
 	}
@@ -167,24 +112,5 @@ public class File {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public void setDownloads(Integer downloads)
-	{
-		this.downloads = downloads;
-	}
-	
-	public void setPreviews(Integer previews)
-	{
-		this.previews = previews;
-	}
-	
-	public Integer getDownloads() {
-		return this.downloads;
-	}
-	
-	public Integer getPreviews() {
-		return this.previews;
-	}
-	
 	
 }

@@ -52,6 +52,7 @@ public class InformersBDController {
 	public Informer getInformer(@PathVariable(value = "username") String username) {
 		System.out.println(username);
 		Informer informer = is.getInformer(username);
+		System.out.println(informer);
 		return informer;
 	}
 	

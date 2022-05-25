@@ -68,10 +68,8 @@ public class FilesBDController {
 	}
 	
 	@GetMapping("/file/{id}")
-	public File findById(@PathVariable(value = "id") Integer id) {
-		
-		File file = fs.findById(null);
-		
+	public File findById(@PathVariable(value = "id") String id) {
+		File file = fs.findById(id);
 		return file;
 	}
 

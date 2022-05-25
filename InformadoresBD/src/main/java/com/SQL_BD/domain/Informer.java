@@ -47,7 +47,7 @@ public class Informer {
 	private List<File> files;
 	
 	@Column(name="user_id")
-	private Integer user_id;
+	private Integer userId;
 	
 	@Column(name="nif_cif", nullable=false)
 	private String nif;
@@ -107,11 +107,11 @@ public class Informer {
 	}
 	
 	public Integer getUserId() {
-		return this.user_id;
+		return this.userId;
 	}
 
 	public void setUserId(Integer user_id) {
-		this.id = user_id;
+		this.userId = user_id;
 	}
 
 	public String getNif() {

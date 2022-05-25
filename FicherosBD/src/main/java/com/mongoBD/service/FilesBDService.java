@@ -70,8 +70,7 @@ public class FilesBDService {
 	
 	public File getFileId(String id)
 	{
-		Optional<File> file_optional = fr.findById(id);
-		File file = file_optional.get();
+		File file = fr.getById(id);
 		return file;
 	}
 	

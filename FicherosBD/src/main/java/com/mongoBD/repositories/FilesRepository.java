@@ -12,5 +12,7 @@ public interface FilesRepository  extends MongoRepository<File, String>{
 	public List<File> findByinformerId(Integer informer_id);
 	
 	public File[] findByStatus(String status);
+
+	public File getById(String id);
 	
 }

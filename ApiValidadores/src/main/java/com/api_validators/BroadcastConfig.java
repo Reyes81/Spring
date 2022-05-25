@@ -11,7 +11,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //Configuramos el escenario aqui porque solo lo lanzamos una vez
 @Configuration
@@ -43,4 +43,5 @@ public class BroadcastConfig {
     public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
         return new RabbitAdmin(connectionFactory);
     }
+	
 }

@@ -29,8 +29,6 @@ public class File {
 	private Status status;
 	
 	private Double size;
-	private Integer previews;
-	private Integer downloads;
 	
 	public File() {
 		super();
@@ -43,8 +41,6 @@ public class File {
 		this.description = description;
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
-		this.previews = 0;
-		this.downloads = 0;
 		this.size = size;
 		this.informerId = informerId;
 		this.validatorId = validatorId;
@@ -59,8 +55,6 @@ public class File {
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
 		this.size = size;
-		this.previews = previews;
-		this.downloads = downloads;
 		this.data = data;
 	}
 
@@ -103,22 +97,6 @@ public class File {
 
 	public void setSize(Double size) {
 		this.size = size;
-	}
-
-	public Integer getPreviews() {
-		return previews;
-	}
-
-	public void setPreviews(Integer previews) {
-		this.previews = previews;
-	}
-
-	public Integer getDownloads() {
-		return downloads;
-	}
-
-	public void setDownloads(Integer downloads) {
-		this.downloads = downloads;
 	}
 
 	public String getDescription() {

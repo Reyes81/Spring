@@ -1,9 +1,12 @@
 package com.api_consumers.services;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_consumers.domain.File;
+import com.api_consumers.domain.FileConsumer;
 
 @Service
 public class ConsumersService {
@@ -11,8 +14,9 @@ public class ConsumersService {
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
 	static final String uriDownloadFileSQL= "http://localhost:8081/api/files/file/{id}";
 	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit";
+	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
 	
-	public File downloadFile(String id) {
+	public FileConsumer downloadFile(String id){
 		
 		//Capturar excepción si no existe el id //
 		
@@ -21,15 +25,15 @@ public class ConsumersService {
 		File file= restTemplate.getForObject(
 		uriGetFileMongoId,
 		File.class,id);
-		
+
 		//Obtenemos el fichero de SQL con el id
 		RestTemplate restTemplate2 = new RestTemplate();
 		File file_sql = restTemplate2.getForObject(
 		uriDownloadFileSQL,
 		File.class,id);
 		
-		//Incrementamos el valor de downloads e incrementamos el mismo
-		Integer downloads = file.getDownloads() + 1;
+		//Incrementamos el valor de downloads
+		Integer downloads = file_sql.getDownloads() + 1;
 		file_sql.setDownloads(downloads);
 		
 		//Actualizamos el fichero en SQL
@@ -39,7 +43,9 @@ public class ConsumersService {
 		file_sql,
 		File.class);
 		
-		return file;
+		FileConsumer file_consumer = new FileConsumer(file.getId(), file.getTitle(), file.getDescription(), file.getAdded_date(), file.getData(), file.getKeywords(), file.getInformer_id(), file.getSize());
+		
+		return file_consumer;
 	}
 	
 	
