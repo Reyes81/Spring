@@ -1,44 +1,112 @@
 package com.api_consumers.domain;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
 public class File {
 	
-	//Conviene utilizar Date pero de momento lo dejo con String
-	private String date;
+	final int maxSize=500;
+	
+	enum Status {
+		PENDIENTE_REVISION,
+		PREPARACION,
+		ERRONEO,
+		PUBLICADO
+	};
+
+	private String id;
+
+	private LocalDateTime added_date;
+	
+	@NotEmpty
 	private String title;
-	private String keywords;
 	
-	//Conviene utilizar Enum Pendiente de Revisión, En Preparación, Erróneo, Publicado
-	private String state;
+	@NotEmpty
+	private String description;
 	
-	private Float size;
+	@NotEmpty
+	private List<String> keywords;
+	
+	//@Pattern(regexp="(.*?)\\.(json|JSON)$\r\n")
+	private List<Object> data;
+	
+	private Status status;
+	
+	@NotNull
+	@Size(max=maxSize)
+	private Double size;
+
 	private Integer previews;
+	
 	private Integer downloads;
+	
+	private Integer informer_id;
 	
 	public File() {
 		super();
 	}
-
-	public File(String date, String title, String keywords, String state, Float size, Integer previews,
-			Integer downloads) {
+	
+	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Double size) {
 		super();
-		this.date = date;
 		this.title = title;
+		this.description = description;
 		this.keywords = keywords;
-		this.state = state;
+		this.status = Status.PENDIENTE_REVISION;
+		this.previews = 0;
+		this.downloads = 0;
+		this.data = data;
+		this.size = size;
+		this.informer_id = informer_id;
+	}
+	
+	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
+		super();
+		
+		this.title = title;
+		this.description = description;
+		this.keywords = keywords;
+		this.status = Status.PENDIENTE_REVISION;
+		this.previews = 0;
+		this.downloads = 0;
+		this.size = size;
+		this.informer_id = informer_id;
+	}
+
+	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
+			Integer downloads, List<Object> data) {
+		super();
+		this.added_date = date;
+		this.title = title;
+		this.description = description;
+		this.keywords = keywords;
+		this.status = Status.PENDIENTE_REVISION;
 		this.size = size;
 		this.previews = previews;
 		this.downloads = downloads;
+		this.data = data;
 	}
 
-	public String getDate() {
-		return date;
+	public Integer getInformerId() {
+		return informer_id;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setInformerId(Integer informer_id) {
+		this.informer_id = informer_id;
+	}
+	
+	public LocalDateTime getDate() {
+		return added_date;
+	}
+
+	public void setDate(LocalDateTime added_date) {
+		this.added_date = added_date;
 	}
 
 	public String getTitle() {
@@ -49,27 +117,27 @@ public class File {
 		this.title = title;
 	}
 
-	public String getKeywords() {
+	public List<String> getKeywords() {
 		return keywords;
 	}
 
-	public void setKeywords(String keywords) {
+	public void setKeywords(List<String> keywords) {
 		this.keywords = keywords;
 	}
 
-	public String getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setState(Status status) {
+		this.status = status;
 	}
 
-	public Float getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(Float size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 
@@ -88,4 +156,34 @@ public class File {
 	public void setDownloads(Integer downloads) {
 		this.downloads = downloads;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public List<Object> getData() {
+		return data;
+	}
+
+	public void setData(List<Object> data) {
+		this.data = data;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	
 }

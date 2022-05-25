@@ -1,16 +1,13 @@
 package com.api_informers.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.Data;
 
@@ -28,7 +25,7 @@ public class File {
 
 	private String id;
 
-	private String added_date;
+	private LocalDateTime added_date;
 	
 	@NotEmpty
 	private String title;
@@ -47,7 +44,7 @@ public class File {
 	
 	@NotNull
 	@Size(max=maxSize)
-	private Integer size;
+	private Double size;
 
 	private Integer previews;
 	
@@ -59,7 +56,7 @@ public class File {
 		super();
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, List<Object> data, Double size) {
 		super();
 		this.title = title;
 		this.description = description;
@@ -72,7 +69,7 @@ public class File {
 		this.informer_id = informer_id;
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, Integer size) {
+	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
 		super();
 		
 		this.title = title;
@@ -85,7 +82,7 @@ public class File {
 		this.informer_id = informer_id;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
+	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
 		this.added_date = date;
@@ -107,11 +104,11 @@ public class File {
 		this.informer_id = informer_id;
 	}
 	
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return added_date;
 	}
 
-	public void setDate(String added_date) {
+	public void setDate(LocalDateTime added_date) {
 		this.added_date = added_date;
 	}
 
@@ -139,11 +136,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Integer getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 
@@ -173,14 +170,6 @@ public class File {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public String getAdded_date() {
-		return added_date;
-	}
-
-	public void setAdded_date(String added_date) {
-		this.added_date = added_date;
 	}
 
 	public List<Object> getData() {

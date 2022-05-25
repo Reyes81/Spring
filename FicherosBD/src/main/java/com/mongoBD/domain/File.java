@@ -1,5 +1,6 @@
 package com.mongoBD.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -19,7 +20,7 @@ public class File {
 	private String id;
 	private Integer informerId;
 	private Integer validatorId;
-	private String added_date;
+	private LocalDateTime added_date;
 	private String title;
 	private String description;
 	private List<String> keywords;
@@ -27,7 +28,7 @@ public class File {
 	
 	private Status status;
 	
-	private Integer size;
+	private Double size;
 	private Integer previews;
 	private Integer downloads;
 	
@@ -35,7 +36,7 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, Integer size,Integer informerId,Integer validatorId) {
+	public File(String title, String description, List<String> keywords, Double size,Integer informerId,Integer validatorId) {
 		super();
 		
 		this.title = title;
@@ -49,7 +50,7 @@ public class File {
 		this.validatorId = validatorId;
 	}
 
-	public File(String date, String title, String description, List<String> keywords, Integer size, Integer previews,
+	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
 		this.added_date = date;
@@ -64,11 +65,11 @@ public class File {
 	}
 
 
-	public String getDate() {
+	public LocalDateTime getDate() {
 		return added_date;
 	}
 
-	public void setDate(String added_date) {
+	public void setDate(LocalDateTime added_date) {
 		this.added_date = added_date;
 	}
 
@@ -96,11 +97,11 @@ public class File {
 		this.status = status;
 	}
 
-	public Integer getSize() {
+	public Double getSize() {
 		return size;
 	}
 
-	public void setSize(Integer size) {
+	public void setSize(Double size) {
 		this.size = size;
 	}
 
@@ -130,14 +131,6 @@ public class File {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public String getAdded_date() {
-		return added_date;
-	}
-
-	public void setAdded_date(String added_date) {
-		this.added_date = added_date;
 	}
 
 	public List<Object> getData() {

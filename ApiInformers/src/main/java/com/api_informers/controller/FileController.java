@@ -47,7 +47,7 @@ public class FileController {
 	@PostMapping(value="/newFile")
 	public void createPost(@RequestParam MultipartFile file, @RequestParam String title, 
 										   @RequestParam String description, @RequestParam List<String> keywords,
-										   @RequestParam Integer size,
+										   @RequestParam Double size,
 										   HttpServletRequest request) throws IOException {
 		
 		//Comprobar que el archivo subido es de formato JSON

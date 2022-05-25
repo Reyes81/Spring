@@ -39,5 +39,11 @@ public class FilesBDService {
 		return files;
 	}
 	
+	public File findById(String id) {
+		
+		File file = fr.findById(id).get();
+		
+		return file;
+	}
 
 }

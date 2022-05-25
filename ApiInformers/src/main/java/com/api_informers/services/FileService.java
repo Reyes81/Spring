@@ -41,7 +41,7 @@ public class FileService {
 	}
 	
 	
-	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Integer size, List<Object> data) {
+	public File createFileMongoDB(User user_session,String title,String description, List<String> keywords, Double size, List<Object> data) {
 	
 		File file = null;
 		File new_file = null;

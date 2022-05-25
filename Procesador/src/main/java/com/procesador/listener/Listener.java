@@ -13,7 +13,7 @@ public class Listener {
 	@Autowired
 	ProcesadorService ps;
 	
-	//Procesador
+	//Procesador recoge el fichero de la cola "Validador" del Exchange de Rabbit
 	@RabbitListener(queues="VALIDADOR")
     public void processFile(File file) {
     	ps.processedFile(file);
