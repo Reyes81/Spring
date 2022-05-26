@@ -65,6 +65,20 @@ public class FilesBDService {
 	public File[] getPendingFiles()
 	{
 		File[] files = fr.findByStatus("PENDIENTE_REVISION");
+		for(File f:files)
+		{
+			List<Object> all_data = f.getData();
+			List<Object> limit_data = new ArrayList<Object>();
+			
+			//Limitar observaciones a 10
+			if(all_data.size() > 10){
+				for(int i = 0; i < 10; i++){
+					limit_data.add(all_data.get(i));
+				}
+				f.setData(limit_data);
+			}
+			
+		}
 		return files;
 	}
 	

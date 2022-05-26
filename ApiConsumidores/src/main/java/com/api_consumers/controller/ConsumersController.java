@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api_consumers.domain.File;
+import com.api_consumers.domain.FileByUsername;
 import com.api_consumers.domain.FileConsumer;
 import com.api_consumers.services.ConsumersService;
 
@@ -22,12 +23,10 @@ public class ConsumersController {
 	@Autowired
 	ConsumersService cs;
 	
-	//CF2
+	//CF2. Obtener listado de ficheros por nombre de productor
 	@GetMapping("files/informador/{username}")
-	public ResponseEntity<File[]> getFilesByInformerName(@PathVariable(value="name") String name){
-		
-		File[] files = cs.getFilesByInformerName(name);
-		
+	public ResponseEntity<FileByUsername[]> getFilesByInformerName(@PathVariable(value="username") String name){
+		FileByUsername[] files = cs.getFilesByInformerName(name);
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
 	

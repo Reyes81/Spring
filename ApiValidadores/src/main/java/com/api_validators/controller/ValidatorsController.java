@@ -103,7 +103,6 @@ public class ValidatorsController {
 	public FileInformers[] getPendingFiles(){
 		
 		RestTemplate restTemplate = new RestTemplate();
-		RestTemplate restTemplate2 = new RestTemplate();
 		
 		//Ficheros pendientes de revision
 		File[] files = restTemplate.getForObject(
@@ -113,11 +112,7 @@ public class ValidatorsController {
 		List<FileInformers> file_informers = new ArrayList<FileInformers>();
 		
 		for(File file:files) {
-			FileInformers file_informer = new FileInformers();
-			file_informer.setId(file.getId());
-			file_informer.setDescription(file.getDescription());
-			file_informer.setData(file.getData());
-			file_informer.setTitle(file.getTitle());
+			FileInformers file_informer = new FileInformers(file.getId(), file.getDescription(), file.getData(), file.getTitle() );
 			file_informers.add(file_informer);
 		}
 	

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.SQL_BD.domain.File;
+import com.SQL_BD.domain.FileByUsername;
 import com.SQL_BD.domain.FileInformers;
 import com.SQL_BD.domain.Informer;
 import com.SQL_BD.service.FilesBDService;
@@ -45,13 +46,13 @@ public class FilesBDController {
 	@RequestMapping("/informers")
 	public ResponseEntity<FileInformers[]> getInformers(@RequestBody FileInformers[] file_informer) {
 		
-		
 			for(FileInformers fi:file_informer)
 			{
 				System.out.println(fi);
 				//Todos los files de un informer
 				String file_informer_id = fi.getId();
 				File[] files = fs.findInformerByFileId(file_informer_id);
+				
 				for(File f:files)
 				{
 					Integer informer_id = f.getInformer_id();
@@ -71,6 +72,23 @@ public class FilesBDController {
 	public ResponseEntity<File> findById(@PathVariable(value = "id") String id) {
 		File file = fs.findById(id);
 		return new ResponseEntity<>(file, HttpStatus.OK);
+	}
+	
+	@GetMapping("/username/{username}")
+	public ResponseEntity<List<FileByUsername>> findByUsername(@PathVariable(value = "username") String username){
+		Informer informer = is.getInformerByName(username);
+		File[] files = fs.findByUserId(informer.getId());
+		
+		System.out.println(files.length);
+		List<FileByUsername> files_by_username = new ArrayList<FileByUsername>();
+		
+		for(File file:files) {
+			FileByUsername file_by_username = new FileByUsername(file.getId(), file.getPreviews(), file.getDownloads(), informer.getName());
+			files_by_username.add(file_by_username);
+		}
+		
+		return new ResponseEntity<List<FileByUsername>>(files_by_username, HttpStatus.OK);
+	
 	}
 
 

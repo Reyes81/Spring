@@ -9,8 +9,9 @@ public class FileInformers {
 	private String id;
 	private String title;
 	private String description;
-	private List<Object> data;
 	private String informer_name;
+	private List<Object> data;
+
 	
 	public FileInformers()
 	{
@@ -20,6 +21,14 @@ public class FileInformers {
 		this.informer_name="";
 		
 	}
+	
+	public FileInformers(String id, String description, List<Object> data, String title) {
+		this.id = id;
+		this.description = description;
+		this.title = title;
+		this.data = data;
+
+	};
 	
 	public void setId(String id){
 		this.id = id;

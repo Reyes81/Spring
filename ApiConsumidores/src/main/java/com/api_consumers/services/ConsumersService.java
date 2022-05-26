@@ -1,6 +1,7 @@
 package com.api_consumers.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,8 +10,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.api_consumers.domain.File;
 import com.api_consumers.domain.File.Status;
+import com.api_consumers.domain.FileByUsername;
 import com.api_consumers.domain.FileConsumer;
 import com.api_consumers.domain.Informer;
+
+//FindbyKeywordsContaining
 
 @Service
 public class ConsumersService {
@@ -19,8 +23,10 @@ public class ConsumersService {
 	static final String uriGetFileSQL= "http://localhost:8081/api/files/file/{id}";
 	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
-	static final String uriGetInformerByName = "http://localhost:8081/api/informadoresBD/informador/nombre/{name}";
-	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/informador/{informerId}";
+	static final String uriGetFilesByUsername = "http://localhost:8081/api/files/username/{username}";
+	//static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informador/{informerId}";
+	static final String uriGetFilesById = "http://localhost:8083/api/files/filesById";
+
 	
 	//Método común para obtener un fichero por ID de MongoDB
 	public File getFileMongoId(String id) {
@@ -57,28 +63,33 @@ public class ConsumersService {
 		
 	
 	//CF2
-	public File[] getFilesByInformerName(String name){
+	public FileByUsername[] getFilesByInformerName(String name){
 		
 		//Obtener listado de ficheros por nombre de productor (CF2). Se buscarán solo
 		//ficheros con estado publicado, se indicará el nombre o razón social del productor. Se
 		//obtendrá el identificador del fichero, título, descripción, fecha de creación, formato,
 		//tamaño, número de previsualizaciones y de descargas. No se requerirá
 		//autenticación.
-		
+
 		
 		//Obtenemos informador a partir del nombre o razón social
 		RestTemplate restTemplate = new RestTemplate();
-			Informer informador= restTemplate.getForObject(
-					uriGetInformerByName,
-			Informer.class,name);
+		
+		FileByUsername[] files_by_username= restTemplate.getForObject(
+										uriGetFilesByUsername,
+										FileByUsername[].class, name);
 			
+		System.out.println(files_by_username[0].getFormat());
 		//Obtenemos todos los ficheros del informador por su id
-			RestTemplate restTemplate2 = new RestTemplate();
-			File[] files = restTemplate.getForObject(
-					uriGetAllFilesMongo,
-			File[].class,informador.getId());
+		RestTemplate restTemplate2 = new RestTemplate();
+		
+		FileByUsername[] files = restTemplate2.postForObject(
+				uriGetFilesById,
+				files_by_username,
+				FileByUsername[].class);
 		
 		return files;
+
 	}
 	
 	//CF3

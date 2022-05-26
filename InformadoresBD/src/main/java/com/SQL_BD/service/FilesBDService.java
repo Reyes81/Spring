@@ -45,5 +45,11 @@ public class FilesBDService {
 		
 		return file;
 	}
+	
+	public File[] findByUserId(Integer id) {
+		File[] files = fr.findByInformerUserId(id);
+		
+		return files;
+	}
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.mongoBD.domain.File;
+import com.mongoBD.domain.FileByUsername;
 import com.mongoBD.service.FilesBDService;
 
 @RestController
@@ -75,6 +76,21 @@ public class FilesBDController {
 		File file = fs.getFileId(id);
 		
 		return file;
+		
+	}
+	
+	@RequestMapping("/filesById")
+	public FileByUsername[] getFilesById(@RequestBody FileByUsername[] files) {
+		for(FileByUsername file:files) {
+			System.out.println(file.getPreviews());
+			File f = fs.getFileId(file.getId());
+			file.setTitle(f.getTitle());
+			file.setDescription(f.getDescription());
+			file.setDate(f.getDate());
+			file.setSize(f.getSize());
+			
+		}
+		return files;
 		
 	}
 }
