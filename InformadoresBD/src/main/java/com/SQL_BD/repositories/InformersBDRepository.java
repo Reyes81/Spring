@@ -18,4 +18,6 @@ public interface InformersBDRepository  extends JpaRepository<Informer, Integer>
 	
 	public Informer findByeMail(String email);
 	
+	public Informer findByName(String name);
+	
 }

@@ -58,6 +58,15 @@ public class InformersBDController {
 		return new ResponseEntity<>(informer, HttpStatus.OK);
 	}
 	
+	//Obtenemos informador por nombre o razón social
+	@GetMapping(value= "/informador/nombre/{name}")
+	public ResponseEntity<Informer> getInformerByName(@PathVariable(value = "name") String name) {
+	
+		Informer informer = is.getInformerByName(name);
+		System.out.println(informer);
+		return new ResponseEntity<>(informer, HttpStatus.OK);
+	}
+	
 	@GetMapping(value= "/informador/id/{id}")
 	public ResponseEntity<Informer> getInformer(@PathVariable(value = "id") Integer id) {
 		Informer informer = is.getInformerId(id);

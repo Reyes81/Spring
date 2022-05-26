@@ -14,7 +14,7 @@ public class File {
 	
 	final int maxSize=500;
 	
-	enum Status {
+	public enum Status {
 		PENDIENTE_REVISION,
 		PREPARACION,
 		ERRONEO,

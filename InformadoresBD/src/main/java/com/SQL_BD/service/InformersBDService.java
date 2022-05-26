@@ -53,6 +53,15 @@ public class InformersBDService {
 			return informer;
 		}
 		
+		// Obtener un informador por nombre o razón social
+		public Informer getInformerByName(String name){
+			
+			//Crear una excepción por si no existe el informador
+			Informer informer = ir.findByName(name);
+					
+			return informer;
+		}
+		
 		// Obtener un informador por id
 		public Informer getInformerId(Integer id){
 			
