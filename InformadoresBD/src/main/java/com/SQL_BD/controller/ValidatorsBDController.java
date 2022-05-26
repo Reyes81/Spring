@@ -1,6 +1,8 @@
 package com.SQL_BD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,9 @@ public class ValidatorsBDController {
 	FilesBDService fs;
 	
 	@GetMapping(value= "/validador/{username}")
-	public Validator getValidator(@PathVariable(value = "username") String username) {
+	public ResponseEntity<Validator> getValidator(@PathVariable(value = "username") String username) {
 		System.out.println(username);
 		Validator validator = vs.getValidator(username);
-		return validator;
+		return new ResponseEntity<>(validator, HttpStatus.OK);
 	}
 }

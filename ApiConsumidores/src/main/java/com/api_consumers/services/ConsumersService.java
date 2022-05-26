@@ -16,7 +16,29 @@ public class ConsumersService {
 	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
 	
+
+	
+	//CF3
+	public File previewFile(String id){
+		
+		//Obtener una previsualización de un fichero (CF3). Se proporcionará el identificador
+		//de un fichero publicado y se obtendrán las primeras 10 observaciones del fichero. Se
+		//incrementará el número de previsualizaciones del fichero. No se requerirá
+		//autenticación.
+
+		
+		File file =null;
+		return file;
+		
+	}
+	
+	//CF4
 	public FileConsumer downloadFile(String id){
+		
+		//Obtener un fichero completo (CF4). Se proporcionará el identificador de un fichero
+		//publicado y se obtendrá todo el fichero. Se incrementará el número de descargas del
+		//fichero. No se requerirá autenticación.
+
 		
 		//Capturar excepción si no existe el id //
 		

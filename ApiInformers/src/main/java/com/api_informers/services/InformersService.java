@@ -13,6 +13,7 @@ public class InformersService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
+	static final String uriUpdateQuote = "http://localhost:8081/api/informadoresBD/informadores/actualizarCuota";
 	static final String uriNewInformer = "http://localhost:8081/api/informadoresBD/new";
 	static final String uriNewUser = "http://localhost:8081/api/users/new";
 	
@@ -101,16 +102,14 @@ public class InformersService {
 		Informer informer = getInformerSession();
 		
 		Double quote = informer.getQuote() - size;
-		RestTemplate restTemplate = new RestTemplate();
-		
 				
 		if(quote >= 0) {
 			System.out.println("Quote: " + quote);
 			informer.setQuote(quote);
-			RestTemplate restTemplate2 = new RestTemplate();
+			RestTemplate restTemplate = new RestTemplate();
 			
-			restTemplate2.put(
-					uriEditInformer,
+			restTemplate.put(
+					uriUpdateQuote,
 					informer,
 					Informer.class);
 		}

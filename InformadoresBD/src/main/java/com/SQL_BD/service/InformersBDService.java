@@ -111,7 +111,7 @@ public class InformersBDService {
 		}
 		
 	//VF2. Aprobar un informador
-		public void approveInformer(Integer id) {
+		public Informer approveInformer(Integer id) {
 			
 			Informer informer = ir.getById(id);
 			informer.setStatus(Status.ACTIVO);
@@ -125,6 +125,8 @@ public class InformersBDService {
 							   "eMail: " + informer.geteMail() + "\n" +
 							   "password: " + informer.getPassword());
 			ir.save(informer);
+			
+			return informer;
 		}
 		
 		//Guardar un fichero
@@ -178,10 +180,22 @@ public class InformersBDService {
 			informer_bd.setType(informer.getType());
 			informer_bd.seteMail(informer.geteMail());
 			informer_bd.setPassword(informer.getPassword());
-			informer_bd.setQuote(informer.getQuote());
 			
 			ir.save(informer_bd);
 			
+			return informer_bd;
+		}
+		
+		// Creamos este update porque en el anterior por requisito del proyecto no se puede
+		//actualizar el atributo quote
+		public Informer updateQuote(Informer informer) {
+			
+			Integer id = informer.getId();
+			
+			Informer informer_bd = ir.getById(id);
+			informer_bd.setQuote(informer.getQuote());
+			
+			ir.save(informer_bd);
 			return informer_bd;
 		}
 		

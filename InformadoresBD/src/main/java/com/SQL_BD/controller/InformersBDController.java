@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +30,10 @@ public class InformersBDController {
 	FilesBDService fs;
 	
 	@PostMapping(value= "/new")
-	public Informer newInformer(@RequestBody Informer informer) {
+	public ResponseEntity<Informer> newInformer(@RequestBody Informer informer) {
 		informer.setStatus(Status.PENDIENTE);
 		is.saveInformer(informer);
-		return informer;
+		return new ResponseEntity<>(informer, HttpStatus.OK);
 	}
 	/*
 	@PostMapping(value="/modificarInfo")
@@ -41,56 +43,65 @@ public class InformersBDController {
 	}
 	*/
 	@GetMapping(value= "/informadores")
-	public List<Informer> getAllInformers() {
+	public ResponseEntity<List<Informer>> getAllInformers() {
 
 		List<Informer> informers = new ArrayList<Informer>();
 		informers = is.getAllInformers();
-		return informers;
+		return new ResponseEntity<>(informers, HttpStatus.OK);
 	}
 	
 	@GetMapping(value= "/informador/{username}")
-	public Informer getInformer(@PathVariable(value = "username") String username) {
+	public ResponseEntity<Informer> getInformer(@PathVariable(value = "username") String username) {
 		System.out.println(username);
 		Informer informer = is.getInformer(username);
 		System.out.println(informer);
-		return informer;
+		return new ResponseEntity<>(informer, HttpStatus.OK);
 	}
 	
 	@GetMapping(value= "/informador/id/{id}")
-	public Informer getInformer(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<Informer> getInformer(@PathVariable(value = "id") Integer id) {
 		Informer informer = is.getInformerId(id);
-		return informer;
+		return new ResponseEntity<>(informer, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/informadores/pendientes")
-	public List<Informer> getPendingInformers() {	
+	public ResponseEntity<List<Informer>> getPendingInformers() {	
 			
 		List<Informer> informers = new ArrayList<Informer>();
 		informers = is.getPendingInformers();
-		return informers;
+		return new ResponseEntity<>(informers, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/informadores/cuota")
-	public List<Informer> getQuoteConsumed() {	
+	public ResponseEntity<List<Informer>> getQuoteConsumed() {	
 			
 		List<Informer> informers = new ArrayList<Informer>();
 		informers = is.getQuoteConsumed();
-		return informers;
+		return new ResponseEntity<>(informers, HttpStatus.OK);
 	}
 	
 	//@PutMapping(value="/informadores/validar/{id}")
 	@RequestMapping("/informadores/validar/{id}")
-	public void validateInformer(@PathVariable(value = "id") Integer id) {	
+	public ResponseEntity<Informer> validateInformer(@PathVariable(value = "id") Integer id) {	
 			
-		is.approveInformer(id);
+		Informer informer_validate = is.approveInformer(id);
+		return new ResponseEntity<>(informer_validate, HttpStatus.OK);
 	}
 	
 	
-		@RequestMapping("/informadores/modificarInfo")
-		public void updateInformer(@RequestBody Informer informer) {	
+	@RequestMapping("/informadores/modificarInfo")
+	public ResponseEntity<Informer> updateInformer(@RequestBody Informer informer) {	
 				
-			is.updateInformer(informer);
-		}
+		Informer informer_update = is.updateInformer(informer);
+		return new ResponseEntity<>(informer_update, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/informadores/actualizarCuota")
+	public ResponseEntity<Informer> updateQuote(@RequestBody Informer informer) {	
+				
+		Informer informer_update = is.updateQuote(informer);
+		return new ResponseEntity<>(informer_update, HttpStatus.OK);
+	}
 	
 	//@DeleteMapping(value="/informadores/eliminar/{id}")
 	@RequestMapping("/informadores/eliminar/{id}")

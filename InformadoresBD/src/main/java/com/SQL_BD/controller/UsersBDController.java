@@ -1,6 +1,8 @@
 package com.SQL_BD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,31 +21,31 @@ public class UsersBDController {
 	UsersBDService us;
 	
 	@PostMapping(value= "/new")
-	public User newUser(@RequestBody User user) {
+	public ResponseEntity<User> newUser(@RequestBody User user) {
 		System.out.println("Estamos en el POST");
 		user.setRole("INFORMER");
 		User user_ret = us.saveUser(user);
 		
-		return user_ret;
+		return new ResponseEntity<>(user_ret, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/username/{username}")
-	public User getUserByUserName(@PathVariable(value = "username") String username) {
+	public ResponseEntity<User> getUserByUserName(@PathVariable(value = "username") String username) {
 		User user =us.getUserByUserName(username);
-		return user;
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@GetMapping(value="/id/{id}")
-	public User getUserByUserName(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<User> getUserByUserName(@PathVariable(value = "id") Integer id) {
 		User user =us.getUserById(id);
-		return user;
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value= "/update")
-	public User updtaeUser(@RequestBody User user) {
+	public ResponseEntity<User> updtaeUser(@RequestBody User user) {
 		System.out.println("Estamos en el Put del Updtae");
 		User user_update = us.saveUser(user);
 		
-		return user_update;
+		return new ResponseEntity<>(user_update, HttpStatus.OK);
 	}
 }

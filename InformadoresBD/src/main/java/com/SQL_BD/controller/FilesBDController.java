@@ -68,9 +68,9 @@ public class FilesBDController {
 	}
 	
 	@GetMapping("/file/{id}")
-	public File findById(@PathVariable(value = "id") String id) {
+	public ResponseEntity<File> findById(@PathVariable(value = "id") String id) {
 		File file = fs.findById(id);
-		return file;
+		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
 
 
