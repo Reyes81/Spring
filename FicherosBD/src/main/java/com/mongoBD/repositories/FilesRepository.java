@@ -12,7 +12,8 @@ public interface FilesRepository  extends MongoRepository<File, String>{
 	public List<File> findByinformerId(Integer informer_id);
 	
 	//Da error en el OrderBy
-	//public List<File> findByKeywordsContainingOrderByadded_dateDesc(String keyword);
+	//public List<File> findByKeywordsContainingOrderByAddeddateDesc(String keyword);
+	
 	public List<File> findByKeywordsContaining(String keyword);
 	
 	public List<File> findByKeywordsContainingOrderBySizeDesc(String keyword);

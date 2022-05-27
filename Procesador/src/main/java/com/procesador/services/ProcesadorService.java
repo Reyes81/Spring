@@ -74,12 +74,6 @@ import com.procesador.domain.File.Status;
 				            System.out.println(e);
 				         }
 					}
-					//Obtenemos la fecha y hora actual
-					LocalDateTime added_date = LocalDateTime.now();
-					
-					//Actualizamos el campo added_date del fichero con la fecha de publicación
-					processed_file.setDate(added_date);
-					
 					//Cambiamos el estado del fichero a PUBLICADO
 					processed_file.setState(Status.PUBLICADO);
 				}

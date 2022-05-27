@@ -129,14 +129,5 @@ public class ValidatorsService {
 		
 		String routingKey = "file.validador";
 		rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
-		
-		
-		/*// No sé si esta llamada se hace desde el procesador
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.getForObject(
-					 uriPublishFile,
-					 Integer.class,
-					 id);
-		*/
 	}
 }

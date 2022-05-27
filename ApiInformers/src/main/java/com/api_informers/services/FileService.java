@@ -1,5 +1,6 @@
 package com.api_informers.services;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +42,16 @@ public class FileService {
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			file = new File(informer_session.getId(),title,description, keywords, data,size);
 			System.out.println("Id informador: " + file.getInformer_id());
-			RestTemplate restTemplate2 = new RestTemplate();
+			
+			//Obtenemos la fecha y hora actual
+			LocalDateTime created_date = LocalDateTime.now();
+			
+			//Actualizamos el campo added_date del fichero con la fecha de creación del fichero en el portal
+			file.setDate(created_date);
 			
 			//Fichero a la BD de MongoDB
-			new_file = restTemplate2.postForObject(
+			RestTemplate restTemplate = new RestTemplate();
+			new_file = restTemplate.postForObject(
 				uriNewFileMongo,
 				file,
 				File.class);
@@ -63,6 +70,7 @@ public class FileService {
 		File file = new File();
 		file.setInformerId(informer_id);
 		file.setId(nosql_id);
+		
 		//Fichero a la BD SQL
 		//No va porque alli salen los ids a null
 		
