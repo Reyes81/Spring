@@ -32,54 +32,35 @@ public class ValidatorsService {
 	
 	public Validator getValidatorSession() {
 		Validator validator_session = null;
-		
 		User user_session = us.getUserSession();
-		
-		System.out.println(user_session);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		validator_session = restTemplate.getForObject(
-				uriGetValidator,
-				 Validator.class,user_session.getUsername());
-		
-		System.out.println(validator_session);
+						uriGetValidator,
+						Validator.class,user_session.getUsername());
 		
 		return validator_session; 
 	}
-	public Informer updateInformer(Integer id, Informer informer)
-	{
+	
+	public Informer updateInformer(Integer id, Informer informer){
 
 		RestTemplate restTemplate = new RestTemplate();
 		Informer informer_update  = restTemplate.getForObject(
-				uriGetInformerId,
-				 Informer.class,id);
+								uriGetInformerId,
+								Informer.class,id);
+			
+		us.updateUser(informer_update.getUser_id(),informer.geteMail(),informer.getPassword());
+		informer.setUser_id(informer_update.getUser_id());
+			
+		RestTemplate restTemplate2 = new RestTemplate();
+		restTemplate2.put(
+						uriEditInformer,
+						informer,
+						Informer.class);
 		
-			if(informer.getNif()!=null)
-				informer_update.setNif(informer.getNif());
-			if(informer.getName()!=null)
-				informer_update.setName(informer.getName());
-			if(informer.getType()!=null)
-				informer_update.setType(informer.getType());
-			if(informer.getStatus()!=null)
-				informer_update.setStatus(informer.getStatus());
-			if(informer.geteMail()!=null)
-				informer_update.seteMail(informer.geteMail());
-			if(informer.getPassword()!=null)
-				informer_update.setPassword(informer.getPassword());
-			if(informer.getQuote()!=null)
-				informer_update.setQuote(informer.getQuote());
-			
-			us.updateUser(informer_update.getUser_id(),informer_update.geteMail(),informer_update.getPassword());
-			
-			RestTemplate restTemplate2 = new RestTemplate();
-			restTemplate2.put(
-					uriEditInformer,
-					informer_update,
-					Informer.class);
-			
-		return informer_update;
-		}
+		return informer;
+	}
 	
 	public Informer[] getAllInformers () {
 		

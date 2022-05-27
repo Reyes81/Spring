@@ -30,6 +30,8 @@ public class ConsumersService {
 	static final String uriGetFilesByUsername = "http://localhost:8081/api/files/username/{username}";
 	//static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informador/{informerId}";
 	static final String uriGetFilesById = "http://localhost:8083/api/files/filesById";
+	static final String uriGetFilesbyKeywordDate = "http://localhost:8083/api/files/file/keyword/fecha/{keyword}";
+	static final String uriGetFilesbyKeywordSize = "http://localhost:8083/api/files/file/keyword/size/{keyword}";
 
 	
 	//Método común para obtener un fichero por ID de MongoDB
@@ -66,17 +68,23 @@ public class ConsumersService {
 	}
 	
 	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
-	public List<File> getFilesByKeyWordsDate(String kewyword){
-		//Todo
-		List<File> files = null;
-			
+	public File[] getFilesByKeyWordsDate(String keyword){
+		RestTemplate restTemplate = new RestTemplate();
+		
+		File[] files =  restTemplate.getForObject(
+					uriGetFilesbyKeywordDate,
+					File[].class, keyword);
+		
 		return files;
 	}
 		
 	//CF1-b.Listado de Ficheros por palabara clave ordenados por tamaño
-	public List<File> getFilesByKeyWordsSize(String keyword){
-		//Todo
-		List<File> files = null;
+	public File[] getFilesByKeyWordsSize(String keyword){
+		RestTemplate restTemplate = new RestTemplate();
+		
+		File[] files =  restTemplate.getForObject(
+				uriGetFilesbyKeywordSize,
+				File[].class, keyword);
 							
 		return files;
 	}
@@ -105,8 +113,7 @@ public class ConsumersService {
 		FileByUsername[] files_by_username= restTemplate.getForObject(
 										uriGetFilesByUsername,
 										FileByUsername[].class, name);
-			
-		System.out.println(files_by_username[0].getFormat());
+		
 		//Obtenemos todos los ficheros del informador por su id
 		RestTemplate restTemplate2 = new RestTemplate();
 		

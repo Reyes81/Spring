@@ -20,7 +20,6 @@ import com.procesador.domain.File.Status;
 			
 			//Recorremos el array de Keywords
 			for(String keyword : file.getKeywords()) {
-				System.out.println(keyword);
 				
 				//Si un keyword es error actualizamos el estado en el fichero
 				if(keyword.equals("error")) {

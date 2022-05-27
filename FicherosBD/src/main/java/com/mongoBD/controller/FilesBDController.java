@@ -30,7 +30,6 @@ public class FilesBDController {
 	public ResponseEntity<File> createPost(@RequestBody File file) {
 		System.out.println("Id informador: " + file.getInformerId());
 		File f = fs.create(file);
-		
 		return new ResponseEntity<>(f, HttpStatus.OK);
 	} 
 	
@@ -42,75 +41,54 @@ public class FilesBDController {
 	
 	@GetMapping("/informador/{informerId}")
 	public List<File> getAllFilesInformer(@PathVariable(value = "informerId") Integer informerId) {
-		
 		List<File> files = fs.findByInformerId(informerId);
 		return files;
 	}
 	
 	@GetMapping("/pendientes")
-	public File[] getPendingFiles()
-	{
-		RestTemplate restTemplate = new RestTemplate();
-		
+	public File[] getPendingFiles(){
 		File[] files = fs.getPendingFiles();
-		
 		return files;
-		
 	}
 	
 	@GetMapping("/file/{id}")
 	public File getFileId(@PathVariable(value = "id") String id) {
-		
 		File file = fs.getFileId(id);
-		
 		return file;
-		
 	}
 	
 	@GetMapping("/file/keyword/fecha/{keyword}")
 	public List<File> getFilesByKeyWordsDate(@PathVariable(value = "keyword") String keyword) {
-		
 		List<File> files = fs.getFilesByKeyWords(1,keyword);
-		
 		return files;
-		
 	}
 	
 	@GetMapping("/file/keyword/size/{keyword}")
 	public List<File> getFilesByKeyWordsSize(@PathVariable(value = "keyword") String keyword) {
-		
 		List<File> files = fs.getFilesByKeyWords(2,keyword);
-		
 		return files;
-		
 	}
+	
 	
 	@RequestMapping("/edit")
 	public void updateFile(@RequestBody File file) {	
-			
 		fs.updateFile(file);
 	}
 	
 	@RequestMapping("file/delete/{id}")
 	public void deleteFile(@PathVariable(value = "id") String id) {
-		
 		fs.deleteFile(id);
 	}
-	
-
 	
 	@RequestMapping("/filesById")
 	public FileByUsername[] getFilesById(@RequestBody FileByUsername[] files) {
 		for(FileByUsername file:files) {
-			System.out.println(file.getPreviews());
 			File f = fs.getFileId(file.getId());
 			file.setTitle(f.getTitle());
 			file.setDescription(f.getDescription());
 			file.setDate(f.getDate());
 			file.setSize(f.getSize());
-			
 		}
 		return files;
-		
 	}
 }

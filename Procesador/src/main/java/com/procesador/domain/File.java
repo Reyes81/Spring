@@ -32,7 +32,7 @@ public class File {
 
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-	private LocalDateTime added_date;
+	private LocalDateTime date;
 	
 	@NotEmpty
 	private String title;
@@ -95,7 +95,7 @@ public class File {
 	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
 			Integer downloads, List<Object> data) {
 		super();
-		this.added_date = date;
+		this.date = date;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -123,11 +123,11 @@ public class File {
 	}
 	
 	public LocalDateTime getDate() {
-		return added_date;
+		return date;
 	}
 
 	public void setDate(LocalDateTime added_date) {
-		this.added_date = added_date;
+		this.date = added_date;
 	}
 
 	public String getTitle() {

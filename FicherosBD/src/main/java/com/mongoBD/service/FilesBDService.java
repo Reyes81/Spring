@@ -89,20 +89,21 @@ public class FilesBDService {
 		return file;
 	}
 	
-	//Método para obtener el listado de ficheros del repo por keyword ordenados por fecha
+	//Método para obtener el listado de ficheros del repo por keyword ordenados
 	public List<File> getFilesByKeyWords(Integer opcion, String keyword) {
 		
 		List<File> files = null;
 		switch (opcion) {
 		
 			case 1:
-				//Falta ordenar por fecha
 				files = fr.findByKeywordsContaining(keyword);
 				break;
 			
 			case 2:
 				files = fr.findByKeywordsContainingOrderBySizeDesc(keyword);
 				break;
+			case 3:
+				files = fr.findByKeywordsContainingOrderByAddeddateDesc(keyword);
 		}
 		
 		return files;

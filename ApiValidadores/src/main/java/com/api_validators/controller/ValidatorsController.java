@@ -30,6 +30,7 @@ public class ValidatorsController {
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
+	static final String uriSuspendInformer = "http://localhost:8081/api/informadoresBD/informadores/inactivo/{id}";
 	static final String uriGetPendingFiles = "http://localhost:8083/api/files/pendientes";
 	static final String uriPublishFile = "http://localhost:8082/api/files/publish/{id}";
 	static final String uriGetPendingFilesInformers= "http://localhost:8081/api/files/informers";
@@ -90,12 +91,18 @@ public class ValidatorsController {
 		vs.updateInformer(id, informer);
 	}
 	
-	//VF4. Eliminar un produtor
+	//VF4. Eliminar un informador
 	//@DeleteMapping("/informadores/eliminar/{id}")
 	@RequestMapping("/informadores/eliminar/{id}")
 	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriDeleteInformer, Integer.class, id);
+	}
+	//VF4 Extra. Dar de baja un informador
+	@RequestMapping("/informadores/inactivo/{id}")
+	public void suspendInformer(@PathVariable(value = "id") Integer id) {	
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.put(uriSuspendInformer, Integer.class, id);
 	}
 	
 	//VF5. Obtener el listado de ficheros pendientes de revision

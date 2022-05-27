@@ -22,12 +22,11 @@ public class InformersService {
 	
 	public Informer getInformerSession() {
 		User user_session = us.getUserSession();
-		
 		RestTemplate restTemplate = new RestTemplate();
 		
-		Informer informer_session  = restTemplate.getForObject(
-				uriGetInformer,
-				 Informer.class,user_session.getUsername());
+		Informer informer_session = restTemplate.getForObject(
+								uriGetInformer,
+								Informer.class,user_session.getUsername());
 		
 		return informer_session;
 	}
@@ -35,31 +34,17 @@ public class InformersService {
 	public Informer updateInformer(Informer informer)
 	{
 		Informer informer_update = getInformerSession();
-		if(informer_update.getStatus()==Status.ACTIVO) {
 		
-			if(informer.getNif()!=null)
-				informer_update.setNif(informer.getNif());
-			if(informer.getName()!=null)
-				informer_update.setName(informer.getName());
-			if(informer.getPassword()!=null)
-				informer_update.setPassword(informer.getPassword());
-			if(informer.getType()!=null)
-				informer_update.setType(informer.getType());
-			if(informer.geteMail()!=null)
-				informer_update.seteMail(informer.geteMail());
+		if(informer_update.getStatus()==Status.ACTIVO) {
+			us.updateUser(informer.geteMail(),informer.getPassword());
 			
+			RestTemplate restTemplate = new RestTemplate();
 			
-			us.updateUser(informer_update.geteMail(),informer_update.getPassword());
-			
-			RestTemplate restTemplate2 = new RestTemplate();
-			
-			restTemplate2.put(
+			restTemplate.put(
 					uriEditInformer,
-					informer_update,
+					informer,
 					Informer.class);
-
 		}
-		//return old_informer; Da error no se por que
 		else 
 			System.out.println("No se puede editar el informador ya que su estado es: " + informer_update.getStatus());
 		

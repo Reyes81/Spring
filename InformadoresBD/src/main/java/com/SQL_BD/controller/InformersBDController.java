@@ -35,13 +35,7 @@ public class InformersBDController {
 		is.saveInformer(informer);
 		return new ResponseEntity<>(informer, HttpStatus.OK);
 	}
-	/*
-	@PostMapping(value="/modificarInfo")
-	public Informer editInformer(@RequestBody Informer informer){
-		Informer new_informer = is.updateInformer(informer);
-		return new_informer;
-	}
-	*/
+
 	@GetMapping(value= "/informadores")
 	public ResponseEntity<List<Informer>> getAllInformers() {
 
@@ -117,5 +111,11 @@ public class InformersBDController {
 	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
 			
 		is.deleteInformer(id);
+	}
+	
+	@RequestMapping("/informadores/inactivo/{id}")
+	public void suspendInformer(@PathVariable(value = "id") Integer id) {	
+			
+		is.suspendInformer(id);
 	}
 }

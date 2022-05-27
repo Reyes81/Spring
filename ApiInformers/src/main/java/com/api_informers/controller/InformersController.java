@@ -17,7 +17,6 @@ import com.api_informers.services.UsersService;
 @RestController
 @RequestMapping("/api")
 public class InformersController {
-	private Informer informer = null;
 	@Autowired
 	UsersService us; 
 	
@@ -28,54 +27,10 @@ public class InformersController {
 	CustomUserDetailsService cs;
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
-
-	/*
-	@GetMapping("/informador/index")
-	 public ModelAndView handleRequestIndex(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-
-	        return new ModelAndView("index.html");
-
-	    }
-	
-	
-	 @GetMapping("/informador/registro")
-	 public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-
-	        return new ModelAndView("newInformer.html");
-
-	    }
-	    
-		@PostMapping(value="/informador/edit")
-		public Informer editInformer(@RequestBody Informer informer)
-		{
-			
-			System.out.println("Id: " + informer.getId() + "\n" +
-					   "nif: " + informer.getNif() + "\n" +
-					   "name: " + informer.getName() + "\n" +
-					   "status: " + informer.getStatus() + "\n" +
-					   "type: " + informer.getType() + "\n" + 
-					   "quote: " + informer.getQuote() + "\n" + 
-					   "eMail: " + informer.geteMail() + "\n" +
-					   "password: " + informer.getPassword());
-			
-			RestTemplate restTemplate = new RestTemplate();
-			
-			restTemplate.postForObject(
-					uriEditInformer,
-					informer,
-					Informer.class);
-			
-			return informer;
-		}
-	*/
-	 
 	
 	//PF1. Solicitud de registro de un nuevo productor
 	@PostMapping(value="/informador/new")
-	public Informer newInformer(@RequestBody Informer informer) {	
-		
+	public Informer newInformer(@RequestBody Informer informer) {
 		Informer newInformer = is.newInformer(informer);
         return newInformer;
 	}	
@@ -83,8 +38,7 @@ public class InformersController {
 	
 	//PF2. Editar informacion de un informador
 	@RequestMapping(value="/informador/edit")
-	public Informer editInformer(@RequestBody Informer informer)
-	{
+	public Informer editInformer(@RequestBody Informer informer){
 		Informer informer_update= is.updateInformer(informer);
 		return informer_update;
 	}
@@ -95,5 +49,4 @@ public class InformersController {
 		User user_session = us.getUserSession();
 		return user_session;
 	 }
-		
 }
