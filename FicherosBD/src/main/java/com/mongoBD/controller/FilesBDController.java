@@ -47,18 +47,6 @@ public class FilesBDController {
 		return files;
 	}
 	
-	@RequestMapping("/edit")
-	public void updateFile(@RequestBody File file) {	
-			
-		fs.updateFile(file);
-	}
-	
-	@RequestMapping("file/delete/{id}")
-	public void deleteFile(@PathVariable(value = "id") String id) {
-		
-		fs.deleteFile(id);
-	}
-	
 	@GetMapping("/pendientes")
 	public File[] getPendingFiles()
 	{
@@ -78,6 +66,38 @@ public class FilesBDController {
 		return file;
 		
 	}
+	
+	@GetMapping("/file/keyword/fecha/{keyword}")
+	public List<File> getFilesByKeyWordsDate(@PathVariable(value = "keyword") String keyword) {
+		
+		List<File> files = fs.getFilesByKeyWords(1,keyword);
+		
+		return files;
+		
+	}
+	
+	@GetMapping("/file/keyword/size/{keyword}")
+	public List<File> getFilesByKeyWordsSize(@PathVariable(value = "keyword") String keyword) {
+		
+		List<File> files = fs.getFilesByKeyWords(2,keyword);
+		
+		return files;
+		
+	}
+	
+	@RequestMapping("/edit")
+	public void updateFile(@RequestBody File file) {	
+			
+		fs.updateFile(file);
+	}
+	
+	@RequestMapping("file/delete/{id}")
+	public void deleteFile(@PathVariable(value = "id") String id) {
+		
+		fs.deleteFile(id);
+	}
+	
+
 	
 	@RequestMapping("/filesById")
 	public FileByUsername[] getFilesById(@RequestBody FileByUsername[] files) {

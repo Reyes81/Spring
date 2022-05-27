@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mongoBD.domain.File;
 import com.mongoBD.repositories.FilesRepository;
@@ -86,6 +87,25 @@ public class FilesBDService {
 	{
 		File file = fr.getById(id);
 		return file;
+	}
+	
+	//Método para obtener el listado de ficheros del repo por keyword ordenados por fecha
+	public List<File> getFilesByKeyWords(Integer opcion, String keyword) {
+		
+		List<File> files = null;
+		switch (opcion) {
+		
+			case 1:
+				//Falta ordenar por fecha
+				files = fr.findByKeywordsContaining(keyword);
+				break;
+			
+			case 2:
+				files = fr.findByKeywordsContainingOrderBySizeDesc(keyword);
+				break;
+		}
+		
+		return files;
 	}
 	
 }

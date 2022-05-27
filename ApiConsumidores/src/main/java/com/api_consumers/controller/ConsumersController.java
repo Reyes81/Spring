@@ -23,6 +23,47 @@ public class ConsumersController {
 	@Autowired
 	ConsumersService cs;
 	
+	//CF1.
+	//Obtener listado ordenado de ficheros por palabra clave (CF1). Se buscarán solo
+	//ficheros con estado publicado, se indicará la palabra clave y se permitirá ordenar por
+	//fecha de creación (de más reciente a más antiguo, opción por defecto), por tamaño
+	//(de más grande a más pequeño) o por número de descargas (de más a menos
+	//veces descargado). Se obtendrá el identificador del fichero, título, descripción,
+	//nombre del productor, fecha de creación, formato, tamaño, número de
+	//previsualizaciones y de descargas. No se requerirá autenticación.
+	
+	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
+	@GetMapping("files/informador/keywords/fecha/{keyword}")
+	public ResponseEntity<List<File>> getFilesByKeyWordsDate(){
+		//Todo
+		List<File> files = null;
+		
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
+	
+	//CF1-b.Listado de Ficheros por palabara clave ordenados por tamaño
+	@GetMapping("files/informador/keywords/size/{keyword}")
+	public ResponseEntity<List<File>> getFilesByKeyWordsSize(@PathVariable(value="keyword") String keyword){
+		//Todo
+		List<File> files = null;
+						
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
+	
+	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
+	@GetMapping("files/informador/keywords/descargas/{keyword}")
+	public ResponseEntity<List<File>> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
+		//Todo
+		List<File> files = null;
+			
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
+	
+
+	
+	
+
+	
 	//CF2. Obtener listado de ficheros por nombre de productor
 	@GetMapping("files/informador/{username}")
 	public ResponseEntity<FileByUsername[]> getFilesByInformerName(@PathVariable(value="username") String name){

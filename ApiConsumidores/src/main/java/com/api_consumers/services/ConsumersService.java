@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_consumers.domain.File;
@@ -60,8 +64,31 @@ public class ConsumersService {
 		file_sql,
 		File.class);
 	}
-		
 	
+	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
+	public List<File> getFilesByKeyWordsDate(String kewyword){
+		//Todo
+		List<File> files = null;
+			
+		return files;
+	}
+		
+	//CF1-b.Listado de Ficheros por palabara clave ordenados por tamaño
+	public List<File> getFilesByKeyWordsSize(String keyword){
+		//Todo
+		List<File> files = null;
+							
+		return files;
+	}
+		
+	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
+	public List<File> getFilesByKeyWordsDownloads(String keyword){
+		//Todo
+		List<File> files = null;
+				
+		return files;
+	}
+		
 	//CF2
 	public FileByUsername[] getFilesByInformerName(String name){
 		
