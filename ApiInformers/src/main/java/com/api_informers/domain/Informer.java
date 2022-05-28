@@ -51,7 +51,7 @@ public class Informer {
 		this.password = password;
 	}
 	
-	public Informer(Integer id, String nif, String name, Type type, String eMail, String password ) {
+	public Informer(Integer id, String nif, String name, Type type, String eMail, String password) {
 		
 		this.id = id;
 		this.nif = nif;
@@ -61,18 +61,12 @@ public class Informer {
 		this.quote = null;
 		this.eMail = eMail;
 		this.password = password;
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setUserId(Integer user_id) {
-		this.user_id = user_id;
+	
 	}
 	
-	public Integer getUserId() {
-		return this.user_id;
+	
+	public Integer getId() {
+		return this.id;
 	}
 
 	public void setId(Integer id) {

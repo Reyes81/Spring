@@ -13,7 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -46,8 +48,9 @@ public class Informer {
 	@OneToMany(mappedBy = "informer_id")
 	private List<File> files;
 	
-	@Column(name="user_id")
-	private Integer userId;
+	@OneToOne
+	@JoinColumn(name="user_id")
+	private User userId;
 	
 	@Column(name="nif_cif", nullable=false)
 	private String nif;
@@ -106,6 +109,15 @@ public class Informer {
 		this.id = id;
 	}
 	
+	public User getUserId() {
+		return this.userId;
+	}
+	
+	public void setUserId(User userId) {
+		this.userId= userId;
+	}
+	
+	/*
 	public Integer getUserId() {
 		return this.userId;
 	}
@@ -113,6 +125,7 @@ public class Informer {
 	public void setUserId(Integer user_id) {
 		this.userId = user_id;
 	}
+	*/
 
 	public String getNif() {
 		return nif;

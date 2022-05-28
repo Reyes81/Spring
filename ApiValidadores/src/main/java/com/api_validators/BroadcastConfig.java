@@ -42,12 +42,12 @@ public class BroadcastConfig {
     public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
         return new RabbitAdmin(connectionFactory);
     }
-
+/*
     @Bean
     public ApplicationRunner runner(RabbitAdmin rabbitAdmin) {
         return args -> {
             rabbitAdmin.initialize();
         };
     }
-	
+	*/
 }

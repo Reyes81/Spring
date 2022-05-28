@@ -90,8 +90,7 @@ public class InformersBDController {
 		Informer informer_validate = is.approveInformer(id);
 		return new ResponseEntity<>(informer_validate, HttpStatus.OK);
 	}
-	
-	
+		
 	@RequestMapping("/informadores/modificarInfo")
 	public ResponseEntity<Informer> updateInformer(@RequestBody Informer informer) {	
 				

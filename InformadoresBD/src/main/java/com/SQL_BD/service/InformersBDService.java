@@ -2,7 +2,6 @@ package com.SQL_BD.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.SQL_BD.domain.File;
 import com.SQL_BD.domain.Informer;
 import com.SQL_BD.domain.Informer.Status;
+import com.SQL_BD.domain.User;
 import com.SQL_BD.repositories.InformersBDRepository;
 
 @Service
@@ -23,6 +23,8 @@ public class InformersBDService {
 	
 	//PF1. Guardar informador
 	public Informer saveInformer(Informer informer) {
+		User user = us.getUserByUserName(informer.geteMail());
+		informer.setUserId(user);
 		ir.save(informer);
 		return informer;
 	}

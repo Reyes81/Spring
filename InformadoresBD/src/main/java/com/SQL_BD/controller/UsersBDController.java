@@ -36,7 +36,7 @@ public class UsersBDController {
 	}
 	
 	@GetMapping(value="/id/{id}")
-	public ResponseEntity<User> getUserByUserName(@PathVariable(value = "id") Integer id) {
+	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Integer id) {
 		User user =us.getUserById(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}

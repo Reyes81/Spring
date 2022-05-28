@@ -1,6 +1,7 @@
 package com.api_informers.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -72,7 +73,9 @@ public class InformersService {
 				  uriNewUser,
 				  user,
 				  User.class);
-		informer.setUserId(user2.getId());
+		String password_encode = new BCryptPasswordEncoder().encode(informer.getPassword());
+		informer.setPassword(password_encode);
+		//informer.setUserId(user2);
 		
 		restTemplate1.postForObject(
 				  uriNewInformer,
