@@ -72,7 +72,6 @@ public class FileController {
 		
 	} 
 	
-	
 	//VF1.Obtenemos todos los ficheros de un informador
 	@GetMapping("/files")
 	 public File[] getFiles() {
@@ -87,12 +86,10 @@ public class FileController {
 		fs.editFile(id, file);
 	}
 		
-	//PF4. Editar un archivo
+	//PF5. Eliminar un fichero
 	@RequestMapping("/file/delete/{id}")
 	public void deleteFile(@PathVariable(value="id") String id) {
 		fs.deleteFile(id);
 	}
 		
-		
-	
 }

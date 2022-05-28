@@ -3,6 +3,8 @@ package com.api_consumers.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +18,14 @@ import com.api_consumers.domain.FileByUsername;
 import com.api_consumers.domain.FileConsumer;
 import com.api_consumers.services.ConsumersService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/consumidor")
 public class ConsumersController {
+	
+	private final static Logger LOGGER = LoggerFactory.getLogger(ConsumersController.class);
 	
 	@Autowired
 	ConsumersService cs;
@@ -35,8 +42,12 @@ public class ConsumersController {
 	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
 	@GetMapping("files/informador/keywords/fecha/{keyword}")
 	public ResponseEntity<File[]> getFilesByKeyWordsDate(@PathVariable(value="keyword") String keyword){
-		//Todo
+
+		LOGGER.debug("List of Files by keyword " + keyword + " sorted by date");
 		File[] files = cs.getFilesByKeyWordsDate(keyword);
+		
+		if(files.length == 0)
+			log.info("There are no files with the keyword: " + keyword);
 		
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
@@ -44,8 +55,12 @@ public class ConsumersController {
 	//CF1-b.Listado de Ficheros por palabara clave ordenados por tamaño
 	@GetMapping("files/informador/keywords/size/{keyword}")
 	public ResponseEntity<File[]> getFilesByKeyWordsSize(@PathVariable(value="keyword") String keyword){
-		//Todo
+
+		LOGGER.debug("List of Files by keyword " + keyword + " sorted by size");
 		File[] files = cs.getFilesByKeyWordsSize(keyword);
+		
+		if(files.length == 0)
+			log.info("There are no files with the keyword: " + keyword);
 						
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
@@ -53,8 +68,12 @@ public class ConsumersController {
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
 	@GetMapping("files/informador/keywords/descargas/{keyword}")
 	public ResponseEntity<List<File>> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
-		//Todo
+
+		LOGGER.debug("List of Files by keyword " + keyword + " sorted by downloads");
 		List<File> files = cs.getFilesByKeyWordsDownloads(keyword);
+		
+		if(files.isEmpty())
+			log.info("There are no files with the keyword: " + keyword);
 			
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
@@ -62,7 +81,13 @@ public class ConsumersController {
 	//CF2. Obtener listado de ficheros por nombre de productor
 	@GetMapping("files/informador/{username}")
 	public ResponseEntity<FileByUsername[]> getFilesByInformerName(@PathVariable(value="username") String name){
+		
+		LOGGER.debug("Obtain the list of informer files" + name);
 		FileByUsername[] files = cs.getFilesByInformerName(name);
+		
+		if(files.length == 0)
+			log.info("There are no informers files " + name);
+		
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
 	
@@ -71,6 +96,7 @@ public class ConsumersController {
 	@GetMapping("/files/preview/{id}")
 	public ResponseEntity<List<Object>> previewFile(@PathVariable(value="id") String id) {
 				
+		LOGGER.debug("Previews file with id " + id);
 		List<Object> data = null;
 		try {
 			data = cs.previewFile(id);
@@ -86,6 +112,7 @@ public class ConsumersController {
 	@GetMapping("/files/download/{id}")
 	public ResponseEntity<FileConsumer> downloadFile(@PathVariable(value="id") String id) {
 			
+		LOGGER.debug("Downloads file with id " + id);
 		FileConsumer file = null;
 		try {
 			file = cs.downloadFile(id);
