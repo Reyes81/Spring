@@ -45,7 +45,6 @@ public class FilesBDService {
 	}
 	
 	
-	//Adaptar por mapeo OneToMany
 	public File[] findByUserId(Informer informer) {
 		File[] files = fr.findByInformerUserId(informer);
 		

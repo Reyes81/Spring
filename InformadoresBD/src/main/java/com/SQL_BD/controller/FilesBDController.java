@@ -56,7 +56,7 @@ public class FilesBDController {
 				for(File f:files)
 				{
 					Informer informer = f.getInformer();
-					Integer informer_id = informer.getId();
+					//Integer informer_id = informer.getId();
 					String file_id = f.getId();
 					//Informer informer = is.getInformerId(informer_id);
 					if(file_id.equals(file_informer_id)) {

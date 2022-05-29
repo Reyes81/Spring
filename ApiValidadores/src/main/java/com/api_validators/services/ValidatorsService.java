@@ -114,9 +114,11 @@ public class ValidatorsService {
 		for(File file:files) {
 			if(file.getStatus()==Status.ERRONEO) {
 				files_error.add(file);
+				informadores_files_error.add(file.getInformer());
 			}
 		}
 		
+		/*
 		//Para cada fichero erróneo obtenemos su informador
 		for(File file:files) {
 			Informer informador = restTemplate.getForObject(
@@ -124,7 +126,7 @@ public class ValidatorsService {
 					 Informer.class, file.getInformer_id());
 			
 			informadores_files_error.add(informador);
-			}
+			}*/
 		
 		//Devolvemos el listado de informadores con ficheros erróneos
 		return informadores_files_error;
@@ -208,7 +210,7 @@ public class ValidatorsService {
 		File.class,id);
 		
 		file.setStatus(Status.PREPARACION);
-		file.setValidatorId(validator_session.getId());
+		file.setValidator(validator_session);
 		
 		RestTemplate restTemplate2 = new RestTemplate();
 		RestTemplate restTemplate3 = new RestTemplate();

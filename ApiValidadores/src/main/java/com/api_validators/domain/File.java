@@ -50,9 +50,9 @@ public class File {
 	
 	private Integer downloads;
 	
-	private Integer informer_id;
+	private Validator validator;
 	
-	private Integer validator_id;
+	private Informer informer;
 	
 	public File() {
 		super();
@@ -68,11 +68,9 @@ public class File {
 		this.downloads = 0;
 		this.data = data;
 		this.size = size;
-		this.informer_id = informer_id;
-		this.validator_id = validator_id;
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
+	public File(String title, String description, List<String> keywords, Double size,Validator validator) {
 		super();
 		
 		this.title = title;
@@ -82,7 +80,7 @@ public class File {
 		this.previews = 0;
 		this.downloads = 0;
 		this.size = size;
-		this.informer_id = informer_id;
+		this.validator = validator;
 	}
 
 	public File(String date, String title, String description, List<String> keywords, Double size, Integer previews,
@@ -99,20 +97,20 @@ public class File {
 		this.data = data;
 	}
 
-	public Integer getInformerId() {
-		return informer_id;
-	}
-
-	public void setInformerId(Integer informer_id) {
-		this.informer_id = informer_id;
+	public Validator getValidator() {
+		return this.validator;
 	}
 	
-	public Integer getValidatorId() {
-		return validator_id;
+	public void setValidator(Validator validator) {
+		this.validator  = validator;
 	}
-
-	public void setValidatorId(Integer validator_id) {
-		this.validator_id = validator_id;
+	
+	public Informer getInformer() {
+		return this.informer;
+	}
+	
+	public void setInformer(Informer informer) {
+		this.informer = informer;
 	}
 	
 	public String getDate() {

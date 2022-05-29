@@ -22,12 +22,12 @@ public class Validator {
 	@Column(name="validator_id",nullable=false)
 	private Integer id;
 	
+	@OneToMany(mappedBy = "validator", cascade= {CascadeType.ALL})
+	private List<File> files;
+	
 	@OneToOne
 	@JoinColumn(name="user_id")
 	private User userId;
-	
-	@OneToMany(mappedBy = "validator", cascade= {CascadeType.ALL})
-	private List<File> files;
 	
 	private String name;
 	private String eMail;

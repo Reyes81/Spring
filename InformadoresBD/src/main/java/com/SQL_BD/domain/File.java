@@ -18,8 +18,6 @@ public class File {
 	@Id
 	@Column(name="id",nullable=false)
 	private String id;
-
-
 	
 	/*
     @Column(name = "validator_user_id")
