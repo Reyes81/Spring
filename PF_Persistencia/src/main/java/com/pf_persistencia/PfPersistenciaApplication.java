@@ -98,11 +98,17 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		Validator validator1 = new Validator("validator01","validator01@uv.es",password_encode,user6);
 		vr.save(validator1);
 		
+		User user7 = new User("validador02@uv.es",password_encode,"VALIDATOR");
+		ps.createUser(user7);
+		
+		Validator validator2 = new Validator("validator02","validator02@uv.es",password_encode,user7);
+		vr.save(validator2);
+		
 		//Creamos registros en la BD para ficheros
 		File file1 = new File("1",300, 246,informer1,validator1);
 		fr.save(file1);
 		
-		File file2 = new File("2",100, 45,informer1,validator1);
+		File file2 = new File("2",100, 45,informer1,validator2);
 		fr.save(file2);
 		
 		File file3 = new File("3",500, 450,informer3,validator1);
@@ -111,28 +117,28 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		File file4 = new File("4",440, 133,informer1,validator1);
 		fr.save(file4);
 		
-		File file5 = new File("5",830,678,informer2,validator1);
+		File file5 = new File("5",830,678,informer2,validator2);
 		fr.save(file5);
 		
-		File file6 = new File("6",120,16,informer1,validator1);
+		File file6 = new File("6",120,16,informer1,validator2);
 		fr.save(file6);
 		
 		File file7 = new File("7",315,222,informer1,validator1);
 		fr.save(file7);
 		
-		File file8 = new File("8",744,555,informer4,validator1);
+		File file8 = new File("8",744,555,informer4,validator2);
 		fr.save(file8);
 		
 		File file9 = new File("9",620,436,informer1,validator1);
 		fr.save(file9);
 		
-		File file10 = new File("10",221,150,informer3,validator1);
+		File file10 = new File("10",221,150,informer3,validator2);
 		fr.save(file10);
 		
-		File file11 = new File("11",100,85,informer2,validator1);
+		File file11 = new File("11",100,85,informer2,validator2);
 		fr.save(file11);
 		
-		File file12 = new File("12",100,85,informer3,validator1);
+		File file12 = new File("12",100,85,informer3,validator2);
 		fr.save(file12);
 		
 		File file13 = new File("13",65,5,informer3,validator1);
@@ -141,7 +147,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		File file14 = new File("14",5,2,informer3,validator1);
 		fr.save(file14);
 		
-		File file15 = new File("15",25,18,informer3,validator1);
+		File file15 = new File("15",25,18,informer3,validator2);
 		fr.save(file15);
 	}
 }
