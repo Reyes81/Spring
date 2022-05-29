@@ -51,6 +51,7 @@ public class File {
 	private Integer downloads;
 	
 	private Integer informer_id;
+	private Informer informer;
 	
 	public File() {
 		super();
@@ -69,9 +70,10 @@ public class File {
 		this.informer_id = informer_id;
 	}
 	
-	public File(Integer informer_id,String title, String description, List<String> keywords, Double size) {
+	public File(Informer informer,String title, String description, List<String> keywords, Double size) {
 		super();
 		
+		this.informer =informer;
 		this.title = title;
 		this.description = description;
 		this.keywords = keywords;
@@ -95,7 +97,25 @@ public class File {
 		this.downloads = downloads;
 		this.data = data;
 	}
+	
+	
+	public File(Informer informer, Integer previews,
+			Integer downloads) {
+		super();
+		this.informer = informer;
+		this.previews = previews;
+		this.downloads = downloads;
+		
+	}
 
+	public Informer getInformer() {
+		return this.informer;
+	}
+
+	public void setInformer(Informer informer) {
+		this.informer = informer;
+	}
+	
 	public Integer getInformerId() {
 		return informer_id;
 	}

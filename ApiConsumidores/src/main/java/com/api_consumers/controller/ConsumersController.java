@@ -94,31 +94,25 @@ public class ConsumersController {
 	
 	//CF3.Previsualizar un fichero de un fichero
 	@GetMapping("/files/preview/{id}")
-	public ResponseEntity<List<Object>> previewFile(@PathVariable(value="id") String id) {
-				
+	public ResponseEntity<List<Object>> previewFile(@PathVariable(value="id") String id) throws IOException {
+		System.out.println(id);
 		LOGGER.debug("Previews file with id " + id);
 		List<Object> data = null;
-		try {
+		
 			data = cs.previewFile(id);
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		
 				
 		return new ResponseEntity<>(data, HttpStatus.OK);
 	}
 			
 	//CF4.Descarga de un fichero
 	@GetMapping("/files/download/{id}")
-	public ResponseEntity<FileConsumer> downloadFile(@PathVariable(value="id") String id) {
+	public ResponseEntity<FileConsumer> downloadFile(@PathVariable(value="id") String id) throws IOException {
 			
 		LOGGER.debug("Downloads file with id " + id);
 		FileConsumer file = null;
-		try {
 			file = cs.downloadFile(id);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 			
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}

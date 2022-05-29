@@ -2,6 +2,7 @@ package com.SQL_BD.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,13 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.Data;
-
-@Data
 @Entity
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @Table(name="validator")
 public class Validator {
 	
@@ -31,7 +26,7 @@ public class Validator {
 	@JoinColumn(name="user_id")
 	private User userId;
 	
-	@OneToMany(mappedBy = "validator_id")
+	@OneToMany(mappedBy = "validator", cascade= {CascadeType.ALL})
 	private List<File> files;
 	
 	private String name;
@@ -47,6 +42,14 @@ public class Validator {
 		this.name = name;
 		this.eMail = eMail;
 		this.password = password;
+	}
+	
+	public Validator(String name, String eMail, String password,User user) {
+
+		this.name = name;
+		this.eMail = eMail;
+		this.password = password;
+		this.userId = user;
 	}
 
 	public String geteMail() {

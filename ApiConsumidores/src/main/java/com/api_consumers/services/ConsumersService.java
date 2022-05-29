@@ -127,7 +127,7 @@ public class ConsumersService {
 	}
 	
 	//CF3
-	public List<Object> previewFile(String id) throws IOException{
+	public List<Object> previewFile(String id) throws IOException {
 		
 		//Obtener una previsualización de un fichero (CF3). Se proporcionará el identificador
 		//de un fichero publicado y se obtendrán las primeras 10 observaciones del fichero. Se
@@ -137,6 +137,7 @@ public class ConsumersService {
 		//Obtenemos el fichero por Id de MongoDB
 		File file = getFileMongoId(id);
 		
+		
 		//Comprobamos que el fichero haya sido publicado de lo contrario lanzamos una excepción
 		if(file.getStatus() != Status.PUBLICADO) {
 			throw new IOException("The requested file is not published.");
@@ -145,11 +146,14 @@ public class ConsumersService {
 		//Obtenemos las 10 primeras observaciones del fichero
 		List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
 		
+		Integer num_previews=0;
 		//Obtenemos el fichero de SQL con el id
 		File file_sql = getFileSQLId(id);
+		if(file_sql.getPreviews()!=null)
+			num_previews = file_sql.getPreviews();
 				
 		//Incrementamos el valor de previews
-		Integer previews = file_sql.getPreviews() + 1;
+		Integer previews = num_previews + 1;
 		file_sql.setPreviews(previews);
 				
 		//Actualizamos el fichero en SQL
@@ -177,11 +181,15 @@ public class ConsumersService {
 			throw new IOException("The requested file is not published.");
 		}
 
+		Integer num_downloads=0;
 		//Obtenemos el fichero de SQL con el id
 		File file_sql = getFileSQLId(id);
 		
+		if(file_sql.getDownloads()!=null)
+			num_downloads = file_sql.getDownloads();
+		
 		//Incrementamos el valor de downloads
-		Integer downloads = file_sql.getDownloads() + 1;
+		Integer downloads = num_downloads + 1;
 		file_sql.setDownloads(downloads);
 		
 		//Actualizamos el fichero en SQL

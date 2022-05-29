@@ -9,9 +9,12 @@ import com.SQL_BD.repositories.UsersBDRepository;
 @Service
 public class UsersBDService {
 	
+	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
+	
 	@Autowired
 	UsersBDRepository ur;
 	
+
 	public User saveUser(User user) {
 		ur.save(user);
 		User user_rec = ur.findByUsername(user.getUsername()); 

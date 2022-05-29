@@ -4,6 +4,7 @@ package com.SQL_BD.domain;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -45,7 +46,7 @@ public class Informer {
 	@Column(name="informer_id",nullable=false)
 	private Integer id;
 	
-	@OneToMany(mappedBy = "informer_id")
+	@OneToMany(mappedBy = "informer", cascade= {CascadeType.ALL})
 	private List<File> files;
 	
 	@OneToOne

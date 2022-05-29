@@ -64,11 +64,13 @@ public class FileService {
 	return new_file;
 	}
 	
-	public File createFileSQL(String nosql_id, Integer informer_id)
+	public File createFileSQL(String nosql_id, Informer informer)
 	{
 		RestTemplate restTemplate = new RestTemplate();
 		File file = new File();
-		file.setInformerId(informer_id);
+		file.setInformer(informer);
+		file.setPreviews(0);
+		file.setDownloads(0);
 		file.setId(nosql_id);
 		
 		//Fichero a la BD SQL

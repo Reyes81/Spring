@@ -55,9 +55,10 @@ public class FilesBDController {
 				
 				for(File f:files)
 				{
-					Integer informer_id = f.getInformer_id();
+					Informer informer = f.getInformer();
+					Integer informer_id = informer.getId();
 					String file_id = f.getId();
-					Informer informer = is.getInformerId(informer_id);
+					//Informer informer = is.getInformerId(informer_id);
 					if(file_id.equals(file_informer_id)) {
 						String name = informer.getName();
 						fi.setInformer(name);
@@ -77,7 +78,7 @@ public class FilesBDController {
 	@GetMapping("/username/{username}")
 	public ResponseEntity<List<FileByUsername>> findByUsername(@PathVariable(value = "username") String username){
 		Informer informer = is.getInformerByName(username);
-		File[] files = fs.findByUserId(informer.getId());
+		File[] files = fs.findByUserId(informer);
 		
 		System.out.println(files.length);
 		List<FileByUsername> files_by_username = new ArrayList<FileByUsername>();

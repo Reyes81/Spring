@@ -68,7 +68,7 @@ public class FileController {
 		File fichero = fs.createFileMongoDB(user_session,title, description, keywords, size, data);
 		
 		System.out.println(fichero.getId()); //Tiene el id puesto
-		fs.createFileSQL(fichero.getId(), fichero.getInformerId());
+		fs.createFileSQL(fichero.getId(),is.getInformerSession());
 		
 	} 
 	
