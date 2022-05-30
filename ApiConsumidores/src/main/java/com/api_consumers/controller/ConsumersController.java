@@ -40,7 +40,7 @@ public class ConsumersController {
 	//previsualizaciones y de descargas. No se requerirá autenticación.
 	
 	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
-	@GetMapping("files/informador/keywords/fecha/{keyword}")
+	@GetMapping("/files/keywords/fecha/{keyword}")
 	public ResponseEntity<File[]> getFilesByKeyWordsDate(@PathVariable(value="keyword") String keyword){
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by date");
@@ -53,7 +53,7 @@ public class ConsumersController {
 	}
 	
 	//CF1-b.Listado de Ficheros por palabara clave ordenados por tamaño
-	@GetMapping("files/informador/keywords/size/{keyword}")
+	@GetMapping("/files/keywords/size/{keyword}")
 	public ResponseEntity<File[]> getFilesByKeyWordsSize(@PathVariable(value="keyword") String keyword){
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by size");
@@ -66,7 +66,7 @@ public class ConsumersController {
 	}
 	
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
-	@GetMapping("files/informador/keywords/descargas/{keyword}")
+	@GetMapping("/files/keywords/descargas/{keyword}")
 	public ResponseEntity<List<File>> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by downloads");
@@ -79,7 +79,7 @@ public class ConsumersController {
 	}
 	
 	//CF2. Obtener listado de ficheros por nombre de productor
-	@GetMapping("files/informador/{username}")
+	@GetMapping("/files/informador/{username}")
 	public ResponseEntity<FileByUsername[]> getFilesByInformerName(@PathVariable(value="username") String name){
 		
 		LOGGER.debug("Obtain the list of informer files" + name);
