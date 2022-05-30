@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
-@Document
+@Document(collection="files")
 public class File {
 	
 	enum Status {
@@ -23,8 +23,6 @@ public class File {
 
 	@Id
 	private String id;
-	private Integer informerId;
-	private Integer validatorId;
 	private LocalDateTime addeddate;
 	private String title;
 	private String description;
@@ -39,7 +37,7 @@ public class File {
 		super();
 	}
 	
-	public File(String title, String description, List<String> keywords, Double size,Integer informerId,Integer validatorId) {
+	public File(String title, String description, List<String> keywords, Double size) {
 		super();
 		
 		this.title = title;
@@ -47,8 +45,6 @@ public class File {
 		this.keywords = keywords;
 		this.status = Status.PENDIENTE_REVISION;
 		this.size = size;
-		this.informerId = informerId;
-		this.validatorId = validatorId;
 	}
 
 	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
@@ -118,22 +114,6 @@ public class File {
 
 	public List<Object> getData() {
 		return data;
-	}
-
-	public Integer getInformerId() {
-		return informerId;
-	}
-
-	public void setInformerId(Integer informerId) {
-		this.informerId = informerId;
-	}
-	
-	public Integer getInValidatorId() {
-		return validatorId;
-	}
-
-	public void setValidatorId(Integer validatorId) {
-		this.validatorId = validatorId;
 	}
 
 	public void setData(List<Object> data) {

@@ -190,8 +190,5 @@ public class InformersBDService {
 			informer_bd.setStatus(Status.INACTIVO);
 			
 			ir.save(informer_bd);
-		}
-		
-		
-		
+		}	
 }

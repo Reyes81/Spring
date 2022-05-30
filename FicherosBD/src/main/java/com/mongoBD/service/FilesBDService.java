@@ -33,26 +33,8 @@ public class FilesBDService {
 		this.fr.saveAll(posts);
 	}
 	
-	public List<File> findByInformerId(Integer informerId){
-		
-		System.out.println("Estoy en el findByInformerId");
-		
-		List<File> files = fr.findByinformerId(informerId);
-		
-		for(File file:files) {
-			System.out.println("ID: " + file.getId() + "\n");
-			System.out.println("Title: " + file.getTitle() + "\n");
-			System.out.println("Description: " + file.getDescription() + "\n");
-			System.out.println("InformerId: " + file.getInformerId() + "\n");
-		}
-		
-		return files;
-	}
-	
 	public File updateFile(File file)
 	{
-		
-		System.out.println("Validator ID " + file.getInValidatorId());
 		File file_update = fr.save(file);
 		
 		return file_update;

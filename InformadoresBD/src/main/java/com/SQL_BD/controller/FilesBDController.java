@@ -38,8 +38,15 @@ public class FilesBDController {
 	
 	@RequestMapping("/edit")
 	public ResponseEntity<File> editFile(@RequestBody File file) {
-
+		System.out.println(file);
 		File new_file = fs.updateFile(file);
+		return new ResponseEntity<>(new_file, HttpStatus.OK);
+	}
+	
+	@RequestMapping("/edit/validator")
+	public ResponseEntity<File> editFileValidator(@RequestBody File file) {
+		System.out.println(file);
+		File new_file = fs.updateFileValidator(file);
 		return new ResponseEntity<>(new_file, HttpStatus.OK);
 	}
 	
@@ -49,16 +56,13 @@ public class FilesBDController {
 			for(FileInformers fi:file_informer)
 			{
 				System.out.println(fi);
-				//Todos los files de un informer
 				String file_informer_id = fi.getId();
 				File[] files = fs.findInformerByFileId(file_informer_id);
 				
 				for(File f:files)
 				{
 					Informer informer = f.getInformer();
-					//Integer informer_id = informer.getId();
 					String file_id = f.getId();
-					//Informer informer = is.getInformerId(informer_id);
 					if(file_id.equals(file_informer_id)) {
 						String name = informer.getName();
 						fi.setInformer(name);
@@ -75,12 +79,12 @@ public class FilesBDController {
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
 	
+	
 	@GetMapping("/username/{username}")
 	public ResponseEntity<List<FileByUsername>> findByUsername(@PathVariable(value = "username") String username){
 		Informer informer = is.getInformerByName(username);
 		File[] files = fs.findByUserId(informer);
 		
-		System.out.println(files.length);
 		List<FileByUsername> files_by_username = new ArrayList<FileByUsername>();
 		
 		for(File file:files) {

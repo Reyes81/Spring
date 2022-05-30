@@ -20,10 +20,11 @@ public class FileService {
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriNewFileSQL= "http://localhost:8081/api/files/newFile";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
-	static final String uriGetAllFilesMongo= "http://localhost:8083/api/files/informador/{informerId}";
+	static final String uriGetAllFilesSQL= "http://localhost:8081/api/informadoresBD/files/informerid/{id}";
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
 	static final String uriDeleteFileMongo= "http://localhost:8083/api/files/file/delete/{id}";
+	static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informer";
 	
 	
 	@Autowired
@@ -41,7 +42,6 @@ public class FileService {
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			file = new File(informer_session.getId(),title,description, keywords, data,size);
-			System.out.println("Id informador: " + file.getInformer_id());
 			
 			//Obtenemos la fecha y hora actual
 			LocalDateTime created_date = LocalDateTime.now();
@@ -94,16 +94,21 @@ public class FileService {
 	
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
+			
+			//Obtenemos todos los ficheros de ese informer desde SQL con su user id
 			RestTemplate restTemplate = new RestTemplate();
-					files= restTemplate.getForObject(
-					uriGetAllFilesMongo,
+
+			File[] files_sql = restTemplate.getForObject(
+					uriGetAllFilesSQL,
 					File[].class,informer_session.getId());
 			
-			for(File file:files) {
-				System.out.println("ID: " + file.getId() + "\n");
-				System.out.println("Title: " + file.getTitle() + "\n");
-				System.out.println("ID: " + file.getDescription() + "\n");
-			}
+			//Recuperamos ficheros de mongo con los ficheros recuperados de SQL
+			RestTemplate restTemplate2 = new RestTemplate();
+			files = restTemplate2.postForObject(
+					uriGetAllFilesMongo,
+					files_sql,
+					File[].class);
+			
 		}
 		else
 			System.out.println("No se puede obtener el listado de ficheros ya que el estado del informador es: " + informer_session.getStatus());

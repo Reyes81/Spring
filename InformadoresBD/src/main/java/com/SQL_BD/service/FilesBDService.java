@@ -25,8 +25,19 @@ public class FilesBDService {
 	
 	public File updateFile(File file)
 	{
-		File file_update = fr.save(file);
-		
+		File file_update = fr.getById(file.getId());
+		file_update.setDownloads(file.getDownloads());
+		file_update.setPreviews(file.getPreviews());
+		file_update.setValidator(file.getValidator());
+		fr.save(file_update);
+		return file_update;
+	}
+	
+	public File updateFileValidator(File file)
+	{
+		File file_update = fr.getById(file.getId());
+		file_update.setValidator(file.getValidator());
+		fr.save(file_update);
 		return file_update;
 	}
 	

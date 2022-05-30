@@ -9,14 +9,17 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class File {
 	
 	final int maxSize=500;
 	
-	enum Status {
+	public enum Status {
 		PENDIENTE_REVISION,
 		PREPARACION,
 		ERRONEO,
@@ -50,7 +53,6 @@ public class File {
 	
 	private Integer downloads;
 	
-	private Integer informer_id;
 	private Informer informer;
 	
 	public File() {
@@ -67,7 +69,6 @@ public class File {
 		this.downloads = 0;
 		this.data = data;
 		this.size = size;
-		this.informer_id = informer_id;
 	}
 	
 	public File(Informer informer,String title, String description, List<String> keywords, Double size) {
@@ -81,7 +82,6 @@ public class File {
 		this.previews = 0;
 		this.downloads = 0;
 		this.size = size;
-		this.informer_id = informer_id;
 	}
 
 	public File(LocalDateTime date, String title, String description, List<String> keywords, Double size, Integer previews,
@@ -108,20 +108,8 @@ public class File {
 		
 	}
 
-	public Informer getInformer() {
-		return this.informer;
-	}
-
 	public void setInformer(Informer informer) {
 		this.informer = informer;
-	}
-	
-	public Integer getInformerId() {
-		return informer_id;
-	}
-
-	public void setInformerId(Integer informer_id) {
-		this.informer_id = informer_id;
 	}
 	
 	public LocalDateTime getDate() {

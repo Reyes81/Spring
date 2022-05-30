@@ -1,6 +1,7 @@
 package com.SQL_BD.domain;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -19,11 +20,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.ToString;
 
-@Data
+
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
@@ -47,7 +50,8 @@ public class Informer {
 	private Integer id;
 	
 	@OneToMany(mappedBy = "informer", cascade= {CascadeType.ALL})
-	private List<File> files;
+	@JsonIgnore
+	private List<File> files = new ArrayList<>();
 	
 	@OneToOne
 	@JoinColumn(name="user_id")

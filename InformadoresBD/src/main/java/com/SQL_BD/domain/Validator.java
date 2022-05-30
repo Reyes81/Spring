@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="validator")
 public class Validator {
@@ -23,6 +25,7 @@ public class Validator {
 	private Integer id;
 	
 	@OneToMany(mappedBy = "validator", cascade= {CascadeType.ALL})
+	@JsonIgnore
 	private List<File> files;
 	
 	@OneToOne

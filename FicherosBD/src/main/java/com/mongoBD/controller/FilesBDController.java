@@ -1,5 +1,6 @@
 package com.mongoBD.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +29,6 @@ public class FilesBDController {
 
 	@PostMapping("/newFile")
 	public ResponseEntity<File> createPost(@RequestBody File file) {
-		System.out.println("Id informador: " + file.getInformerId());
 		File f = fs.create(file);
 		return new ResponseEntity<>(f, HttpStatus.OK);
 	} 
@@ -38,13 +38,13 @@ public class FilesBDController {
 		List<File> files = fs.findAll();
 		return new ResponseEntity<>(files, HttpStatus.OK);
 	}
-	
+	/*
 	@GetMapping("/informador/{informerId}")
 	public List<File> getAllFilesInformer(@PathVariable(value = "informerId") Integer informerId) {
-		List<File> files = fs.findByInformerId(informerId);
+		List<File> files = fs.findById(informerId);
 		return files;
 	}
-	
+	*/
 	@GetMapping("/pendientes")
 	public File[] getPendingFiles(){
 		File[] files = fs.getPendingFiles();
@@ -91,4 +91,17 @@ public class FilesBDController {
 		}
 		return files;
 	}
+	
+	@RequestMapping("/informer")
+	public List<File> getFilesByFilesSQL(@RequestBody File[] files) {
+		List<File> files_mongo = new ArrayList<>();
+		
+		for(File file:files) {
+			File f = fs.getFileId(file.getId());
+			files_mongo.add(f);
+			
+		}
+		return files_mongo;
+	}
+	
 }

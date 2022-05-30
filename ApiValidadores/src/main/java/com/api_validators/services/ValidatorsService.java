@@ -44,7 +44,7 @@ public class ValidatorsService {
 	static final String uriGetAllFiles= "http://localhost:8083/api/files";
 	static final String uriGetPendingFiles = "http://localhost:8083/api/files/pendientes";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
-	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit";
+	static final String uriEditFileSQL= "http://localhost:8081/api/files/edit/validator";
 	
 	
 	//Obtenemos el validador correspondiente al usuario de la sesión
@@ -205,7 +205,7 @@ public class ValidatorsService {
 		Validator validator_session = getValidatorSession();
 		
 		RestTemplate restTemplate = new RestTemplate();
-		File file= restTemplate.getForObject(
+		File file = restTemplate.getForObject(
 		uriGetFileMongoId,
 		File.class,id);
 		

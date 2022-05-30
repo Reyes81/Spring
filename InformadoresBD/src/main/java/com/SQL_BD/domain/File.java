@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -24,15 +25,15 @@ public class File {
 	private Integer validator_id;
     */
     //TODO Relacion * a 1 con Informer
-  	@ManyToOne(fetch=FetchType.LAZY)
+  	@ManyToOne(optional = true, fetch=FetchType.LAZY)
   	@JoinColumn(name = "informer_user_id")
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
-  	@ManyToOne(fetch=FetchType.LAZY)
+  	@ManyToOne(optional = true, fetch=FetchType.LAZY)
   	@JoinColumn(name = "validator_user_id")
     private Validator validator;
-	
+
 	private Integer previews;
 	
 	private Integer downloads;

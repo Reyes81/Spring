@@ -117,4 +117,11 @@ public class InformersBDController {
 			
 		is.suspendInformer(id);
 	}
+	
+	@GetMapping(value= "/files/informerid/{id}")
+	public ResponseEntity<List<File>> getFilesByInformerId(@PathVariable(value = "id") Integer id) {
+		Informer informer = is.getInformerId(id);
+		List<File> files = informer.getFiles();
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
 }
