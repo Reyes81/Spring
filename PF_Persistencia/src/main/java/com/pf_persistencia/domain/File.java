@@ -43,5 +43,47 @@ public class File {
 	public File() {
 		super();
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Informer getInformer() {
+		return informer;
+	}
+
+	public void setInformer(Informer informer) {
+		this.informer = informer;
+	}
+
+	public Validator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+
+	public Integer getPreviews() {
+		return previews;
+	}
+
+	public void setPreviews(Integer previews) {
+		this.previews = previews;
+	}
+
+	public Integer getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+	
+	
 	
 }

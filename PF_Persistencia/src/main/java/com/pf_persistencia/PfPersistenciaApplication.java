@@ -50,10 +50,11 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//Inicializamos la BD
 		initializeBD();
+		testEntities();
 	}
 	
 	public void initializeBD() {
-		
+		/*
 		//Limpiamos la BD
 		fr.deleteAll();
 		ur.deleteAll();
@@ -149,6 +150,42 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		File file15 = new File("15",25,18,informer3,validator2);
 		fr.save(file15);
+		*/
+	}
+	
+	public void testEntities() {
+		
+		newUser();
+		//updateUser();
+		
+		
+	}
+	
+	public User newUser() {
+		String password_encode = new BCryptPasswordEncoder().encode("12345");
+		//Creamos un nuevo usuario
+		User created_user = ps.createUser(new User("informador08@uv.es",password_encode,"INFORMER"));
+		
+		System.out.println("----- NUEVO USUARIO -----");
+		System.out.println("UserName: " + created_user.getUsername());
+		System.out.println("Password: " + created_user.getPassword());
+		System.out.println("Role: " + created_user.getRole());
+		
+		return created_user;
+	}
+	
+	public User updateUser() {
+		String password_encode = new BCryptPasswordEncoder().encode("12345");
+		//Creamos un nuevo usuario
+		User update_user = ps.updateUser(18,new User("informador08@uv.es",password_encode,"INFORMER"));
+	
+		
+		System.out.println("----- USUARIO ACTUALIZADO -----");
+		System.out.println("UserName: " + update_user.getUsername());
+		System.out.println("Password: " + update_user.getPassword());
+		System.out.println("Role: " + update_user.getRole());
+		
+		return update_user;
 	}
 }
 
