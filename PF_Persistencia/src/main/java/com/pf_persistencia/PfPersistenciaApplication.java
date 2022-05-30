@@ -155,8 +155,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public void testEntities() {
 		
-		newUser();
-		//updateUser();
+		//newUser();
+		updateUser();
 		
 		
 	}
@@ -176,10 +176,9 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public User updateUser() {
 		String password_encode = new BCryptPasswordEncoder().encode("12345");
-		//Creamos un nuevo usuario
-		User update_user = ps.updateUser(18,new User("informador08@uv.es",password_encode,"INFORMER"));
+		User user = ur.findByUsername("informador08@uv.es");
+		User update_user = ps.updateUser(user.getId(),new User("informador09@uv.es",password_encode,"INFORMER"));
 	
-		
 		System.out.println("----- USUARIO ACTUALIZADO -----");
 		System.out.println("UserName: " + update_user.getUsername());
 		System.out.println("Password: " + update_user.getPassword());
