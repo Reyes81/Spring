@@ -1,5 +1,6 @@
 package com.pf_persistencia.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,8 +42,8 @@ public class Informer {
 	@Column(name="informer_id",nullable=false)
 	private Integer id;
 	
-	@OneToMany(mappedBy = "informer")
-	private List<File> files;
+	@OneToMany(mappedBy = "informer", cascade= {CascadeType.ALL}, fetch = FetchType.EAGER)
+	private List<File> files = new ArrayList<File>();
 	
 	@OneToOne
 	@JoinColumn(name="user_id")
@@ -210,6 +212,10 @@ public class Informer {
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+	
+	public void setFile(File file) {
+		this.files.add(file);
 	}
 	
 	

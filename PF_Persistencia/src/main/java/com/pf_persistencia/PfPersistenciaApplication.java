@@ -1,5 +1,7 @@
 package com.pf_persistencia;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +18,10 @@ import com.pf_persistencia.repository.FilesRepository;
 import com.pf_persistencia.repository.InformersRepository;
 import com.pf_persistencia.repository.UsersRepository;
 import com.pf_persistencia.repository.ValidatorsRepository;
+import com.pf_persistencia.services.FileService;
+import com.pf_persistencia.services.InformerService;
 import com.pf_persistencia.services.ProjectService;
+import com.pf_persistencia.services.UserService;
 
 @SpringBootApplication
 public class PfPersistenciaApplication implements CommandLineRunner {
@@ -38,6 +43,14 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	@Autowired
 	ProjectService ps;
 	
+	@Autowired
+	InformerService is;
+	
+	@Autowired
+	UserService us;
+	
+	@Autowired
+	FileService fs;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(PfPersistenciaApplication.class, args);
@@ -47,20 +60,25 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	@SuppressWarnings("unused")
 	@Override
 	public void run(String...strings) throws Exception {
-		
+		clearBD();
 		//Inicializamos la BD
-		initializeBD();
-		testEntities();
+		//initializeBD();
+		//testEntities();
+		/* Servicios especificados en los requisitos de DBCDS */
+		requirementsDBCDS();
+		
 	}
 	
-	public void initializeBD() {
-		/*
+	public void clearBD() {
 		//Limpiamos la BD
 		fr.deleteAll();
 		ur.deleteAll();
 		vr.deleteAll();
 		ir.deleteAll();
-		
+	}
+	
+	public void initializeBD() {
+	
 		String password_encode = new BCryptPasswordEncoder().encode("12345");
 		//Creamos registros en la BD para usuarios,informadores y validadores
 		User user1 = new User("informador01@uv.es",password_encode,"INFORMER");
@@ -150,7 +168,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		File file15 = new File("15",25,18,informer3,validator2);
 		fr.save(file15);
-		*/
+		
 	}
 	
 	public void testEntities() {
@@ -160,7 +178,21 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		//updateInformer();
 		//updateValidator();
 		//updateFile();
-		deleteUser();
+		//deleteUser();
+	}
+	
+	public void requirementsDBCDS() {
+		String password_encode = new BCryptPasswordEncoder().encode("1234");
+		User user = new User("validador01@uv.es",password_encode,"VALIDATOR");
+		ps.createUser(user);
+		
+		Validator validator = new Validator("validator01","validator01@uv.es",password_encode,user);
+		vr.save(validator);
+		
+		APIproducer();
+		APIvalidator();
+		APIconsumer();
+		
 	}
 	
 	public User newUser() {
@@ -253,6 +285,195 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public void deleteFile() {
 		ps.deleteFile("10");
+	}
+	
+	public void APIproducer() {
+		/*PF1. Solicitud de registro de un nuevo informador*/
+		User user = new User("informador01@uv.es","1234","INFORMER");
+		User user2 = new User("informador02@uv.es","1234","INFORMER");
+		User user3 = new User("informador03@uv.es","1234","INFORMER");
+		us.saveUser(user);
+		us.saveUser(user2);
+		us.saveUser(user3);
+		
+		Informer informer = new Informer("informador01","0001",Type.FISICA,Status.PENDIENTE,0.0,"informador01@uv.es","1234",user);
+		Informer informer2 = new Informer("informador02","0002",Type.FISICA,Status.PENDIENTE,0.0,"informador02@uv.es","1234",user2);
+		Informer informer3 = new Informer("informador03","0003",Type.JURIDICA,Status.PENDIENTE,0.0,"informador03@uv.es","1234",user3);
+		is.saveInformer(informer);
+		is.saveInformer(informer2);
+		is.saveInformer(informer3);
+		
+		System.out.println("----- PF1. Registrar informador -----");
+		System.out.println("----- Informador registrado -----");
+		System.out.println("Name: " + informer.getName());
+		System.out.println("Email: " + informer.geteMail());
+		System.out.println("Password: " + informer.getPassword());
+		System.out.println("Tipo: " + informer.getType());
+		System.out.println("Estado: " + informer.getStatus());
+		System.out.println("Cuota: " + informer.getQuote());
+		System.out.println("----- Informador registrado -----");
+		System.out.println("Name: " + informer2.getName());
+		System.out.println("Email: " + informer2.geteMail());
+		System.out.println("Password: " + informer2.getPassword());
+		System.out.println("Tipo: " + informer2.getType());
+		System.out.println("Estado: " + informer2.getStatus());
+		System.out.println("Cuota: " + informer2.getQuote());
+		System.out.println("----- Informador registrado -----");
+		System.out.println("Name: " + informer3.getName());
+		System.out.println("Email: " + informer3.geteMail());
+		System.out.println("Password: " + informer3.getPassword());
+		System.out.println("Tipo: " + informer3.getType());
+		System.out.println("Estado: " + informer3.getStatus());
+		System.out.println("Cuota: " + informer3.getQuote());
+		
+		
+		/*PF2. Solicitud de modificación de la información de un productor*/
+		informer.setName("informador01_actualizado");
+		informer.seteMail("informador01actualizado@uv.es");
+		Informer updated_informer = is.updateInformer(informer);
+		
+		System.out.println("----- PF2. Modificar informador -----");
+		System.out.println("----- Informador modificado -----");
+		System.out.println("Name: " + updated_informer.getName());
+		System.out.println("Email: " + updated_informer.geteMail());
+		System.out.println("Password: " + updated_informer.getPassword());
+		System.out.println("Tipo: " + updated_informer.getType());
+		System.out.println("Estado: " + updated_informer.getStatus());
+		System.out.println("Cuota: " + updated_informer.getQuote());
+		
+		/*PF3. Subir un fichero de datos*/
+		File file = new File("00011", 100, 65, updated_informer, null);
+		File file2 = new File("00022", 100, 30, informer2, null);
+		File file3 = new File("00033", 100, 85, informer2, null);
+		File file4 = new File("00044", 100, 20, informer3, null);
+		File file5 = new File("00055", 100, 5, informer3, null);
+		File file6 = new File("00066", 100, 20, informer3, null);
+		
+		is.saveFile(file);
+		is.saveFile(file2);
+		is.saveFile(file3);
+		is.saveFile(file4);
+		is.saveFile(file5);
+		is.saveFile(file6);
+		
+		System.out.println("----- PF3. Subir un fichero de datos -----");
+		System.out.println("----- Fichero creado -----");
+		System.out.println("Id: "+ file.getId());
+		System.out.println("Previews: "+ file.getPreviews());
+		System.out.println("Downloads: "+ file.getDownloads());
+		System.out.println("Informer id: "+ file.getInformer().getId());
+		System.out.println("----- Fichero creado -----");
+		System.out.println("Id: "+ file2.getId());
+		System.out.println("Previews: "+ file2.getPreviews());
+		System.out.println("Downloads: "+ file2.getDownloads());
+		System.out.println("Informer id: "+ file2.getInformer().getId());
+		System.out.println("----- Fichero creado -----");
+		System.out.println("Id: "+ file3.getId());
+		System.out.println("Previews: "+ file3.getPreviews());
+		System.out.println("Downloads: "+ file3.getDownloads());
+		System.out.println("Informer id: "+ file3.getInformer().getId());
+		
+		/*P4. Consultar el listado de ficheros del productor*/
+		List<File> files = is.getFiles(updated_informer);
+		System.out.println("----- PF4. Consultar ficheros de un productor -----");
+		for(File f:files) {
+			System.out.println("Id: "+ f.getId());
+			System.out.println("Previews: "+ f.getPreviews());
+			System.out.println("Downloads: "+ f.getDownloads());
+			System.out.println("Informer id: "+ f.getInformer().getId());
+		}
+		
+		/*PF6. Eliminar un fichero de datos del productor*/
+		System.out.println("----- PF6. Eliminar un fichero de un productor -----");
+		fs.deleteFile(files.get(0));
+		
+	}
+	
+	public void APIvalidator() {
+		/*VF1. Obtener el listado de productores*/
+		List<Informer> all_informers = is.getAllInformers();
+		System.out.println("----- VF1. Obtener el listado de productores -----");
+		for(Informer informer:all_informers) {
+			System.out.println("Name: " + informer.getName());
+			System.out.println("Email: " + informer.geteMail());
+			System.out.println("Password: " + informer.getPassword());
+			System.out.println("Tipo: " + informer.getType());
+			System.out.println("Estado: " + informer.getStatus());
+			System.out.println("Cuota: " + informer.getQuote());
+		}
+		
+		/*VF2. Aprobar un nuevo productor*/
+		Informer approved_informer = is.approveInformer(all_informers.get(1).getId());
+		System.out.println("----- VF2. Aprobar un nuevo productor -----");
+		System.out.println("----- Productor aprobado -----");
+		System.out.println("Name: " + approved_informer.getName());
+		System.out.println("Email: " + approved_informer.geteMail());
+		System.out.println("Password: " + approved_informer.getPassword());
+		System.out.println("Tipo: " + approved_informer.getType());
+		System.out.println("Estado: " + approved_informer.getStatus());
+		System.out.println("Cuota: " + approved_informer.getQuote());
+		
+		/*VF3. Modificación de la información de un productor*/
+		approved_informer.setName("informador02actualizado");
+		approved_informer.seteMail("informador02actualizado@uv.es");
+		Informer updated_informer = is.updateInformer(approved_informer);
+		
+		System.out.println("----- VF3. Modificar informacion de un informador -----");
+		System.out.println("----- Informador modificado -----");
+		System.out.println("Name: " + updated_informer.getName());
+		System.out.println("Email: " + updated_informer.geteMail());
+		System.out.println("Password: " + updated_informer.getPassword());
+		System.out.println("Tipo: " + updated_informer.getType());
+		System.out.println("Estado: " + updated_informer.getStatus());
+		System.out.println("Cuota: " + updated_informer.getQuote());
+		
+		/*VF4. Eliminar un productor*/
+		System.out.println("----- VF4. Eliminar un productor -----");
+		System.out.println("----- Informador eliminado -----");
+		is.deleteInformer(all_informers.get(0).getId());
+		
+		/*VF6. Preparación y publicación de un fichero*/
+		Validator validator = vr.findAll().get(0);
+		File file = new File("00044", 100, 95, updated_informer, validator);
+		is.saveFile(file);
+		fs.updateFileValidator(file);
+		
+		System.out.println("----- VF6. Preparacion y publicacion de un fichero -----");
+		System.out.println("----- Fichero publicado -----");
+		System.out.println("Id: "+ file.getId());
+		System.out.println("Previews: "+ file.getPreviews());
+		System.out.println("Downloads: "+ file.getDownloads());
+		System.out.println("Informer id: "+ file.getInformer().getId());
+		System.out.println("Validator id: "+ file.getValidator().getId());
+		
+	}
+	
+	public void APIconsumer() {
+		/*CF1. Listado de ficheros ordenados por numero de descargas*/
+		List<File> files_downloads = fs.getFilesByDownloads();
+		
+		System.out.println("----- CF1. Listado de ficheros ordenados por descargas -----");
+		for(File file:files_downloads) {
+			System.out.println("Id: "+ file.getId());
+			System.out.println("Previews: "+ file.getPreviews());
+			System.out.println("Downloads: "+ file.getDownloads());
+			System.out.println("Informer id: "+ file.getInformer().getId());
+		}
+		
+		/*CF2. Listado de ficheros por nombre del productor*/
+		Informer informer = is.getInformerByName("informador02actualizado");
+		List<File> files_username = informer.getFiles();
+		
+		System.out.println("----- CF1. Listado de ficheros por nombre del productor -----");
+		for(File file:files_username) {
+			System.out.println("Id: "+ file.getId());
+			System.out.println("Previews: "+ file.getPreviews());
+			System.out.println("Downloads: "+ file.getDownloads());
+			System.out.println("Informer id: "+ file.getInformer().getId());
+		}
+		
+		
+		
 	}
 }
 
