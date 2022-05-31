@@ -36,9 +36,9 @@ public class ProjectService {
 			return informer;
 		}
 		
-		public Informer updateInformer(Integer id,Informer informer) {
+		public Informer updateInformer(Informer informer) {
 			
-			Informer informer_update = ir.findById(id).get();
+			Informer informer_update = ir.findById(informer.getId()).get();
 			
 			informer_update.setName(informer.getName());
 			informer_update.setNif(informer.getNif());
@@ -92,9 +92,9 @@ public class ProjectService {
 			return validator;
 		}
 		
-		public Validator updateValidator(Integer id,Validator validator) {
+		public Validator updateValidator(Validator validator) {
 			
-			Validator validator_update = vr.findById(id).get();
+			Validator validator_update = vr.findById(validator.getId()).get();
 			
 			validator_update.setName(validator.getName());
 			validator_update.seteMail(validator.geteMail());
@@ -119,9 +119,9 @@ public class ProjectService {
 			return file;
 		}
 		
-		public File updateFile(String id, File file) {
+		public File updateFile(File file) {
 			
-			File file_update = fr.findById(id).get();
+			File file_update = fr.findById(file.getId()).get();
 			
 			file_update.setId(file.getId());
 			file_update.setPreviews(file.getPreviews());
@@ -133,4 +133,27 @@ public class ProjectService {
 			
 			return file_update;
 		}
+		
+		//Buscar usuario por Id
+		public User findUserById(Integer id) {
+			User user = ur.findById(id).get();
+		
+		return user;
+		}
+		
+		//Buscar usuario por username
+		public User findUserByUserName(String username) {
+			User user = ur.findByUsername(username);
+				
+		return user;
+		}
+		
+		//Buscar informador por id
+		public Informer findInformerById(Integer id) {
+			Informer informer = ir.findById(id).get();
+						
+		return informer;
+		}
+		
+		
 }
