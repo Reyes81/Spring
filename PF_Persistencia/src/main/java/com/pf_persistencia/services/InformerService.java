@@ -69,7 +69,7 @@ public class InformerService {
 		public Informer getInformerId(Integer id){
 			
 			//Crear una excepción por si no existe el informador
-			Informer informer = ir.getById(id);
+			Informer informer = ir.findById(id).get();
 			return informer;
 		}
 	
@@ -165,7 +165,7 @@ public class InformerService {
 			
 			Integer id = informer.getId();
 			
-			Informer informer_bd = ir.getById(id);
+			Informer informer_bd = ir.findById(id).get();
 			informer_bd.setQuote(informer.getQuote());
 			
 			ir.save(informer_bd);
@@ -179,7 +179,7 @@ public class InformerService {
 		
 		public void suspendInformer(Integer id)
 		{
-			Informer informer_bd = ir.getById(id);
+			Informer informer_bd = ir.findById(id).get();
 			informer_bd.setStatus(Status.INACTIVO);
 			
 			ir.save(informer_bd);

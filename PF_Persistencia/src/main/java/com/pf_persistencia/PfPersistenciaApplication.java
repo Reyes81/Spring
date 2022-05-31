@@ -190,8 +190,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		vr.save(validator);
 		
 		APIproducer();
-		APIvalidator();
-		APIconsumer();
+		//APIvalidator();
+		//APIconsumer();
 		
 	}
 	
@@ -288,7 +288,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	}
 	
 	public void APIproducer() {
-		/*PF1. Solicitud de registro de un nuevo informador*/
+		
+		//PF1. Solicitud de registro de un nuevo informador//
 		User user = new User("informador01@uv.es","1234","INFORMER");
 		User user2 = new User("informador02@uv.es","1234","INFORMER");
 		User user3 = new User("informador03@uv.es","1234","INFORMER");
@@ -326,8 +327,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Estado: " + informer3.getStatus());
 		System.out.println("Cuota: " + informer3.getQuote());
 		
-		
-		/*PF2. Solicitud de modificación de la información de un productor*/
+		/*
+		//PF2. Solicitud de modificación de la información de un productor//
 		informer.setName("informador01_actualizado");
 		informer.seteMail("informador01actualizado@uv.es");
 		Informer updated_informer = is.updateInformer(informer);
@@ -341,7 +342,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Estado: " + updated_informer.getStatus());
 		System.out.println("Cuota: " + updated_informer.getQuote());
 		
-		/*PF3. Subir un fichero de datos*/
+		//PF3. Subir un fichero de datos//
 		File file = new File("00011", 100, 65, updated_informer, null);
 		File file2 = new File("00022", 100, 30, informer2, null);
 		File file3 = new File("00033", 100, 85, informer2, null);
@@ -373,7 +374,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Downloads: "+ file3.getDownloads());
 		System.out.println("Informer id: "+ file3.getInformer().getId());
 		
-		/*P4. Consultar el listado de ficheros del productor*/
+		//P4. Consultar el listado de ficheros del productor//
 		List<File> files = is.getFiles(updated_informer);
 		System.out.println("----- PF4. Consultar ficheros de un productor -----");
 		for(File f:files) {
@@ -383,10 +384,10 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Informer id: "+ f.getInformer().getId());
 		}
 		
-		/*PF6. Eliminar un fichero de datos del productor*/
+		//PF6. Eliminar un fichero de datos del productor//
 		System.out.println("----- PF6. Eliminar un fichero de un productor -----");
 		fs.deleteFile(files.get(0));
-		
+		*/
 	}
 	
 	public void APIvalidator() {
