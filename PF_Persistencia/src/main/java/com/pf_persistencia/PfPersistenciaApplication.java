@@ -156,9 +156,11 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	public void testEntities() {
 		
 		//newUser();
-		updateUser();
-		
-		
+		//updateUser();
+		//updateInformer();
+		//updateValidator();
+		//updateFile();
+		deleteUser();
 	}
 	
 	public User newUser() {
@@ -185,6 +187,72 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Role: " + update_user.getRole());
 		
 		return update_user;
+	}
+	
+	public Informer updateInformer() {
+	
+		Informer informador = ir.findById(108).get();
+		informador.setQuote(325.0);
+		
+		Informer informador_update = ps.updateInformer(informador);
+	
+		System.out.println("----- INFORMADOR ACTUALIZADO -----");
+		System.out.println("Name: " + informador_update.getName());
+		System.out.println("Email: " + informador_update.geteMail());
+		System.out.println("Password: " + informador_update.getPassword());
+		System.out.println("Tipo: " + informador_update.getType());
+		System.out.println("Estado: " + informador_update.getStatus());
+		System.out.println("Cuota: " + informador_update.getQuote());
+		
+		return informador_update;
+	}
+	
+	public Validator updateValidator() {
+		
+		Validator validador = vr.findById(27).get();
+		validador.setName("validador04@uv.es");
+		
+		Validator validador_update = ps.updateValidator(validador);
+	
+		System.out.println("----- VALIDADOR ACTUALIZADO -----");
+		System.out.println("Name: " + validador_update.getName());
+		System.out.println("Email: " + validador_update.geteMail());
+		System.out.println("Password: " + validador_update.getPassword());
+		
+		
+		return validador_update;
+	}
+	
+	public File updateFile() {
+		
+		File file = fr.findById("9").get();
+		file.setPreviews(615);
+		
+		File file_update = ps.updateFile(file);
+	
+		System.out.println("----- FICHERO ACTUALIZADO -----");
+		System.out.println("Id: " + file_update.getId());
+		System.out.println("Previews: " + file_update.getPreviews());
+		System.out.println("Password: " + file_update.getDownloads());
+		
+		
+		return file_update;
+	}
+	
+	public void deleteUser() {
+		ps.deleteUser(131);
+	}
+	
+	public void deleteInformer() {
+		ps.deleteInformer(106);
+	}
+	
+	public void deleteValidator() {
+		ps.deleteValidator(26);
+	}
+	
+	public void deleteFile() {
+		ps.deleteFile("10");
 	}
 }
 

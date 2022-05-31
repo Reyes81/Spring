@@ -134,6 +134,10 @@ public class ProjectService {
 			return file_update;
 		}
 		
+		public void deleteFile(String id) {
+			fr.deleteById(id);
+		}
+		
 		//Buscar usuario por Id
 		public User findUserById(Integer id) {
 			User user = ur.findById(id).get();

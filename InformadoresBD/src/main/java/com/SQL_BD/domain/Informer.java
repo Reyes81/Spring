@@ -28,7 +28,7 @@ import lombok.ToString;
 
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
+//@Inheritance(strategy=InheritanceType.JOINED)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @Table(name="informer")
 public class Informer {

@@ -33,6 +33,7 @@ public class Validator {
 	private User userId;
 	
 	private String name;
+	@Column(name="e_mail", nullable=false)
 	private String eMail;
 	private String password;
 	
