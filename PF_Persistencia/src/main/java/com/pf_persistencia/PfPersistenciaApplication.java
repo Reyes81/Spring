@@ -406,7 +406,32 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Estado: " + informer.getStatus());
 			System.out.println("Cuota: " + informer.getQuote());
 		}
-		
+		*/
+		//VF1-B. Obtener el listado de productores pendientes de aprobación
+		  List<Informer> informers_status = is.getPendingInformers();
+		  System.out.println("----- VF1-B. Obtener el listado de productores pendientes de aprobación -----");
+		  for(Informer informer:informers_status) {
+				System.out.println("Name: " + informer.getName());
+				System.out.println("Email: " + informer.geteMail());
+				System.out.println("Password: " + informer.getPassword());
+				System.out.println("Tipo: " + informer.getType());
+				System.out.println("Estado: " + informer.getStatus());
+				System.out.println("Cuota: " + informer.getQuote());
+			}
+		  
+		//VF1-C. Obtener el listado de productores pendientes de aprobación
+		  List<Informer> informers_quote = is.getQuoteConsumed();
+		  System.out.println("----- VF1-C. Obtener el listado de productores con cuota agotada -----");
+		  for(Informer informer:informers_quote) {
+				System.out.println("Name: " + informer.getName());
+				System.out.println("Email: " + informer.geteMail());
+				System.out.println("Password: " + informer.getPassword());
+				System.out.println("Tipo: " + informer.getType());
+				System.out.println("Estado: " + informer.getStatus());
+				System.out.println("Cuota: " + informer.getQuote());
+			}
+		  
+		/*
 		//VF2. Aprobar un nuevo productor//
 		Informer approved_informer = is.approveInformer(all_informers.get(1).getId());
 		System.out.println("----- VF2. Aprobar un nuevo productor -----");
@@ -431,7 +456,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Tipo: " + updated_informer.getType());
 		System.out.println("Estado: " + updated_informer.getStatus());
 		System.out.println("Cuota: " + updated_informer.getQuote());
-		*/
+		
 		//VF4. Eliminar un productor//
 		System.out.println("----- VF4. Eliminar un productor -----");
 		System.out.println("----- Informador eliminado -----");
@@ -454,7 +479,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	}
 	
 	public void APIconsumer() {
-		/*CF1. Listado de ficheros ordenados por numero de descargas*/
+		
+		//CF1. Listado de ficheros ordenados por numero de descargas//
 		List<File> files_downloads = fs.getFilesByDownloads();
 		
 		System.out.println("----- CF1. Listado de ficheros ordenados por descargas -----");
@@ -465,11 +491,11 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Informer id: "+ file.getInformer().getId());
 		}
 		
-		/*CF2. Listado de ficheros por nombre del productor*/
+		//CF2. Listado de ficheros por nombre del productor//
 		Informer informer = is.getInformerByName("informador02actualizado");
 		List<File> files_username = informer.getFiles();
 		
-		System.out.println("----- CF1. Listado de ficheros por nombre del productor -----");
+		System.out.println("----- CF2. Listado de ficheros por nombre del productor -----");
 		for(File file:files_username) {
 			System.out.println("Id: "+ file.getId());
 			System.out.println("Previews: "+ file.getPreviews());
@@ -477,8 +503,23 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Informer id: "+ file.getInformer().getId());
 		}
 		
+		//CF3.Previsualizar un fichero de un fichero
+		System.out.println("----- CF3. Previsualizar un fichero -----");
+		File file = fs.findById("00022");
+		File file_preview = fs.previewFile(file);
+		System.out.println("Id: "+ file_preview.getId());
+		System.out.println("Previews: "+ file_preview.getPreviews());
+		System.out.println("Downloads: "+ file_preview.getDownloads());
+		System.out.println("Informer id: "+ file_preview.getInformer().getId());
 		
-		
+		//CF4.Descarga de un fichero de un fichero
+		System.out.println("----- CF4. Descargar un fichero -----");
+		File file2 = fs.findById("00023");
+		File file_download = fs.downloadFile(file);
+		System.out.println("Id: "+ file_download.getId());
+		System.out.println("Previews: "+ file_download.getPreviews());
+		System.out.println("Downloads: "+ file_download.getDownloads());
+		System.out.println("Informer id: "+ file_download.getInformer().getId());
 	}
 }
 

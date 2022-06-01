@@ -82,17 +82,6 @@ public class InformerService {
 			informers = null;
 			System.out.println("No existen informadores en estado 'Pendiente de Aprobación'");
 		}
-		else {
-			for(Informer informer:informers) {
-				System.out.println("Id: " + informer.getId() + "\n" +
-						   "nif: " + informer.getNif() + "\n" +
-						   "status: " + informer.getStatus() + "\n" +
-						   "type: " + informer.getType() + "\n" + 
-						   "quote: " + informer.getQuote() + "\n" + 
-						   "eMail: " + informer.geteMail() + "\n" +
-						   "password: " + informer.getPassword());
-			}
-		}
 		
 		return informers;
 	}
@@ -106,17 +95,6 @@ public class InformerService {
 			if(informers.isEmpty()) {
 				informers = null;
 				System.out.println("No existen informadores con cuota agotada");
-			}
-			else {
-				for(Informer informer:informers) {
-					System.out.println("Id: " + informer.getId() + "\n" +
-							   "nif: " + informer.getNif() + "\n" +
-							   "status: " + informer.getStatus() + "\n" +
-							   "type: " + informer.getType() + "\n" + 
-							   "quote: " + informer.getQuote() + "\n" + 
-							   "eMail: " + informer.geteMail() + "\n" +
-							   "password: " + informer.getPassword());
-				}
 			}
 			
 			return informers;

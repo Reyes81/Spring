@@ -60,5 +60,26 @@ public class FileService {
 		
 		return files;
 	}
-
+	
+	public File previewFile(File file) {
+		
+		Integer num_preview = file.getPreviews();
+		
+		File file_preview = fr.findById(file.getId()).get();
+		file_preview.setPreviews(num_preview + 1);
+		file_preview = updateFile(file_preview);
+		
+		return file_preview; 
+	}
+	
+	public File downloadFile(File file) {
+		
+		Integer num_downloads = file.getDownloads();
+		
+		File file_download = fr.findById(file.getId()).get();
+		file_download.setDownloads(num_downloads + 1);
+		file_download = updateFile(file_download);
+		
+		return file_download; 
+	}
 }
