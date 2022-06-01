@@ -197,7 +197,6 @@ public class InformerService {
 			List<File> files = informer.getFiles();
 			return files;
 		}
-		
 		public void deleteFile(Informer informer) {
 			File file = informer.getFiles().remove(0);
 		}

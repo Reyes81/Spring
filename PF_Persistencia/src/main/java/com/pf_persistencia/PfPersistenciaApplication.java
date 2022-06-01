@@ -60,7 +60,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	@SuppressWarnings("unused")
 	@Override
 	public void run(String...strings) throws Exception {
-		clearBD();
+		//clearBD();
 		//Inicializamos la BD
 		//initializeBD();
 		//testEntities();
@@ -293,6 +293,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		User user = new User("informador01@uv.es","1234","INFORMER");
 		User user2 = new User("informador02@uv.es","1234","INFORMER");
 		User user3 = new User("informador03@uv.es","1234","INFORMER");
+		
 		us.saveUser(user);
 		us.saveUser(user2);
 		us.saveUser(user3);
@@ -300,6 +301,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		Informer informer = new Informer("informador01","0001",Type.FISICA,Status.PENDIENTE,0.0,"informador01@uv.es","1234",user);
 		Informer informer2 = new Informer("informador02","0002",Type.FISICA,Status.PENDIENTE,0.0,"informador02@uv.es","1234",user2);
 		Informer informer3 = new Informer("informador03","0003",Type.JURIDICA,Status.PENDIENTE,0.0,"informador03@uv.es","1234",user3);
+		
 		is.saveInformer(informer);
 		is.saveInformer(informer2);
 		is.saveInformer(informer3);
@@ -327,7 +329,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Estado: " + informer3.getStatus());
 		System.out.println("Cuota: " + informer3.getQuote());
 		
-		/*
+		
 		//PF2. Solicitud de modificación de la información de un productor//
 		informer.setName("informador01_actualizado");
 		informer.seteMail("informador01actualizado@uv.es");
@@ -383,7 +385,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Downloads: "+ f.getDownloads());
 			System.out.println("Informer id: "+ f.getInformer().getId());
 		}
-		
+		/*
 		//PF6. Eliminar un fichero de datos del productor//
 		System.out.println("----- PF6. Eliminar un fichero de un productor -----");
 		fs.deleteFile(files.get(0));
@@ -391,7 +393,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	}
 	
 	public void APIvalidator() {
-		/*VF1. Obtener el listado de productores*/
+		//VF1. Obtener el listado de productores//
 		List<Informer> all_informers = is.getAllInformers();
 		System.out.println("----- VF1. Obtener el listado de productores -----");
 		for(Informer informer:all_informers) {
@@ -403,7 +405,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Cuota: " + informer.getQuote());
 		}
 		
-		/*VF2. Aprobar un nuevo productor*/
+		//VF2. Aprobar un nuevo productor//
 		Informer approved_informer = is.approveInformer(all_informers.get(1).getId());
 		System.out.println("----- VF2. Aprobar un nuevo productor -----");
 		System.out.println("----- Productor aprobado -----");
@@ -414,7 +416,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Estado: " + approved_informer.getStatus());
 		System.out.println("Cuota: " + approved_informer.getQuote());
 		
-		/*VF3. Modificación de la información de un productor*/
+		//VF3. Modificación de la información de un productor//
 		approved_informer.setName("informador02actualizado");
 		approved_informer.seteMail("informador02actualizado@uv.es");
 		Informer updated_informer = is.updateInformer(approved_informer);
@@ -427,13 +429,13 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Tipo: " + updated_informer.getType());
 		System.out.println("Estado: " + updated_informer.getStatus());
 		System.out.println("Cuota: " + updated_informer.getQuote());
-		
-		/*VF4. Eliminar un productor*/
+		/*
+		//VF4. Eliminar un productor//
 		System.out.println("----- VF4. Eliminar un productor -----");
 		System.out.println("----- Informador eliminado -----");
 		is.deleteInformer(all_informers.get(0).getId());
-		
-		/*VF6. Preparación y publicación de un fichero*/
+		*/
+		//VF6. Preparación y publicación de un fichero//
 		Validator validator = vr.findAll().get(0);
 		File file = new File("00044", 100, 95, updated_informer, validator);
 		is.saveFile(file);
