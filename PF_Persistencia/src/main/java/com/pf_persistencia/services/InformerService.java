@@ -73,7 +73,7 @@ public class InformerService {
 			return informer;
 		}
 	
-	//VF1. Obtener todos los informadores que esten pendientes de aprobación
+	//VF1-B. Obtener todos los informadores que esten pendientes de aprobación
 	public List<Informer> getPendingInformers() {
 		List<Informer> informers = new ArrayList<Informer>();
 		informers = ir.findByStatus(Status.PENDIENTE);
@@ -86,7 +86,7 @@ public class InformerService {
 		return informers;
 	}
 	
-	//VF1. Obtener todos los informadores que hayan agotado su cuota anual
+	//VF1-C. Obtener todos los informadores que hayan agotado su cuota anual
 		public List<Informer> getQuoteConsumed() {
 			List<Informer> informers = new ArrayList<Informer>();
 			Double quote = 0.0;

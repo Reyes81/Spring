@@ -190,8 +190,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		//vr.save(validator);
 		
 		//APIproducer();
-		APIvalidator();
-		//APIconsumer();
+		//APIvalidator();
+		APIconsumer();
 		
 	}
 	
@@ -299,6 +299,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		us.saveUser(user3);
 		
 		Informer informer = new Informer("informador01","0001",Type.FISICA,Status.PENDIENTE,0.0,"informador01@uv.es","1234",user);
+		
 		Informer informer2 = new Informer("informador02","0002",Type.FISICA,Status.PENDIENTE,0.0,"informador02@uv.es","1234",user2);
 		Informer informer3 = new Informer("informador03","0003",Type.JURIDICA,Status.PENDIENTE,0.0,"informador03@uv.es","1234",user3);
 		
@@ -396,7 +397,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//VF1. Obtener el listado de productores//
 		List<Informer> all_informers = is.getAllInformers();
-		/*
+	
 		System.out.println("----- VF1. Obtener el listado de productores -----");
 		for(Informer informer:all_informers) {
 			System.out.println("Name: " + informer.getName());
@@ -406,32 +407,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Estado: " + informer.getStatus());
 			System.out.println("Cuota: " + informer.getQuote());
 		}
-		*/
-		//VF1-B. Obtener el listado de productores pendientes de aprobación
-		  List<Informer> informers_status = is.getPendingInformers();
-		  System.out.println("----- VF1-B. Obtener el listado de productores pendientes de aprobación -----");
-		  for(Informer informer:informers_status) {
-				System.out.println("Name: " + informer.getName());
-				System.out.println("Email: " + informer.geteMail());
-				System.out.println("Password: " + informer.getPassword());
-				System.out.println("Tipo: " + informer.getType());
-				System.out.println("Estado: " + informer.getStatus());
-				System.out.println("Cuota: " + informer.getQuote());
-			}
-		  
-		//VF1-C. Obtener el listado de productores pendientes de aprobación
-		  List<Informer> informers_quote = is.getQuoteConsumed();
-		  System.out.println("----- VF1-C. Obtener el listado de productores con cuota agotada -----");
-		  for(Informer informer:informers_quote) {
-				System.out.println("Name: " + informer.getName());
-				System.out.println("Email: " + informer.geteMail());
-				System.out.println("Password: " + informer.getPassword());
-				System.out.println("Tipo: " + informer.getType());
-				System.out.println("Estado: " + informer.getStatus());
-				System.out.println("Cuota: " + informer.getQuote());
-			}
-		  
-		/*
+		
 		//VF2. Aprobar un nuevo productor//
 		Informer approved_informer = is.approveInformer(all_informers.get(1).getId());
 		System.out.println("----- VF2. Aprobar un nuevo productor -----");
@@ -461,7 +437,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("----- VF4. Eliminar un productor -----");
 		System.out.println("----- Informador eliminado -----");
 		is.deleteInformer(all_informers.get(0).getId());
-		/*
+		
 		//VF6. Preparación y publicación de un fichero//
 		Validator validator = vr.findAll().get(0);
 		File file = new File("00044", 100, 95, updated_informer, validator);
@@ -475,11 +451,72 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Downloads: "+ file.getDownloads());
 		System.out.println("Informer id: "+ file.getInformer().getId());
 		System.out.println("Validator id: "+ file.getValidator().getId());
-		*/
+		
+		// Se ponen aquí porque al principio todos están con cuota 0 y pendientes de aprobación
+		//VF1-B. Obtener el listado de productores pendientes de aprobación
+		  List<Informer> informers_status = is.getPendingInformers();
+		  System.out.println("----- VF1-B. Obtener el listado de productores pendientes de aprobación -----");
+		  for(Informer informer:informers_status) {
+				System.out.println("Name: " + informer.getName());
+				System.out.println("Email: " + informer.geteMail());
+				System.out.println("Password: " + informer.getPassword());
+				System.out.println("Tipo: " + informer.getType());
+				System.out.println("Estado: " + informer.getStatus());
+				System.out.println("Cuota: " + informer.getQuote());
+			}
+		  
+		//VF1-C. Obtener el listado de productores on la cuota agotada
+		  List<Informer> informers_quote = is.getQuoteConsumed();
+		  System.out.println("----- VF1-C. Obtener el listado de productores con cuota agotada -----");
+		  for(Informer informer:informers_quote) {
+				System.out.println("Name: " + informer.getName());
+				System.out.println("Email: " + informer.geteMail());
+				System.out.println("Password: " + informer.getPassword());
+				System.out.println("Tipo: " + informer.getType());
+				System.out.println("Estado: " + informer.getStatus());
+				System.out.println("Cuota: " + informer.getQuote());
+			}
 	}
 	
 	public void APIconsumer() {
+		//Creamos nuevos registros para las consultas requeridas en consumidores
+		/*
+		User user04 = new User("informador04@uv.es","1234","INFORMER");
+		User user05 = new User("informador05@uv.es","1234","INFORMER");
+		User user06 = new User("informador06@uv.es","1234","INFORMER");
+		User user07 = new User("validador02@uv.es","1234","VALIDATOR");
 		
+		us.saveUser(user04);
+		us.saveUser(user05);
+		us.saveUser(user06);
+		us.saveUser(user07);
+		
+		Informer informer4 = new Informer("informador04","0004",Type.FISICA,Status.PENDIENTE,0.0,"informador04@uv.es","1234",user04);
+		
+		Informer informer5 = new Informer("informador05","0005",Type.FISICA,Status.ACTIVO,420.0,"informador05@uv.es","1234",user05);
+		Informer informer6 = new Informer("informador05","0006",Type.JURIDICA,Status.PENDIENTE,0.0,"informador06@uv.es","1234",user06);
+		
+		is.saveInformer(informer4);
+		is.saveInformer(informer5);
+		is.saveInformer(informer6);
+		
+		Validator validator2 = new Validator("validator02","validator02@uv.es","1234",user07);
+		vr.save(validator2);
+		
+		File file1 = new File("00077", 152, 95,informer4, validator2);
+		File file2 = new File("00088", 86, 40, informer4, null);
+		File file3 = new File("00099", 99, 55, informer4, validator2);
+		File file4 = new File("00110", 1200, 50, informer4, null);
+		File file5 = new File("00120", 60, 6, informer4, validator2);
+		File file6 = new File("00130", 500, 90, informer5, null);
+		
+		is.saveFile(file1);
+		is.saveFile(file2);
+		is.saveFile(file3);
+		is.saveFile(file4);
+		is.saveFile(file5);
+		is.saveFile(file6);
+		*/
 		//CF1. Listado de ficheros ordenados por numero de descargas//
 		List<File> files_downloads = fs.getFilesByDownloads();
 		
@@ -505,7 +542,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//CF3.Previsualizar un fichero de un fichero
 		System.out.println("----- CF3. Previsualizar un fichero -----");
-		File file = fs.findById("00022");
+		File file = fs.findById("00130");
 		File file_preview = fs.previewFile(file);
 		System.out.println("Id: "+ file_preview.getId());
 		System.out.println("Previews: "+ file_preview.getPreviews());
@@ -514,8 +551,8 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//CF4.Descarga de un fichero de un fichero
 		System.out.println("----- CF4. Descargar un fichero -----");
-		File file2 = fs.findById("00023");
-		File file_download = fs.downloadFile(file);
+		File file_find = fs.findById("00033");
+		File file_download = fs.downloadFile(file_find);
 		System.out.println("Id: "+ file_download.getId());
 		System.out.println("Previews: "+ file_download.getPreviews());
 		System.out.println("Downloads: "+ file_download.getDownloads());
