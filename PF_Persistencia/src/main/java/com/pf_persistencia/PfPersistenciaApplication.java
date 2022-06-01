@@ -183,14 +183,14 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public void requirementsDBCDS() {
 		String password_encode = new BCryptPasswordEncoder().encode("1234");
-		User user = new User("validador01@uv.es",password_encode,"VALIDATOR");
-		ps.createUser(user);
+		//User user = new User("validador01@uv.es",password_encode,"VALIDATOR");
+		//ps.createUser(user);
 		
-		Validator validator = new Validator("validator01","validator01@uv.es",password_encode,user);
-		vr.save(validator);
+		//Validator validator = new Validator("validator01","validator01@uv.es",password_encode,user);
+		//vr.save(validator);
 		
-		APIproducer();
-		//APIvalidator();
+		//APIproducer();
+		APIvalidator();
 		//APIconsumer();
 		
 	}
@@ -393,8 +393,10 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	}
 	
 	public void APIvalidator() {
+		
 		//VF1. Obtener el listado de productores//
 		List<Informer> all_informers = is.getAllInformers();
+		/*
 		System.out.println("----- VF1. Obtener el listado de productores -----");
 		for(Informer informer:all_informers) {
 			System.out.println("Name: " + informer.getName());
@@ -429,12 +431,12 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Tipo: " + updated_informer.getType());
 		System.out.println("Estado: " + updated_informer.getStatus());
 		System.out.println("Cuota: " + updated_informer.getQuote());
-		/*
+		*/
 		//VF4. Eliminar un productor//
 		System.out.println("----- VF4. Eliminar un productor -----");
 		System.out.println("----- Informador eliminado -----");
 		is.deleteInformer(all_informers.get(0).getId());
-		*/
+		/*
 		//VF6. Preparación y publicación de un fichero//
 		Validator validator = vr.findAll().get(0);
 		File file = new File("00044", 100, 95, updated_informer, validator);
@@ -448,7 +450,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Downloads: "+ file.getDownloads());
 		System.out.println("Informer id: "+ file.getInformer().getId());
 		System.out.println("Validator id: "+ file.getValidator().getId());
-		
+		*/
 	}
 	
 	public void APIconsumer() {

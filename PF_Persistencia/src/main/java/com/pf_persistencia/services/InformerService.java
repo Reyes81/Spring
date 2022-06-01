@@ -128,14 +128,7 @@ public class InformerService {
 			Informer informer = ir.findById(id).get();
 			informer.setStatus(Status.ACTIVO);
 			informer.setQuote(500.0);
-			
-			System.out.println("Id: " + informer.getId() + "\n" +
-							   "nif: " + informer.getNif() + "\n" +
-							   "status: " + informer.getStatus() + "\n" +
-							   "type: " + informer.getType() + "\n" + 
-							   "quote: " + informer.getQuote() + "\n" + 
-							   "eMail: " + informer.geteMail() + "\n" +
-							   "password: " + informer.getPassword());
+		
 			ir.save(informer);
 			
 			return informer;
@@ -145,7 +138,6 @@ public class InformerService {
 		
 		public Informer updateInformer(Informer informer)
 		{
-			Integer id = informer.getId();
 			
 			Informer informer_bd = ir.findById(informer.getId()).get();
 			informer_bd.setNif(informer.getNif());
