@@ -98,4 +98,12 @@ public class File {
 		this.informer=informer;
 	}
 	
+	public Validator getValidator() {
+		return this.validator;
+	}
+	
+	public void setValidator(Validator validator) {
+		this.validator=validator;
+	}
+	
 }

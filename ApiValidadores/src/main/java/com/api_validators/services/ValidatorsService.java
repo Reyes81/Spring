@@ -223,6 +223,7 @@ public class ValidatorsService {
 				uriGetFileSQL,
 				File.class,id);
 		file_sql.setValidator(validator_session);
+		
 		restTemplate3.put(
 				uriEditFileSQL,
 				file_sql,

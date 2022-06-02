@@ -158,11 +158,12 @@ public class FileService {
 			
 			restTemplate.delete(
 					uriDeleteFileMongo,
-					String.class, id);
+					id);
 			
-			restTemplate.delete(
+			RestTemplate restTemplate2 = new RestTemplate();
+			restTemplate2.delete(
 					uriDeleteFileSQL,
-					String.class, id);
+					id);
 			
 		}
 	}

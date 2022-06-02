@@ -1,17 +1,18 @@
 package com.SQL_BD.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.SQL_BD.domain.File;
 import com.SQL_BD.domain.FileByUsername;
@@ -95,9 +96,9 @@ public class FilesBDController {
 		return new ResponseEntity<List<FileByUsername>>(files_by_username, HttpStatus.OK);
 	
 	}
-	@RequestMapping("/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public void deleteFile(@PathVariable(value = "id") String id) {
-		
+		System.out.println(id);
 		fs.deleteFile(id);
 		
 	}

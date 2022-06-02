@@ -63,6 +63,7 @@ public class FilesBDService {
 	}
 	
 	public void deleteFile(String id) {
+		System.out.println(id);
 		fr.deleteById(id);
 	}
 
