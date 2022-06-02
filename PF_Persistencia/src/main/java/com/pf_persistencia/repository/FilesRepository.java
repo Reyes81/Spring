@@ -14,5 +14,7 @@ public interface FilesRepository extends JpaRepository<File, String>{
 	
 	public List<File> findAllByOrderByDownloadsDesc();
 	
+	public List<File> findTop10ByOrderByPreviewsDescDownloadsDesc();
+	
 
 }

@@ -516,7 +516,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		is.saveFile(file4);
 		is.saveFile(file5);
 		is.saveFile(file6);
-		*/
+		
 		//CF1. Listado de ficheros ordenados por numero de descargas//
 		List<File> files_downloads = fs.getFilesByDownloads();
 		
@@ -542,7 +542,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//CF3.Previsualizar un fichero de un fichero
 		System.out.println("----- CF3. Previsualizar un fichero -----");
-		File file = fs.findById("00130");
+		File file = fs.findById("00120");
 		File file_preview = fs.previewFile(file);
 		System.out.println("Id: "+ file_preview.getId());
 		System.out.println("Previews: "+ file_preview.getPreviews());
@@ -557,6 +557,16 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		System.out.println("Previews: "+ file_download.getPreviews());
 		System.out.println("Downloads: "+ file_download.getDownloads());
 		System.out.println("Informer id: "+ file_download.getInformer().getId());
+		*/
+		//Q1: Obtener los 10 ficheros con más previsualizaciones y descargas. Para 
+		//cada fichero se devolverán también los datos del productor del fichero
+		List<File> files_top_previews_downloads = fs.getTopPreviewsDownloads();
+		for(File file2:files_top_previews_downloads) {
+			System.out.println("Id: "+ file2.getId());
+			System.out.println("Previews: "+ file2.getPreviews());
+			System.out.println("Downloads: "+ file2.getDownloads());
+			System.out.println("Informer id: "+ file2.getInformer().getId());
+	}
 	}
 }
 

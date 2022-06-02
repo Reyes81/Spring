@@ -82,4 +82,10 @@ public class FileService {
 		
 		return file_download; 
 	}
+	
+	public List<File> getTopPreviewsDownloads(){
+		List<File> files = fr.findTop10ByOrderByPreviewsDescDownloadsDesc();
+		
+		return files;
+	}
 }
