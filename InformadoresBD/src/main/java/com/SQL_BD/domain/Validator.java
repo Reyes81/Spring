@@ -25,7 +25,6 @@ public class Validator {
 	private Integer id;
 	
 	@OneToMany(mappedBy = "validator", cascade= {CascadeType.ALL})
-	@JsonIgnore
 	private List<File> files;
 	
 	@OneToOne

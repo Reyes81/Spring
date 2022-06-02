@@ -203,29 +203,31 @@ public class ValidatorsService {
 	public void publishFile(String id) {
 		
 		Validator validator_session = getValidatorSession();
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 		File file = restTemplate.getForObject(
 		uriGetFileMongoId,
 		File.class,id);
-		
+
 		file.setStatus(Status.PREPARACION);
 		file.setValidator(validator_session);
-		
+
 		RestTemplate restTemplate2 = new RestTemplate();
 		RestTemplate restTemplate3 = new RestTemplate();
-		
+
 		restTemplate2.put(
 				uriEditFileMongo,
 				file,
 				File.class);
 		
+
 		restTemplate3.put(
 				uriEditFileSQL,
 				file,
 				File.class);
+		System.out.println("despues");
 		
 		String routingKey = "file.validador";
-		rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
+		//rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
 	}
 }

@@ -167,7 +167,22 @@ public class InformerService {
 			List<File> files = informer.getFiles();
 			return files;
 		}
+		
 		public void deleteFile(Informer informer) {
 			File file = informer.getFiles().remove(0);
 		}
+		
+		
+		public List<Object[]> findNumberOfEachStatus() {
+			List<Object[]> informer_by_status = ir.countInformerByStatus();
+			
+			return informer_by_status;
+			
+		}
+		
+		/*public List<Informer> getInformersByNFiles(Long number){
+			List<Informer> informers = ir.findInformerByNFiles();
+			return informers;
+			
+		}*/
 }

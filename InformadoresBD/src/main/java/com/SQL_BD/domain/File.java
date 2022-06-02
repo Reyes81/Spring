@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -26,12 +28,14 @@ public class File {
     */
     //TODO Relacion * a 1 con Informer
   	@ManyToOne(optional = true, fetch=FetchType.LAZY)
+  	@JsonIgnore
   	@JoinColumn(name = "informer_user_id")
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
   	@ManyToOne(optional = true, fetch=FetchType.LAZY)
   	@JoinColumn(name = "validator_user_id")
+  	@JsonIgnore
     private Validator validator;
 
 	private Integer previews;

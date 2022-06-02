@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pf_persistencia.domain.File;
 import com.pf_persistencia.domain.Informer;
+import com.pf_persistencia.domain.Validator;
 import com.pf_persistencia.repository.FilesRepository;
 
 @Service
@@ -85,6 +86,12 @@ public class FileService {
 	
 	public List<File> getTopPreviewsDownloads(){
 		List<File> files = fr.findTop10ByOrderByPreviewsDescDownloadsDesc();
+		
+		return files;
+	}
+	
+	public List<File> getFilesByValidatorInformer(Validator validator, Informer informer){
+		List<File> files = fr.findAllByValidatorAndInformer(validator, informer);
 		
 		return files;
 	}

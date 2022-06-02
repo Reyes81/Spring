@@ -22,6 +22,7 @@ import com.pf_persistencia.services.FileService;
 import com.pf_persistencia.services.InformerService;
 import com.pf_persistencia.services.ProjectService;
 import com.pf_persistencia.services.UserService;
+import com.pf_persistencia.services.ValidatorService;
 
 @SpringBootApplication
 public class PfPersistenciaApplication implements CommandLineRunner {
@@ -52,6 +53,9 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	@Autowired
 	FileService fs;
 	
+	@Autowired
+	ValidatorService vs;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PfPersistenciaApplication.class, args);
 			
@@ -62,11 +66,12 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	public void run(String...strings) throws Exception {
 		//clearBD();
 		//Inicializamos la BD
-		//initializeBD();
-		//testEntities();
+		initializeBD();
+		testEntities();
+		testQueries();
 		/* Servicios especificados en los requisitos de DBCDS */
+		clearBD();
 		requirementsDBCDS();
-		
 	}
 	
 	public void clearBD() {
@@ -111,17 +116,29 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		Informer informer5 = new Informer("informador05","0005",Type.JURIDICA,Status.PENDIENTE,0.0,"informador05@uv.es",password_encode,user5);
 		ir.save(informer5);
 		
-		User user6 = new User("validador01@uv.es",password_encode,"VALIDATOR");
+		User user6 = new User("informador06@uv.es",password_encode,"INFORMER");
 		ps.createUser(user6);
 		
-		Validator validator1 = new Validator("validator01","validator01@uv.es",password_encode,user6);
-		vr.save(validator1);
+		Informer informer6 = new Informer("informador06","0005",Type.JURIDICA,Status.PENDIENTE,0.0,"informador06@uv.es",password_encode,user6);
+		ir.save(informer6);
 		
-		User user7 = new User("validador02@uv.es",password_encode,"VALIDATOR");
+		User user7 = new User("validador01@uv.es",password_encode,"VALIDATOR");
 		ps.createUser(user7);
 		
-		Validator validator2 = new Validator("validator02","validator02@uv.es",password_encode,user7);
+		Validator validator1 = new Validator("validator01","validator01@uv.es",password_encode,user7);
+		vr.save(validator1);
+		
+		User user8 = new User("validador02@uv.es",password_encode,"VALIDATOR");
+		ps.createUser(user8);
+		
+		Validator validator2 = new Validator("validator02","validator02@uv.es",password_encode,user8);
 		vr.save(validator2);
+		
+		User user9 = new User("validador03@uv.es",password_encode,"VALIDATOR");
+		ps.createUser(user9);
+		
+		Validator validator3 = new Validator("validator03","validator03@uv.es",password_encode,user9);
+		vr.save(validator3);
 		
 		//Creamos registros en la BD para ficheros
 		File file1 = new File("1",300, 246,informer1,validator1);
@@ -173,24 +190,24 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public void testEntities() {
 		
-		//newUser();
-		//updateUser();
-		//updateInformer();
-		//updateValidator();
-		//updateFile();
-		//deleteUser();
+		newUser();
+		updateUser();
+		updateInformer();
+		updateValidator();
+		updateFile();
+		deleteUser();
 	}
 	
 	public void requirementsDBCDS() {
 		String password_encode = new BCryptPasswordEncoder().encode("1234");
-		//User user = new User("validador01@uv.es",password_encode,"VALIDATOR");
-		//ps.createUser(user);
+		User user = new User("validador01@uv.es",password_encode,"VALIDATOR");
+		ps.createUser(user);
 		
-		//Validator validator = new Validator("validator01","validator01@uv.es",password_encode,user);
-		//vr.save(validator);
+		Validator validator = new Validator("validator01","validator01@uv.es",password_encode,user);
+		vr.save(validator);
 		
-		//APIproducer();
-		//APIvalidator();
+		APIproducer();
+		APIvalidator();
 		APIconsumer();
 		
 	}
@@ -480,7 +497,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 	
 	public void APIconsumer() {
 		//Creamos nuevos registros para las consultas requeridas en consumidores
-		/*
+		
 		User user04 = new User("informador04@uv.es","1234","INFORMER");
 		User user05 = new User("informador05@uv.es","1234","INFORMER");
 		User user06 = new User("informador06@uv.es","1234","INFORMER");
@@ -529,7 +546,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		}
 		
 		//CF2. Listado de ficheros por nombre del productor//
-		Informer informer = is.getInformerByName("informador02actualizado");
+		Informer informer = is.getInformerByName("informador04");
 		List<File> files_username = informer.getFiles();
 		
 		System.out.println("----- CF2. Listado de ficheros por nombre del productor -----");
@@ -540,7 +557,7 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 			System.out.println("Informer id: "+ file.getInformer().getId());
 		}
 		
-		//CF3.Previsualizar un fichero de un fichero
+		//CF3.Previsualizar un fichero
 		System.out.println("----- CF3. Previsualizar un fichero -----");
 		File file = fs.findById("00120");
 		File file_preview = fs.previewFile(file);
@@ -551,24 +568,63 @@ public class PfPersistenciaApplication implements CommandLineRunner {
 		
 		//CF4.Descarga de un fichero de un fichero
 		System.out.println("----- CF4. Descargar un fichero -----");
-		File file_find = fs.findById("00033");
+		File file_find = fs.findById("00130");
 		File file_download = fs.downloadFile(file_find);
 		System.out.println("Id: "+ file_download.getId());
 		System.out.println("Previews: "+ file_download.getPreviews());
 		System.out.println("Downloads: "+ file_download.getDownloads());
 		System.out.println("Informer id: "+ file_download.getInformer().getId());
-		*/
+		
+	}
+	
+	public void testQueries() {
+		
 		//Q1: Obtener los 10 ficheros con más previsualizaciones y descargas. Para 
 		//cada fichero se devolverán también los datos del productor del fichero
+		System.out.println("----- Q1. Obtener 10 ficheros con mas previsualizaciones y descargas -----");
 		List<File> files_top_previews_downloads = fs.getTopPreviewsDownloads();
-		for(File file2:files_top_previews_downloads) {
-			System.out.println("Id: "+ file2.getId());
-			System.out.println("Previews: "+ file2.getPreviews());
-			System.out.println("Downloads: "+ file2.getDownloads());
-			System.out.println("Informer id: "+ file2.getInformer().getId());
+		
+		for(File f:files_top_previews_downloads) {
+			System.out.println("Id: "+ f.getId());
+			System.out.println("Previews: "+ f.getPreviews());
+			System.out.println("Downloads: "+ f.getDownloads());
+			System.out.println("Informer id: "+ f.getInformer().getId());
 	}
+		//Q2. Obtener para un validador dado todos los documentos que ha validado de
+		//un productor determinado
+		System.out.println("----- Q2. Obtener para un validador los ficheros que ha validado de un productor -----");
+		Validator validator = vs.findByName("validator03");
+		Informer informer = is.getInformerByName("informador06");
+		List<File> files_by_validator_informer = fs.getFilesByValidatorInformer(validator, informer);
+		
+		for(File f:files_by_validator_informer) {
+			System.out.println("Id: "+ f.getId());
+			System.out.println("Previews: "+ f.getPreviews());
+			System.out.println("Downloads: "+ f.getDownloads());
+			System.out.println("Informer id: "+ f.getInformer().getId());
+			System.out.println("Validator id: "+ f.getValidator().getId());
+		}
+		
+		
+		//Q3.Obtener el número de productores que hay en cada estado.
+		System.out.println("----- Q3. Obtener numero de productores en cada estado -----");
+		List<Object[]> informer_status = is.findNumberOfEachStatus();
+		
+		for(Object[] n:informer_status) {
+			System.out.println("Count: "+ n[0]+" Status: "+ n[1]);
+		}
+		
+		//Q4.Consultar los productores que han subido más de 5 ficheros
+		
+		/*List<Informer> informers_5_files = is.getInformersByNFiles((long) 5);
+		
+		for(Informer i:informers_5_files) {
+			System.out.println("Id: "+ i.getId());
+		}*/
+		
 	}
 }
+
 
 
 

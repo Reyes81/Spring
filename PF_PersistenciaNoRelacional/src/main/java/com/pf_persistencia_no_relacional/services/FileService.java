@@ -1,4 +1,4 @@
-package com.mongoBD.service;
+package com.pf_persistencia_no_relacional.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.mongoBD.domain.File;
-import com.mongoBD.repositories.FilesRepository;
+import com.pf_persistencia_no_relacional.domain.File;
+import com.pf_persistencia_no_relacional.repository.FileRepository;
 
 @Service
-public class FilesBDService {
+public class FileService {
 	
 	@Autowired 
-	FilesRepository fr;
+	FileRepository fr;
 	
 	public List<File> findAll(){
 		
 		return this.fr.findAll();
+	}
+	
+	public void deleteAll() {
+		fr.deleteAll();
 	}
 	
 	public File create(File file) {
@@ -35,13 +39,6 @@ public class FilesBDService {
 	
 	public File updateFile(File file)
 	{
-		File file_db = fr.getById(file.getId());
-		file_db.setData(file.getData());
-		file_db.setDate(file.getDate());
-		file_db.setDescription(file.getDescription());
-		file_db.setKeywords(file.getKeywords());
-		file_db.setSize(file.getSize());
-		file_db.setTitle(file.getTitle());
 		File file_update = fr.save(file);
 		
 		return file_update;
@@ -52,9 +49,9 @@ public class FilesBDService {
 		this.fr.deleteById(id);
 	}
 	
-	public File[] getPendingFiles()
+	public List<File> getPendingFiles()
 	{
-		File[] files = fr.findByStatus("PENDIENTE_REVISION");
+		List<File> files = fr.findByStatus("PENDIENTE_REVISION");
 		for(File f:files)
 		{
 			List<Object> all_data = f.getData();
@@ -78,7 +75,13 @@ public class FilesBDService {
 		return file;
 	}
 	
-	//Método para obtener el listado de ficheros del repo por keyword ordenados
+	public File getFileTitle(String title)
+	{
+		File file = fr.findByTitle(title);
+		return file;
+	}
+	
+	//Método para obtener el listado de ficheros por keyword ordenados
 	public List<File> getFilesByKeyWords(Integer opcion, String keyword) {
 		
 		List<File> files = null;
