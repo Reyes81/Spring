@@ -19,6 +19,7 @@ public class FileService {
 	
 	static final String uriGetInformer = "http://localhost:8081/api/informadoresBD/informador/{username}";
 	static final String uriNewFileSQL= "http://localhost:8081/api/files/newFile";
+	static final String uriDeleteFileSQL= "http://localhost:8081/api/files/delete/{id}";
 	static final String uriNewFileMongo= "http://localhost:8083/api/files/newFile";
 	static final String uriGetAllFilesSQL= "http://localhost:8081/api/informadoresBD/files/informerid/{id}";
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
@@ -156,8 +157,13 @@ public class FileService {
 			RestTemplate restTemplate = new RestTemplate();
 			
 			restTemplate.delete(
-					uriEditFileMongo,
+					uriDeleteFileMongo,
 					String.class, id);
+			
+			restTemplate.delete(
+					uriDeleteFileSQL,
+					String.class, id);
+			
 		}
 	}
 }

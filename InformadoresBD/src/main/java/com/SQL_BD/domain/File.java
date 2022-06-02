@@ -7,15 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name="file")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class File {
 	
 	@Id
@@ -27,13 +28,13 @@ public class File {
 	private Integer validator_id;
     */
     //TODO Relacion * a 1 con Informer
-  	@ManyToOne(optional = true, fetch=FetchType.LAZY)
-  	@JsonIgnore
+  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
   	@JoinColumn(name = "informer_user_id")
+  	@JsonIgnore
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
-  	@ManyToOne(optional = true, fetch=FetchType.LAZY)
+  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
   	@JoinColumn(name = "validator_user_id")
   	@JsonIgnore
     private Validator validator;

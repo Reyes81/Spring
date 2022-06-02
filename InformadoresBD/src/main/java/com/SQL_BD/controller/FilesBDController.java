@@ -95,6 +95,12 @@ public class FilesBDController {
 		return new ResponseEntity<List<FileByUsername>>(files_by_username, HttpStatus.OK);
 	
 	}
+	@RequestMapping("/delete/{id}")
+	public void deleteFile(@PathVariable(value = "id") String id) {
+		
+		fs.deleteFile(id);
+		
+	}
 
 
 }

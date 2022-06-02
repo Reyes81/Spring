@@ -37,7 +37,7 @@ public class ValidatorsService {
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	static final String uriSuspendInformer = "http://localhost:8081/api/informadoresBD/informadores/inactivo/{id}";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
-	
+	static final String uriGetFileSQL= "http://localhost:8081/api/files/file/{id}";
 	static final String uriGetValidator = "http://localhost:8081/api/informadoresBD/validador/{username}";
 	
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
@@ -210,8 +210,7 @@ public class ValidatorsService {
 		File.class,id);
 
 		file.setStatus(Status.PREPARACION);
-		file.setValidator(validator_session);
-
+		
 		RestTemplate restTemplate2 = new RestTemplate();
 		RestTemplate restTemplate3 = new RestTemplate();
 
@@ -220,14 +219,16 @@ public class ValidatorsService {
 				file,
 				File.class);
 		
-
+		File file_sql = restTemplate.getForObject(
+				uriGetFileSQL,
+				File.class,id);
+		file_sql.setValidator(validator_session);
 		restTemplate3.put(
 				uriEditFileSQL,
-				file,
+				file_sql,
 				File.class);
-		System.out.println("despues");
 		
 		String routingKey = "file.validador";
-		//rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
+		rabbitTemplate.convertAndSend(BroadcastConfig.TOPIC_EXCHANGE_NAME, routingKey, file);
 	}
 }

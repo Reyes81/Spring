@@ -61,5 +61,9 @@ public class FilesBDService {
 		
 		return files;
 	}
+	
+	public void deleteFile(String id) {
+		fr.deleteById(id);
+	}
 
 }
