@@ -27,12 +27,12 @@ public class File {
 	private Integer validator_id;
     */
     //TODO Relacion * a 1 con Informer
-  	@ManyToOne()
+  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
   	@JoinColumn(name = "informer_user_id")
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
-  	@ManyToOne()
+  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
   	@JoinColumn(name = "validator_user_id")
     private Validator validator;
 

@@ -17,12 +17,12 @@ public class File {
 	private String id;
 	
     //TODO Relacion * a 1 con Informer
-  	@ManyToOne(fetch=FetchType.LAZY)
+  	@ManyToOne(fetch=FetchType.EAGER)
   	@JoinColumn(name = "informer_user_id")
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
-  	@ManyToOne(fetch=FetchType.LAZY)
+  	@ManyToOne(fetch=FetchType.EAGER)
   	@JoinColumn(name = "validator_user_id")
     private Validator validator;
 	
