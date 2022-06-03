@@ -219,11 +219,14 @@ public class ValidatorsService {
 				file,
 				File.class);
 		
+		
 		File file_sql = restTemplate.getForObject(
 				uriGetFileSQL,
 				File.class,id);
 		file_sql.setValidator(validator_session);
 		
+		System.out.println("Validadoor: " + validator_session.getName());
+		System.out.println("File_SQL: " + file_sql.getId());
 		restTemplate3.put(
 				uriEditFileSQL,
 				file_sql,

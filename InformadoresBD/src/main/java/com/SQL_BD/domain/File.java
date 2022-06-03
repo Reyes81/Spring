@@ -16,7 +16,6 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="file")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class File {
 	
 	@Id
@@ -28,15 +27,13 @@ public class File {
 	private Integer validator_id;
     */
     //TODO Relacion * a 1 con Informer
-  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
+  	@ManyToOne()
   	@JoinColumn(name = "informer_user_id")
-  	@JsonIgnore
     private Informer informer;
     
   	//TODO Relacion * a 1 con Validator
-  	@ManyToOne(optional = true, fetch=FetchType.EAGER)
+  	@ManyToOne()
   	@JoinColumn(name = "validator_user_id")
-  	@JsonIgnore
     private Validator validator;
 
 	private Integer previews;
