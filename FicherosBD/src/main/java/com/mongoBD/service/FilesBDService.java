@@ -49,7 +49,7 @@ public class FilesBDService {
 	
 	public void deleteFile(String id) {
 		
-		this.fr.deleteById(id);
+		fr.deleteById(id);
 	}
 	
 	public File[] getPendingFiles()
@@ -85,14 +85,14 @@ public class FilesBDService {
 		switch (opcion) {
 		
 			case 1:
-				files = fr.findByKeywordsContaining(keyword);
+				files = fr.findByKeywordsContainingOrderByAddeddateDesc(keyword);
 				break;
 			
 			case 2:
 				files = fr.findByKeywordsContainingOrderBySizeDesc(keyword);
 				break;
 			case 3:
-				files = fr.findByKeywordsContainingOrderByAddeddateDesc(keyword);
+				files = fr.findByKeywordsContaining(keyword);
 		}
 		
 		return files;

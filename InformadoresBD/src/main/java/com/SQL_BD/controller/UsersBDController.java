@@ -42,10 +42,10 @@ public class UsersBDController {
 	}
 	
 	@RequestMapping(value= "/update")
-	public ResponseEntity<User> updtaeUser(@RequestBody User user) {
+	public ResponseEntity<String> updateUser(@RequestBody User user) {
 		System.out.println("Estamos en el Put del Updtae");
 		User user_update = us.saveUser(user);
 		
-		return new ResponseEntity<>(user_update, HttpStatus.OK);
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 }

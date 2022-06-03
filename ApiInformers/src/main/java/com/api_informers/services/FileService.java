@@ -25,7 +25,8 @@ public class FileService {
 	static final String uriGetFileMongoId= "http://localhost:8083/api/files/file/{fileId}";
 	static final String uriEditFileMongo= "http://localhost:8083/api/files/edit";
 	static final String uriDeleteFileMongo= "http://localhost:8083/api/files/file/delete/{id}";
-	static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informer";
+	//static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informer";
+	static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/all";
 	
 	
 	@Autowired
@@ -43,7 +44,6 @@ public class FileService {
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			file = new File(informer_session.getId(),title,description, keywords, data,size);
-			
 			//Obtenemos la fecha y hora actual
 			LocalDateTime created_date = LocalDateTime.now();
 			
@@ -99,9 +99,15 @@ public class FileService {
 			//Obtenemos todos los ficheros de ese informer desde SQL con su user id
 			RestTemplate restTemplate = new RestTemplate();
 
-			File[] files_sql = restTemplate.getForObject(
+			System.out.println("antes de getallfilesql");
+			
+			//Obtenemos todos los ids de ficheros de ese usuario
+			String[] files_sql = restTemplate.getForObject(
 					uriGetAllFilesSQL,
-					File[].class,informer_session.getId());
+						String[].class, informer_session.getId());
+			
+			System.out.println("despues de getallfilesql");
+			System.out.println(files_sql);
 			
 			//Recuperamos ficheros de mongo con los ficheros recuperados de SQL
 			RestTemplate restTemplate2 = new RestTemplate();
@@ -110,6 +116,8 @@ public class FileService {
 					files_sql,
 					File[].class);
 			
+			System.out.println(files);
+			
 		}
 		else
 			System.out.println("No se puede obtener el listado de ficheros ya que el estado del informador es: " + informer_session.getStatus());
@@ -117,27 +125,24 @@ public class FileService {
 		return files;
 	}
 	
-	public File editFile(String id, File file) {
+	public String editFile(String id, String title, String description, List<String> keywords) {
 		
-		File file_update = null;
-		
+		String update = "Fichero actualizado.";
 		Informer informer_session = is.getInformerSession();
 		
 		//Meter en excepción
-		
+		System.out.println(informer_session.getStatus());
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			
 			RestTemplate restTemplate = new RestTemplate();
-			file_update= restTemplate.getForObject(
-			uriGetFileMongoId,
-			File.class,id);
 			
-			if(file.getTitle()!=null)
-				file_update.setTitle(file.getTitle());
-			if(file.getDescription()!=null)
-				file_update.setDescription(file.getDescription());
-			if(file.getKeywords()!=null)
-				file_update.setKeywords(file.getKeywords());
+			File file_update= restTemplate.getForObject(
+					uriGetFileMongoId,
+					File.class,id);
+			
+			file_update.setTitle(title);
+			file_update.setDescription(description);
+			file_update.setKeywords(keywords);
 			
 			RestTemplate restTemplate2 = new RestTemplate();
 			
@@ -146,11 +151,14 @@ public class FileService {
 					file_update,
 					File.class);
 		}
+		else {update = "El fichero no se ha podido actualizar porque el productor no ha sido validado.";}
 		
-		return file_update;
+		
+		return update;
 	}
 	
 	public void deleteFile(String id) {
+		
 		Informer informer_session = is.getInformerSession();
 		
 		if(informer_session.getStatus() == Status.ACTIVO) {
@@ -163,9 +171,9 @@ public class FileService {
 			RestTemplate restTemplate2 = new RestTemplate();
 			restTemplate2.delete(
 					uriDeleteFileSQL,
-					id);
-			
+					id);	
 		}
+		
 	}
 }
 

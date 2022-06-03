@@ -45,6 +45,7 @@ public class ConsumersController {
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by date");
 		File[] files = cs.getFilesByKeyWordsDate(keyword);
+		System.out.println(files);
 		
 		if(files.length == 0)
 			log.info("There are no files with the keyword: " + keyword);
@@ -67,12 +68,12 @@ public class ConsumersController {
 	
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
 	@GetMapping("/files/keywords/descargas/{keyword}")
-	public ResponseEntity<List<File>> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
+	public ResponseEntity<FileByUsername[]> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by downloads");
-		List<File> files = cs.getFilesByKeyWordsDownloads(keyword);
+		FileByUsername[] files = cs.getFilesByKeyWordsDownloads(keyword);
 		
-		if(files.isEmpty())
+		if(files.length == 0)
 			log.info("There are no files with the keyword: " + keyword);
 			
 		return new ResponseEntity<>(files, HttpStatus.OK);
@@ -95,7 +96,6 @@ public class ConsumersController {
 	//CF3.Previsualizar un fichero de un fichero
 	@GetMapping("/files/preview/{id}")
 	public ResponseEntity<List<Object>> previewFile(@PathVariable(value="id") String id) throws IOException {
-		System.out.println(id);
 		LOGGER.debug("Previews file with id " + id);
 		List<Object> data = null;
 		

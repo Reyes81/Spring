@@ -22,4 +22,6 @@ public interface InformersBDRepository  extends JpaRepository<Informer, Integer>
 	
 	public Informer findByName(String name);
 	
+	public Optional<Informer> findById(Integer id);
+	
 }

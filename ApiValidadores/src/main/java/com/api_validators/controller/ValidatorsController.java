@@ -106,10 +106,10 @@ public class ValidatorsController {
 	
 	//VF3. Editar un Informador
 	@RequestMapping("/informadores/edit/{id}")
-	public void updateInformer(@PathVariable(value="id") Integer id, @RequestBody Informer informer) {
+	public Informer updateInformer(@PathVariable(value="id") Integer id, @RequestBody Informer informer) {
 		
 		LOGGER.debug("Edit the full informer information with ID " + id);
-		vs.updateInformer(id, informer);
+		return vs.updateInformer(id, informer);
 	}
 	
 	//VF4. Eliminar un informador

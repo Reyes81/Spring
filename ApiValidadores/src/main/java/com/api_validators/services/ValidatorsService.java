@@ -142,22 +142,33 @@ public class ValidatorsService {
 	
 	//VF3
 	public Informer updateInformer(Integer id, Informer informer){
-
+		System.out.println(informer);
+		
 		RestTemplate restTemplate = new RestTemplate();
+		
 		Informer informer_update  = restTemplate.getForObject(
 								uriGetInformerId,
 								Informer.class,id);
 			
-		us.updateUser(informer_update.getUser_id(),informer.geteMail(),informer.getPassword());
-		informer.setUser_id(informer_update.getUser_id());
-			
+		//informer.setUser_id(informer_update.getUser_id());
+		
 		RestTemplate restTemplate2 = new RestTemplate();
+		
+		informer_update.seteMail(informer.geteMail());
+		informer_update.setName(informer.getName());
+		informer_update.setNif(informer.getNif());
+		informer_update.setPassword(informer.getPassword());
+		informer_update.setQuote(informer.getQuote());
+		informer_update.setStatus(informer.getStatus());
+		informer_update.setType(informer.getType());
+		informer_update.setUserId(informer.getUserId());
+		
 		restTemplate2.put(
 						uriEditInformer,
-						informer,
+						informer_update,
 						Informer.class);
 		
-		return informer;
+		return informer_update;
 	}
 	
 	//VF4

@@ -60,12 +60,20 @@ public class FilesBDController {
 	@GetMapping("/file/keyword/fecha/{keyword}")
 	public List<File> getFilesByKeyWordsDate(@PathVariable(value = "keyword") String keyword) {
 		List<File> files = fs.getFilesByKeyWords(1,keyword);
+		System.out.println(files.size());
 		return files;
 	}
 	
 	@GetMapping("/file/keyword/size/{keyword}")
 	public List<File> getFilesByKeyWordsSize(@PathVariable(value = "keyword") String keyword) {
 		List<File> files = fs.getFilesByKeyWords(2,keyword);
+		return files;
+	}
+	
+	@GetMapping("/file/keyword/downloads/{keyword}")
+	public List<File> getFilesByKeyWordsDownloads(@PathVariable(value = "keyword") String keyword) {
+		List<File> files = fs.getFilesByKeyWords(3,keyword);
+		
 		return files;
 	}
 	
@@ -101,6 +109,18 @@ public class FilesBDController {
 			files_mongo.add(f);
 			
 		}
+		return files_mongo;
+	}
+	
+	@RequestMapping("/all")
+	public List<File> getAllFilesById(@RequestBody String[] files_id) {
+
+		List<File> files_mongo = new ArrayList<File>();
+		
+		for(String id:files_id) {
+			files_mongo.add(fs.getFileId(id));
+		}
+
 		return files_mongo;
 	}
 	

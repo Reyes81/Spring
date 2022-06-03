@@ -13,7 +13,7 @@ import com.api_validators.domain.User;
 public class UsersService {
 	
 	static final String uriGetUserId = "http://localhost:8081/api/users/id/{id}";
-	static final String uriUpdatdeUser = "http://localhost:8081/api/users/update";
+	static final String uriUpdateUser = "http://localhost:8081/api/users/update";
 	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
 	
 	public User getUserSession() {
@@ -30,28 +30,23 @@ public class UsersService {
 		return user;
 	}
 		
-	public User updateUser(Integer id, String username, String password) {
+	public User updateUser(String username, String password) {
 		
-		System.out.println("Hola " + id );
-		RestTemplate restTemplate = new RestTemplate();
-		User user_update = restTemplate.getForObject(
-				 uriGetUserId,
-				 User.class,id);
-		
-		System.out.println("user_id: " + user_update.getId());
-		String password_encode = new BCryptPasswordEncoder().encode(password);
-		user_update.setPassword(password_encode);
-		user_update.setUsername(username);
-		
-		RestTemplate restTemplate2 = new RestTemplate();
-		
-		restTemplate2.put(
-				uriUpdatdeUser,
-				user_update,
-				 User.class);
-		
-		return user_update;
-		
-	}
+			User user_update = getUserSession();
+			user_update.setUsername(username);
+			
+			String password_encode = new BCryptPasswordEncoder().encode(password);
+			user_update.setPassword(password_encode);
+			
+			RestTemplate restTemplate = new RestTemplate();
+			System.out.println(user_update);
+			restTemplate.put(
+					uriUpdateUser,
+					user_update,
+					 User.class);
+			
+			return user_update;
+			
+		}
 
 }

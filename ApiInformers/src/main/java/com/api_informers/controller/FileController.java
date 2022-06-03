@@ -52,10 +52,13 @@ public class FileController {
 		//Comprobar que el archivo subido es de formato JSON
 		String format = file.getContentType();
 		
+		System.out.println("-----> Api productores: formato");
+		
 		if(!format.equals("application/json")) {
 			throw new IOException("File format not supported. Only JSON is supported.");
 		}
 		
+		System.out.println("-----> Api productores: quota");
 		if(is.updateQuote(size) < 0) {
 			throw new IOException("The size of the file exceeds the assigned annual quota.");
 		}
@@ -65,10 +68,16 @@ public class FileController {
 		String content = new String(file.getBytes(), StandardCharsets.UTF_8);
 		List<Object> data = mapper.readValue(content, mapper.getTypeFactory().constructCollectionType(List.class, Object.class));
 		
+		System.out.println("-----> Api productores: antes de fichero subido mongo");
+		
 		File fichero = fs.createFileMongoDB(user_session,title, description, keywords, size, data);
 		
-		System.out.println(fichero.getId()); //Tiene el id puesto
-		fs.createFileSQL(fichero.getId(),is.getInformerSession());
+		if(fichero != null) {
+			System.out.println(fichero.getId()); //Tiene el id puesto
+			fs.createFileSQL(fichero.getId(),is.getInformerSession());
+		} else {
+			throw new IOException("No se puede crear un fichero ya que el informador no ha sido validado.");
+		}
 		
 	} 
 	
@@ -80,13 +89,14 @@ public class FileController {
 		return files;
 	  }
 		
-	//PF4. Editar un archivo
+	//PF5. Editar un archivo
 	@RequestMapping("/file/edit/{id}")
-	public void updateFile(@PathVariable(value="id") String id, @RequestBody File file) {
-		fs.editFile(id, file);
+	public String updateFile(@PathVariable(value="id") String id, @RequestParam String title, @RequestParam String description, @RequestParam List<String> keywords) {
+		
+		return fs.editFile(id, title, description, keywords);
 	}
 		
-	//PF5. Eliminar un fichero
+	//PF6. Eliminar un fichero
 	@RequestMapping("/file/delete/{id}")
 	public void deleteFile(@PathVariable(value="id") String id) {
 		fs.deleteFile(id);

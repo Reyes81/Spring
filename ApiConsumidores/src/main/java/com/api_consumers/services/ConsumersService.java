@@ -32,6 +32,8 @@ public class ConsumersService {
 	static final String uriGetFilesById = "http://localhost:8083/api/files/filesById";
 	static final String uriGetFilesbyKeywordDate = "http://localhost:8083/api/files/file/keyword/fecha/{keyword}";
 	static final String uriGetFilesbyKeywordSize = "http://localhost:8083/api/files/file/keyword/size/{keyword}";
+	static final String uriGetFilesbyKeywordDownloads = "http://localhost:8083/api/files/file/keyword/downloads/{keyword}";
+	static final String uriGetFilesSQL= "http://localhost:8081/api/files/all";
 
 	
 	//Método común para obtener un fichero por ID de MongoDB
@@ -90,10 +92,24 @@ public class ConsumersService {
 	}
 		
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
-	public List<File> getFilesByKeyWordsDownloads(String keyword){
-		//Todo
-		List<File> files = null;
-				
+	public FileByUsername[] getFilesByKeyWordsDownloads(String keyword){
+		RestTemplate restTemplate = new RestTemplate();
+		
+		FileByUsername[] files =  restTemplate.getForObject(
+				uriGetFilesbyKeywordDownloads,
+				FileByUsername[].class, keyword);
+		
+		/*List<String> files_id = new ArrayList<String>();
+		
+		for(FileByUsername f:files) {
+			files_id.add(f.getId());
+		}
+		
+		FileByUsername[] files_sql = restTemplate.getForObject(
+				uriGetFilesSQL,
+				FileByUsername[].class, files_id);
+		
+						*/	
 		return files;
 	}
 		
@@ -113,6 +129,7 @@ public class ConsumersService {
 		FileByUsername[] files_by_username= restTemplate.getForObject(
 										uriGetFilesByUsername,
 										FileByUsername[].class, name);
+		
 		
 		//Obtenemos todos los ficheros del informador por su id
 		RestTemplate restTemplate2 = new RestTemplate();
@@ -136,6 +153,7 @@ public class ConsumersService {
 
 		//Obtenemos el fichero por Id de MongoDB
 		File file = getFileMongoId(id);
+		System.out.println(file);
 		
 		
 		//Comprobamos que el fichero haya sido publicado de lo contrario lanzamos una excepción
@@ -143,14 +161,17 @@ public class ConsumersService {
 			throw new IOException("The requested file is not published.");
 		}
 		
+		System.out.println("Funciona");
 		//Obtenemos las 10 primeras observaciones del fichero
 		List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
 		
 		Integer num_previews=0;
 		//Obtenemos el fichero de SQL con el id
+		System.out.println("Funciona");
 		File file_sql = getFileSQLId(id);
 		if(file_sql.getPreviews()!=null)
 			num_previews = file_sql.getPreviews();
+		System.out.println("Funciona");
 				
 		//Incrementamos el valor de previews
 		Integer previews = num_previews + 1;

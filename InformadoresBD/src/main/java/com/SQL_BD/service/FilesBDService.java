@@ -1,5 +1,7 @@
 package com.SQL_BD.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +64,15 @@ public class FilesBDService {
 		return files;
 	}
 	
-	public void deleteFile(String id) {
-		System.out.println(id);
-		fr.deleteById(id);
+	public Boolean deleteFile(String id) {
+		boolean delete = false;
+		Optional<File> file_delete = fr.findById(id);
+		
+		if(file_delete.isPresent()) {
+			fr.deleteById(id);
+			delete = true;
+		}
+		return delete;
 	}
 
 }

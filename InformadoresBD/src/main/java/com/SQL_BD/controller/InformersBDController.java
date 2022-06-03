@@ -3,6 +3,7 @@ package com.SQL_BD.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.SQL_BD.domain.File;
 import com.SQL_BD.domain.Informer;
 import com.SQL_BD.domain.Informer.Status;
+import com.SQL_BD.domain.User;
 import com.SQL_BD.service.FilesBDService;
 import com.SQL_BD.service.InformersBDService;
 
@@ -45,11 +47,10 @@ public class InformersBDController {
 	}
 	
 	@GetMapping(value= "/informador/{username}")
-	public ResponseEntity<Informer> getInformer(@PathVariable(value = "username") String username) {
-		System.out.println(username);
+	public Informer getInformer(@PathVariable(value = "username") String username) {
 		Informer informer = is.getInformer(username);
-		System.out.println(informer);
-		return new ResponseEntity<>(informer, HttpStatus.OK);
+
+		return informer;
 	}
 	
 	//Obtenemos informador por nombre o razón social
@@ -62,9 +63,9 @@ public class InformersBDController {
 	}
 	
 	@GetMapping(value= "/informador/id/{id}")
-	public ResponseEntity<Informer> getInformer(@PathVariable(value = "id") Integer id) {
+	public Informer getInformer(@PathVariable(value = "id") Integer id) {
 		Informer informer = is.getInformerId(id);
-		return new ResponseEntity<>(informer, HttpStatus.OK);
+		return informer;
 	}
 	
 	@GetMapping(value="/informadores/pendientes")
@@ -85,24 +86,27 @@ public class InformersBDController {
 	
 	//@PutMapping(value="/informadores/validar/{id}")
 	@RequestMapping("/informadores/validar/{id}")
-	public ResponseEntity<Informer> validateInformer(@PathVariable(value = "id") Integer id) {	
+	public ResponseEntity<String> validateInformer(@PathVariable(value = "id") Integer id) {	
 			
 		Informer informer_validate = is.approveInformer(id);
-		return new ResponseEntity<>(informer_validate, HttpStatus.OK);
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 		
 	@RequestMapping("/informadores/modificarInfo")
-	public ResponseEntity<Informer> updateInformer(@RequestBody Informer informer) {	
-				
+	public ResponseEntity<String> updateInformer(@RequestBody Informer informer) {	
+		System.out.println(informer.getName());
+		System.out.println(informer.getUserId());
 		Informer informer_update = is.updateInformer(informer);
-		return new ResponseEntity<>(informer_update, HttpStatus.OK);
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
 	@RequestMapping("/informadores/actualizarCuota")
-	public ResponseEntity<Informer> updateQuote(@RequestBody Informer informer) {	
+	public ResponseEntity<Boolean> updateQuote(@RequestBody Informer informer) {	
 				
 		Informer informer_update = is.updateQuote(informer);
-		return new ResponseEntity<>(informer_update, HttpStatus.OK);
+		System.out.println("-----------> Informadores BD");
+		System.out.println(informer_update);
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 	
 	//@DeleteMapping(value="/informadores/eliminar/{id}")
@@ -119,9 +123,14 @@ public class InformersBDController {
 	}
 	
 	@GetMapping(value= "/files/informerid/{id}")
-	public ResponseEntity<List<File>> getFilesByInformerId(@PathVariable(value = "id") Integer id) {
-		Informer informer = is.getInformerId(id);
-		List<File> files = informer.getFiles();
-		return new ResponseEntity<>(files, HttpStatus.OK);
+	public List<String> getFilesByInformerId(@PathVariable(value = "id") Integer id) {
+		List<File> files = is.getFilesInformer(id);
+		List<String> files_id = new ArrayList<String>();
+		
+		for(File f: files) {
+			files_id.add(f.getId());
+		}
+		return files_id;
+		
 	}
 }

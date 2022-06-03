@@ -54,6 +54,7 @@ public class File {
 	private Integer downloads;
 	
 	private Informer informer;
+	private Validator validator;
 	
 	public File() {
 		super();
@@ -110,6 +111,18 @@ public class File {
 
 	public void setInformer(Informer informer) {
 		this.informer = informer;
+	}
+	
+	public void setValidator(Validator validator) {
+		this.validator = validator;
+	}
+	
+	public Informer getInformer() {
+		return this.informer;
+	}
+	
+	public Validator getValidator() {
+		return this.validator;
 	}
 	
 	public LocalDateTime getDate() {

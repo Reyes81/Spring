@@ -27,27 +27,30 @@ public class InformersService {
 		
 		Informer informer_session = restTemplate.getForObject(
 								uriGetInformer,
-								Informer.class,user_session.getUsername());
+								Informer.class, user_session.getUsername());
 		
 		return informer_session;
 	}
 	
 	public Informer updateInformer(Informer informer)
 	{
+
 		Informer informer_update = getInformerSession();
 		
 		if(informer_update.getStatus()==Status.ACTIVO) {
 			us.updateUser(informer.geteMail(),informer.getPassword());
 			
 			RestTemplate restTemplate = new RestTemplate();
-			
+
 			restTemplate.put(
 					uriEditInformer,
-					informer,
-					Informer.class);
+					informer);
 		}
-		else 
+		else
+		{
 			System.out.println("No se puede editar el informador ya que su estado es: " + informer_update.getStatus());
+		}
+		
 		
 		return informer_update;
 		
@@ -98,8 +101,7 @@ public class InformersService {
 			
 			restTemplate.put(
 					uriUpdateQuote,
-					informer,
-					Informer.class);
+					informer);
 		}
 		
 		return quote;

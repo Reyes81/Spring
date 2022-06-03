@@ -38,17 +38,17 @@ public class FilesBDController {
 	}
 	
 	@RequestMapping("/edit")
-	public ResponseEntity<File> editFile(@RequestBody File file) {
+	public void editFile(@RequestBody File file) {
 		System.out.println(file);
 		File new_file = fs.updateFile(file);
-		return new ResponseEntity<>(new_file, HttpStatus.OK);
+		
 	}
 	
 	@RequestMapping("/edit/validator")
-	public ResponseEntity<File> editFileValidator(@RequestBody File file) {
+	public ResponseEntity<String> editFileValidator(@RequestBody File file) {
 		System.out.println(file);
 		File new_file = fs.updateFileValidator(file);
-		return new ResponseEntity<>(new_file, HttpStatus.OK);
+		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
 	@RequestMapping("/informers")
@@ -84,7 +84,7 @@ public class FilesBDController {
 	@GetMapping("/username/{username}")
 	public ResponseEntity<List<FileByUsername>> findByUsername(@PathVariable(value = "username") String username){
 		Informer informer = is.getInformerByName(username);
-		File[] files = fs.findByUserId(informer);
+		List<File> files = informer.getFiles();
 		
 		List<FileByUsername> files_by_username = new ArrayList<FileByUsername>();
 		
@@ -98,8 +98,18 @@ public class FilesBDController {
 	}
 	@DeleteMapping("/delete/{id}")
 	public void deleteFile(@PathVariable(value = "id") String id) {
-		System.out.println(id);
-		fs.deleteFile(id);
+			Boolean delete = fs.deleteFile(id);
+	}
+	
+	@GetMapping("/all")
+	public List<File> findAllById(@RequestBody List<String> files_id) {
+		
+		List<File> files = new ArrayList<File>();
+		for(String id:files_id) {
+			files.add(fs.findById(id));
+		}
+		
+		return files;
 		
 	}
 

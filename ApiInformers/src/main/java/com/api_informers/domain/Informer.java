@@ -20,7 +20,7 @@ public class Informer {
 	
 	private Integer id;
 	
-	private Integer user_id;
+	private User userId;
 	
 	@NotEmpty()
 	private String nif;
@@ -128,4 +128,13 @@ public class Informer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public User getUserId() {
+		return this.userId;
+	}
+	
+	public void setUserId(User userId) {
+		this.userId= userId;
+	}
+	
 }

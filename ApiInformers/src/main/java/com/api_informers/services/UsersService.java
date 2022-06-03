@@ -13,7 +13,7 @@ import com.api_informers.domain.User;
 public class UsersService {
 	
 	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
-	static final String uriUpdatdeUser = "http://localhost:8081/api/users/update";
+	static final String uriUpdateUser = "http://localhost:8081/api/users/update";
 	
 	
 	public User createUser(String username, String password) {
@@ -53,7 +53,7 @@ public User updateUser(String username, String password) {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		restTemplate.put(
-				uriUpdatdeUser,
+				uriUpdateUser,
 				user_update,
 				 User.class);
 		

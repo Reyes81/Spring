@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,7 +30,7 @@ import lombok.ToString;
 
 @Entity
 //@Inheritance(strategy=InheritanceType.JOINED)
-@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
+//@JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
 @Table(name="informer")
 public class Informer {
 	
@@ -80,6 +81,7 @@ public class Informer {
 	@Column(name="password", nullable=false)
 	private String password;
 	
+	
 	public Informer() {}
 	
 	public Informer(Integer id, String nif, String name, Type type, String eMail, String password,Status status, Double quote ) {
@@ -121,16 +123,6 @@ public class Informer {
 	public void setUserId(User userId) {
 		this.userId= userId;
 	}
-	
-	/*
-	public Integer getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(Integer user_id) {
-		this.userId = user_id;
-	}
-	*/
 
 	public String getNif() {
 		return nif;
@@ -188,7 +180,6 @@ public class Informer {
 		this.password = password;
 	}
 	
-	
 	public List<File> getFiles() {
 		return files;
 	}
@@ -196,6 +187,5 @@ public class Informer {
 	public void setFiles(List<File> files) {
 		this.files = files;
 	}
-	
 	
 }

@@ -23,7 +23,7 @@ public class Informer {
 	
 	@Id
 	private Integer id;
-	private Integer user_id;
+	private User userId;
 	private String nif;
 	private String name;
 	private Type type;
@@ -78,12 +78,12 @@ public class Informer {
 		return name;
 	}
 	
-	public Integer getUserId() {
-		return this.user_id;
+	public User getUserId() {
+		return this.userId;
 	}
 
-	public void setUserId(Integer user_id) {
-		this.id = user_id;
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 
 	public void setName(String name) {

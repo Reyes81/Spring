@@ -54,7 +54,6 @@ public class InformersBDService {
 	
 			//Crear una excepción por si no existe el informador
 			Informer informer = ir.findByeMail(username);
-			
 			return informer;
 		}
 		
@@ -71,7 +70,18 @@ public class InformersBDService {
 		public Informer getInformerId(Integer id){
 			
 			//Crear una excepción por si no existe el informador
-			Informer informer = ir.getById(id);
+			Informer informer_bd = ir.getById(id);
+			Informer informer = new Informer();
+			informer.seteMail(informer_bd.geteMail());
+			informer.setFiles(informer_bd.getFiles());
+			informer.setId(id);
+			informer.setName(informer_bd.getName());
+			informer.setNif(informer_bd.getNif());
+			informer.setPassword(informer_bd.getPassword());
+			informer.setQuote(informer_bd.getQuote());
+			informer.setStatus(informer_bd.getStatus());
+			informer.setType(informer_bd.getType());
+			informer.setUserId(informer_bd.getUserId());
 			return informer;
 		}
 	
@@ -153,7 +163,6 @@ public class InformersBDService {
 		public Informer updateInformer(Informer informer)
 		{
 			Integer id = informer.getId();
-			
 			Informer informer_bd = ir.getById(id);
 			informer_bd.setNif(informer.getNif());
 			informer_bd.setName(informer.getName());
@@ -190,5 +199,12 @@ public class InformersBDService {
 			informer_bd.setStatus(Status.INACTIVO);
 			
 			ir.save(informer_bd);
-		}	
+		}
+		
+		public List<File> getFilesInformer(Integer id) {
+			Informer informer_bd = ir.getById(id);
+			List<File> files = informer_bd.getFiles();
+			return files;
+			
+		}
 }
