@@ -42,6 +42,9 @@ public class File {
 	private Integer downloads;
 	private Integer previews;
 	
+	private Informer informer;
+	private Validator validator;
+	
 	@NotNull
 	@Size(max=maxSize)
 	private Double size;
@@ -92,6 +95,22 @@ public class File {
 		this.previews = 0;
 	}
 
+	public Informer getInformer() {
+		return this.informer;
+	}
+	
+	public void setInformer(Informer informer) {
+		this.informer=informer;
+	}
+	
+	public Validator getValidator() {
+		return this.validator;
+	}
+	
+	public void setValidator(Validator validator) {
+		this.validator=validator;
+	}
+	
 	public Integer getInformerId() {
 		return informer_id;
 	}

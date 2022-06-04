@@ -40,11 +40,20 @@ public class InformersService {
 		if(informer_update.getStatus()==Status.ACTIVO) {
 			us.updateUser(informer.geteMail(),informer.getPassword());
 			
+			if(informer.geteMail()!=null)
+				informer_update.seteMail(informer.geteMail());
+			if(informer.getName()!=null)
+				informer_update.setName(informer_update.getName());
+			if(informer.getPassword()!=null)
+				informer_update.setPassword(informer.getPassword());
+			if(informer.getType()!=null)
+				informer_update.setType(informer.getType());
+			
 			RestTemplate restTemplate = new RestTemplate();
 
 			restTemplate.put(
 					uriEditInformer,
-					informer);
+					informer_update);
 		}
 		else
 		{

@@ -14,7 +14,9 @@ public class UsersBDService {
 	@Autowired
 	UsersBDRepository ur;
 	
-
+	@Autowired
+	InformersBDService is;
+	
 	public User saveUser(User user) {
 		ur.save(user);
 		User user_rec = ur.findByUsername(user.getUsername()); 
@@ -34,5 +36,10 @@ public class UsersBDService {
 	public User updateUser(User user) {
 		ur.save(user); 
 		return user;
+	}
+	
+	public void deleteUser(Integer id) {
+		
+		ur.deleteById(is.getInformerId(id).getUserId().getId());
 	}
 }

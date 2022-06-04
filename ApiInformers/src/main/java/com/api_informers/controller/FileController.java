@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.api_informers.domain.File;
+import com.api_informers.domain.Informer.Status;
 import com.api_informers.domain.User;
 import com.api_informers.services.FileService;
 import com.api_informers.services.InformersService;
@@ -52,6 +53,12 @@ public class FileController {
 		//Comprobar que el archivo subido es de formato JSON
 		String format = file.getContentType();
 		
+		System.out.println("-----> Api productores: estado");
+		
+		if(is.getInformerSession().getStatus()!=Status.ACTIVO) {
+			throw new IOException("You cannot upload files because their status is " + is.getInformerSession().getStatus() );
+		}
+		
 		System.out.println("-----> Api productores: formato");
 		
 		if(!format.equals("application/json")) {
@@ -83,7 +90,13 @@ public class FileController {
 	
 	//VF1.Obtenemos todos los ficheros de un informador
 	@GetMapping("/files")
-	 public File[] getFiles() {
+	 public File[] getFiles() throws IOException {
+		
+		//Comprobamos que el estado del productor sea Activo
+		System.out.println("-----> Api productores: estado");
+		if(is.getInformerSession().getStatus()!=Status.ACTIVO) {
+			throw new IOException("You cannot upload files because their status is " + is.getInformerSession().getStatus() );
+		}
 		
 		File[] files = fs.getFiles();
 		return files;
@@ -91,8 +104,13 @@ public class FileController {
 		
 	//PF5. Editar un archivo
 	@RequestMapping("/file/edit/{id}")
-	public String updateFile(@PathVariable(value="id") String id, @RequestParam String title, @RequestParam String description, @RequestParam List<String> keywords) {
+	public String updateFile(@PathVariable(value="id") String id, @RequestParam String title, @RequestParam String description, @RequestParam List<String> keywords) throws IOException {
 		
+		//Comprobamos que el estado del productor sea Activo
+		System.out.println("-----> Api productores: estado");
+		if(is.getInformerSession().getStatus()!=Status.ACTIVO) {
+			throw new IOException("You cannot upload files because their status is " + is.getInformerSession().getStatus() );
+		}
 		return fs.editFile(id, title, description, keywords);
 	}
 		

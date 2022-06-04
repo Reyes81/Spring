@@ -49,15 +49,14 @@ public class ValidatorsService {
 	
 	//Obtenemos el validador correspondiente al usuario de la sesión
 	public Validator getValidatorSession() {
-		Validator validator_session = null;
-		User user_session = us.getUserSession();
 		
+		User user_session = us.getUserSession();
 		RestTemplate restTemplate = new RestTemplate();
 		
-		validator_session = restTemplate.getForObject(
+		Validator validator_session = restTemplate.getForObject(
 						uriGetValidator,
 						Validator.class,user_session.getUsername());
-		
+		System.out.println("VALIDADOR: " + validator_session.getName());
 		return validator_session; 
 	}
 	
@@ -135,7 +134,7 @@ public class ValidatorsService {
         
 	//VF2
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
-		
+	
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.put(uriValidateInformer, Integer.class, id);
 	}

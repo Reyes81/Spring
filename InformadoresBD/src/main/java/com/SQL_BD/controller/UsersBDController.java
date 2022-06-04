@@ -43,9 +43,16 @@ public class UsersBDController {
 	
 	@RequestMapping(value= "/update")
 	public ResponseEntity<String> updateUser(@RequestBody User user) {
-		System.out.println("Estamos en el Put del Updtae");
-		User user_update = us.saveUser(user);
+		
+		us.saveUser(user);
 		
 		return new ResponseEntity<>("", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value= "/delete/{id}")
+	public void deleteUser(@PathVariable(value = "id") Integer id) {
+		
+		us.deleteUser(id);
+		
 	}
 }

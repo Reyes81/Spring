@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api_validators.domain.FileInformers;
 import com.api_validators.domain.Informer;
+import com.api_validators.services.UsersService;
 import com.api_validators.services.ValidatorsService;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 @RestController
@@ -34,6 +34,9 @@ public class ValidatorsController {
 	
 	@Autowired
 	ValidatorsService vs;
+	
+	@Autowired
+	UsersService us;
 	
 	//VF1.Obtenemos todos los informadores
 	@GetMapping(value="/informadores")
@@ -97,7 +100,7 @@ public class ValidatorsController {
 	//VF2. Aprobar un nuevo informador
 	@RequestMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
-
+		System.out.println("HOLA");
 		LOGGER.debug("Approve informer with id " + id);
 		
 		vs.validateInformer(id);
@@ -117,7 +120,7 @@ public class ValidatorsController {
 	public void deleteInformer(@PathVariable(value = "id") Integer id) {	
 		
 		LOGGER.debug("Remove informer with id " + id);
-		vs.deleteInformer(id);
+		us.deleteUser(id);
 	}
 	
 	//VF4 Extra. Dar de baja un informador

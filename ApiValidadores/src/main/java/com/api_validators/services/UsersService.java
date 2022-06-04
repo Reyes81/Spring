@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_validators.domain.User;
@@ -15,6 +16,7 @@ public class UsersService {
 	static final String uriGetUserId = "http://localhost:8081/api/users/id/{id}";
 	static final String uriUpdateUser = "http://localhost:8081/api/users/update";
 	static final String uriGetUserName = "http://localhost:8081/api/users/username/{username}";
+	static final String uriDeleteUser = "http://localhost:8081/api/users/delete/{id}";
 	
 	public User getUserSession() {
 		
@@ -47,6 +49,12 @@ public class UsersService {
 			
 			return user_update;
 			
+		}
+	
+	//VF4
+		public void deleteUser(@PathVariable(value = "id") Integer id) {	
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.put(uriDeleteUser, Integer.class, id);
 		}
 
 }

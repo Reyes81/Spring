@@ -17,6 +17,7 @@ public class ValidatorsBDService {
 		
 	//Crear una excepción por si no existe el informador
 		Validator validator = vr.findByeMail(username);	
+		System.out.println("ES: " + validator.geteMail());
 		return validator;
 	}
 }

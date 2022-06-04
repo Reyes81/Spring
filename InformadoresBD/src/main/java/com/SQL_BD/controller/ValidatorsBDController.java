@@ -24,9 +24,8 @@ public class ValidatorsBDController {
 	FilesBDService fs;
 	
 	@GetMapping(value= "/validador/{username}")
-	public ResponseEntity<Validator> getValidator(@PathVariable(value = "username") String username) {
-		System.out.println(username);
+	public Validator getValidator(@PathVariable(value = "username") String username) {
 		Validator validator = vs.getValidator(username);
-		return new ResponseEntity<>(validator, HttpStatus.OK);
+		return validator;
 	}
 }

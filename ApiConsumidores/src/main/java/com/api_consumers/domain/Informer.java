@@ -1,6 +1,6 @@
 package com.api_consumers.domain;
 
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Id;
 
 import lombok.Data;
 
@@ -18,23 +18,15 @@ public class Informer {
 		JURIDICA
 	};
 	
+	@Id
 	private Integer id;
-	
-	private Integer user_id;
-	
-	@NotEmpty()
+	private User userId;
 	private String nif;
-	
-	@NotEmpty()
 	private String name;
 	private Type type;
 	private Status status;
 	private Double quote;
-	
-	@NotEmpty()
 	private String eMail;
-	
-	@NotEmpty()
 	private String password;
 	
 	public Informer() {}
@@ -67,14 +59,6 @@ public class Informer {
 		return this.id;
 	}
 
-	public void setUserId(Integer user_id) {
-		this.user_id = user_id;
-	}
-	
-	public Integer getUserId() {
-		return this.user_id;
-	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -89,6 +73,14 @@ public class Informer {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public User getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
 	}
 
 	public void setName(String name) {
