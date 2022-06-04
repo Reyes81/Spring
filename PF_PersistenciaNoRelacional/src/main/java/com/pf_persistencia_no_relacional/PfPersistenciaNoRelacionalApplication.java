@@ -32,7 +32,7 @@ public class PfPersistenciaNoRelacionalApplication implements CommandLineRunner 
 		clearBD();
 		//Inicializamos la BD
 		initializeBD();
-		testEntities();
+		//testEntities();
 		//clearBD();
 	}
 	
@@ -61,9 +61,11 @@ public class PfPersistenciaNoRelacionalApplication implements CommandLineRunner 
 	
 	public void testEntities() {
 		showAllFiles();
-		showPendingFiles();
-		updateFile();
-		getFilesByKeywords();
+		//showPendingFiles();
+		//updateFile();
+		//getFilesByKeywords();
+		//getFileById();
+		//deleteFileById();
 	}
 	
 	public void showAllFiles() {
@@ -72,6 +74,15 @@ public class PfPersistenciaNoRelacionalApplication implements CommandLineRunner 
 		
 		for(File f:files) {
 			System.out.println("Id: "+f.getId()+" Title: "+f.getTitle()+" Description: "+f.getDescription()+" Keywords: "+f.getKeywords()+" Size: "+f.getSize()+" Data: "+f.getData()+" Status: "+f.getStatus()+" Added date: "+f.getDate());
+		}
+	}
+	
+	public void showPendingFiles() {
+		System.out.println("\n----- LISTAR TODOS LOS FICHEROS PENDIENTES -----");
+		List<File> pending_files = fs.getPendingFiles();
+		
+		for(File f:pending_files) {
+			System.out.println("Id: "+f.getId()+" Status: "+f.getStatus()+" Title: "+f.getTitle()+" Description: "+f.getDescription()+" Keywords: "+f.getKeywords()+" Size: "+f.getSize()+" Data: "+f.getData()+" Added date: "+f.getDate());
 		}
 	}
 	
@@ -85,15 +96,7 @@ public class PfPersistenciaNoRelacionalApplication implements CommandLineRunner 
 		System.out.println("Id: "+updated_file.getId()+" Title: "+updated_file.getTitle()+" Description: "+updated_file.getDescription()+" Keywords: "+updated_file.getKeywords()+" Size: "+updated_file.getSize()+" Data: "+updated_file.getData()+" Status: "+updated_file.getStatus()+" Added date: "+updated_file.getDate());
 	}
 	
-	public void showPendingFiles() {
-		System.out.println("\n----- LISTAR TODOS LOS FICHEROS PENDIENTES -----");
-		List<File> pending_files = fs.getPendingFiles();
-		
-		for(File f:pending_files) {
-			System.out.println("Id: "+f.getId()+" Status: "+f.getStatus()+" Title: "+f.getTitle()+" Description: "+f.getDescription()+" Keywords: "+f.getKeywords()+" Size: "+f.getSize()+" Data: "+f.getData()+" Added date: "+f.getDate());
-		}
-	}
-	
+
 	public void getFilesByKeywords() {
 		System.out.println("\n----- LISTAR LOS FICHEROS QUE CONTENGAN UNA KEYWORD: nombre -----");
 		List<File> files_keywords = fs.getFilesByKeyWords(1, "nombre");
@@ -111,6 +114,32 @@ public class PfPersistenciaNoRelacionalApplication implements CommandLineRunner 
 		List<File> files_keywords_date = fs.getFilesByKeyWords(3, "nombre");
 		for(File f:files_keywords_date) {
 			System.out.println("Id: "+f.getId()+" Keywords: "+f.getKeywords()+" Added date: "+f.getDate()+" Title: "+f.getTitle()+" Description: "+f.getDescription()+" Size: "+f.getSize()+" Data: "+f.getData()+" Status: "+f.getStatus());
+		}
+	}
+	
+	public void getFileById() {
+		
+		//Para probar hay que coger un fichero que sepamos su id o hacer un findAll() y elegir un id ya que cada vez
+		//que se inicializa la BD cambian los id por lo que el aparece en este método no coincidirá
+		//en futuras pruebas.
+		System.out.println("\n----- OBTENER UN FICHERO POR ID -----");
+		File file = fs.getFileByID("629b22b5ec6ecf7f1c922ab1");
+		System.out.println("Id: "+file.getId()+" Keywords: "+file.getKeywords()+" Added date: "+file.getDate()+" Title: "+file.getTitle()+" Description: "+file.getDescription()+" Size: "+file.getSize()+" Data: "+file.getData()+" Status: "+file.getStatus());
+		
+	}
+	
+	public void deleteFileById() {
+		
+		//Para probar hay que coger un fichero que sepamos su id o hacer un findAll() y elegir un id ya que cada vez
+		//que se inicializa la BD cambian los id por lo que el aparece en este método no coincidirá
+		//en futuras pruebas.
+		System.out.println("\n----- ELIMINAR UN FICHERO POR ID -----");
+		fs.deleteFile("629b22b5ec6ecf7f1c922ab4");
+		
+		//Listamos todos los ficheros para comprobar que ha sido eliminado el fichero
+		List<File> files = fs.findAll();
+		for(File f:files) {
+			System.out.println("Id: "+f.getId()+" Title: "+f.getTitle()+" Description: "+f.getDescription()+" Keywords: "+f.getKeywords()+" Size: "+f.getSize()+" Data: "+f.getData()+" Status: "+f.getStatus()+" Added date: "+f.getDate());
 		}
 	}
 	

@@ -22,12 +22,16 @@ public class FileService {
 		return this.fr.findAll();
 	}
 	
+	public File getFileByID(String id) {
+		File file = fr.findById(id).get();
+		return file;
+	}
+	
 	public void deleteAll() {
 		fr.deleteAll();
 	}
 	
 	public File create(File file) {
-		
 		
 		File file_save = fr.save(file);
 		return file_save;
