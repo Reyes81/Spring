@@ -93,7 +93,6 @@ public class FileService {
 
 		Informer informer_session = is.getInformerSession();
 	
-		
 		if(informer_session.getStatus() == Status.ACTIVO) {
 			
 			//Obtenemos todos los ficheros de ese informer desde SQL con su user id

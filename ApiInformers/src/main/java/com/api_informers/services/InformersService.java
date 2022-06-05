@@ -101,6 +101,11 @@ public class InformersService {
 		
 		Informer informer = getInformerSession();
 		
+		//Si el tamaño del fichero es menor que 1 lo ponemos a 0.0
+		if(size<1.0) {
+			size=0.0;
+		}
+		
 		Double quote = informer.getQuote() - size;
 				
 		if(quote >= 0) {
