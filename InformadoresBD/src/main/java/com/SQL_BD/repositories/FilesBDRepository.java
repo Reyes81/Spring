@@ -1,4 +1,5 @@
 package com.SQL_BD.repositories;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,8 +15,4 @@ public interface FilesBDRepository extends JpaRepository<File, String>{
 	public File[] findInformerUserIdById(String id);
 	public File[] findByInformerUserId(Informer informer);
 	public Optional<File> findById(String id);
-	
-
-	
-
 }

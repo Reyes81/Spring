@@ -156,13 +156,11 @@ public class ConsumersService {
 			throw new IOException("The requested file is not published.");
 		}
 		
-		System.out.println("Funciona");
 		//Obtenemos las 10 primeras observaciones del fichero
 		List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
 		
 		Integer num_previews=0;
 		//Obtenemos el fichero de SQL con el id
-		System.out.println("Funciona");
 		File file_sql = getFileSQLId(id);
 		if(file_sql.getPreviews()!=null)
 			num_previews = file_sql.getPreviews();
@@ -184,9 +182,6 @@ public class ConsumersService {
 		//Obtener un fichero completo (CF4). Se proporcionará el identificador de un fichero
 		//publicado y se obtendrá todo el fichero. Se incrementará el número de descargas del
 		//fichero. No se requerirá autenticación.
-
-		
-		//Capturar excepción si no existe el id //
 		
 	
 		//Obtenemos el fichero completo de Mongo		
@@ -215,4 +210,6 @@ public class ConsumersService {
 		
 		return file_consumer;
 	}
+	
+	
 }
