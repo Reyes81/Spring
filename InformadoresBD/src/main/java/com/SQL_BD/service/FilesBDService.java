@@ -27,10 +27,12 @@ public class FilesBDService {
 	
 	public File updateFile(File file)
 	{
+		System.out.println("Descargas: " + file.getDownloads());
 		File file_update = fr.getById(file.getId());
 		if (file.getDownloads()!=null)
 			file_update.setDownloads(file.getDownloads());
-		file_update.setPreviews(file.getPreviews());
+		if (file.getPreviews()!=null)
+			file_update.setPreviews(file.getPreviews());
 		if(file.getValidator()!=null)
 			file_update.setValidator(file.getValidator());
 		fr.save(file_update);

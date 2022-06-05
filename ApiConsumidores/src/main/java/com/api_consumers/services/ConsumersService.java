@@ -1,22 +1,17 @@
 package com.api_consumers.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import com.api_consumers.domain.File;
 import com.api_consumers.domain.File.Status;
 import com.api_consumers.domain.FileByUsername;
 import com.api_consumers.domain.FileConsumer;
-import com.api_consumers.domain.Informer;
+import com.api_consumers.domain.FileSQL;
 
 //FindbyKeywordsContaining
 
@@ -153,7 +148,9 @@ public class ConsumersService {
 
 		//Obtenemos el fichero por Id de MongoDB
 		File file = getFileMongoId(id);
-	
+		System.out.println(file);
+		
+		
 		//Comprobamos que el fichero haya sido publicado de lo contrario lanzamos una excepción
 		if(file.getStatus() != Status.PUBLICADO) {
 			throw new IOException("The requested file is not published.");
@@ -161,7 +158,7 @@ public class ConsumersService {
 		
 		System.out.println("Funciona");
 		//Obtenemos las 10 primeras observaciones del fichero
-		//List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
+		List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
 		
 		Integer num_previews=0;
 		//Obtenemos el fichero de SQL con el id
@@ -178,7 +175,7 @@ public class ConsumersService {
 		//Actualizamos el fichero en SQL
 		updateFileSQL(file_sql);
 		
-		return null;
+		return data;
 	}
 	
 	//CF4
@@ -193,12 +190,12 @@ public class ConsumersService {
 		
 	
 		//Obtenemos el fichero completo de Mongo		
-		//File file = getFileMongoId(id);
+		File file = getFileMongoId(id);
 		
 		//Comprobamos que el fichero haya sido publicado de lo contrario lanzamos una excepción
-		//if(file.getStatus() != Status.PUBLICADO) {
-			//throw new IOException("The requested file is not published.");
-		//}
+		if(file.getStatus() != Status.PUBLICADO) {
+			throw new IOException("The requested file is not published.");
+		}
 
 		Integer num_downloads=0;
 		//Obtenemos el fichero de SQL con el id
@@ -214,11 +211,8 @@ public class ConsumersService {
 		//Actualizamos el fichero en SQL
 		updateFileSQL(file_sql);
 		
-		//FileConsumer file_consumer = new FileConsumer(file.getId(), file.getTitle(), file.getDescription(), file.getAdded_date(), file.getData(), file.getKeywords(), file.getInformer_id(), file.getSize());
+		FileConsumer file_consumer = new FileConsumer(file.getId(), file.getTitle(), file.getDescription(), file.getAdded_date(), file.getData(), file.getKeywords(), file.getInformer_id(), file.getSize());
 		
-		return null;
+		return file_consumer;
 	}
-	
-	
-
 }
