@@ -95,4 +95,16 @@ public class FileByUsername {
 		this.id = id;
 	}
 	
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
+	}
+	
+	public Integer getDownloads() {
+		return this.downloads;
+	}
+	
+	public String getUsername() {
+		return this.username;
+	}
+	
 }

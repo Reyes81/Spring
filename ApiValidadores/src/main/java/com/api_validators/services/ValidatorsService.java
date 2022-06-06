@@ -56,7 +56,6 @@ public class ValidatorsService {
 		Validator validator_session = restTemplate.getForObject(
 						uriGetValidator,
 						Validator.class,user_session.getUsername());
-		System.out.println("VALIDADOR: " + validator_session.getName());
 		return validator_session; 
 	}
 	
@@ -141,7 +140,6 @@ public class ValidatorsService {
 	
 	//VF3
 	public Informer updateInformer(Integer id, Informer informer){
-		System.out.println(informer);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -215,6 +213,7 @@ public class ValidatorsService {
 		Validator validator_session = getValidatorSession();
 
 		RestTemplate restTemplate = new RestTemplate();
+		
 		File file = restTemplate.getForObject(
 		uriGetFileMongoId,
 		File.class,id);
@@ -233,10 +232,9 @@ public class ValidatorsService {
 		File file_sql = restTemplate.getForObject(
 				uriGetFileSQL,
 				File.class,id);
+		
 		file_sql.setValidator(validator_session);
 		
-		System.out.println("Validadoor: " + validator_session.getName());
-		System.out.println("File_SQL: " + file_sql.getId());
 		restTemplate3.put(
 				uriEditFileSQL,
 				file_sql,

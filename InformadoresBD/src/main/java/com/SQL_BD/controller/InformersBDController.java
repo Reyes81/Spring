@@ -33,9 +33,18 @@ public class InformersBDController {
 	
 	@PostMapping(value= "/new")
 	public ResponseEntity<Informer> newInformer(@RequestBody Informer informer) {
-		informer.setStatus(Status.PENDIENTE);
-		is.saveInformer(informer);
-		return new ResponseEntity<>(informer, HttpStatus.OK);
+		HttpStatus status = HttpStatus.OK;
+		Informer new_informer = new Informer();
+		
+		if(informer.getName() == null || informer.getNif() == null || informer.getType() == null || informer.geteMail() == null || informer.getPassword() == null ) {
+			status = HttpStatus.NOT_FOUND;
+		}
+		else {
+			informer.setStatus(Status.PENDIENTE);
+			new_informer = is.saveInformer(informer);
+		}
+		
+		return new ResponseEntity<>(new_informer, status);
 	}
 
 	@GetMapping(value= "/informadores")

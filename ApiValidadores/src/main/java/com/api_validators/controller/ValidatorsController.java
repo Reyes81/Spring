@@ -100,7 +100,6 @@ public class ValidatorsController {
 	//VF2. Aprobar un nuevo informador
 	@RequestMapping("/informadores/validar/{id}")
 	public void validateInformer(@PathVariable(value = "id") Integer id) {	
-		System.out.println("HOLA");
 		LOGGER.debug("Approve informer with id " + id);
 		
 		vs.validateInformer(id);

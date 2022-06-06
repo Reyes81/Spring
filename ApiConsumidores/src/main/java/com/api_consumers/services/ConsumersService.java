@@ -1,6 +1,10 @@
 package com.api_consumers.services;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +15,6 @@ import com.api_consumers.domain.File;
 import com.api_consumers.domain.File.Status;
 import com.api_consumers.domain.FileByUsername;
 import com.api_consumers.domain.FileConsumer;
-import com.api_consumers.domain.FileSQL;
 
 //FindbyKeywordsContaining
 
@@ -25,12 +28,14 @@ public class ConsumersService {
 	static final String uriGetFilesByUsername = "http://localhost:8081/api/files/username/{username}";
 	//static final String uriGetAllFilesMongo = "http://localhost:8083/api/files/informador/{informerId}";
 	static final String uriGetFilesById = "http://localhost:8083/api/files/filesById";
+	static final String uriGetFilesbyKeyword = "http://localhost:8083/api/files/file/keyword/{keyword}";
 	static final String uriGetFilesbyKeywordDate = "http://localhost:8083/api/files/file/keyword/fecha/{keyword}";
 	static final String uriGetFilesbyKeywordSize = "http://localhost:8083/api/files/file/keyword/size/{keyword}";
 	static final String uriGetFilesbyKeywordDownloads = "http://localhost:8083/api/files/file/keyword/downloads/{keyword}";
 	static final String uriGetFilesSQL= "http://localhost:8081/api/files/all";
+	static final String uriGetFilesDownloadsSQL = "http://localhost:8081/api/files/downloads";
+	static final String uriUpdatePreviewsFileSQL = "http://localhost:8081/api/files/updatePreviews";
 
-	
 	//Método común para obtener un fichero por ID de MongoDB
 	public File getFileMongoId(String id) {
 		
@@ -47,9 +52,12 @@ public class ConsumersService {
 	public File getFileSQLId(String id) {
 		
 		RestTemplate restTemplate2 = new RestTemplate();
+		
 		File file_sql = restTemplate2.getForObject(
-		uriGetFileSQL,
-		File.class,id);
+				uriGetFileSQL,
+				File.class,id);
+		System.out.println("FILE QSL");
+		System.out.println(file_sql);
 		
 		return file_sql;
 	}
@@ -62,6 +70,25 @@ public class ConsumersService {
 		uriEditFileSQL,
 		file_sql,
 		File.class);
+	}
+	
+	public void updateFileSQLId(String id) {
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.put(
+				uriUpdatePreviewsFileSQL,
+				id);
+	}
+	
+	//CF1.Listado de Ficheros por palabara clave 
+	public File[] getFilesByKeyWords(String keyword){
+		RestTemplate restTemplate = new RestTemplate();
+		
+		File[] files =  restTemplate.getForObject(
+					uriGetFilesbyKeyword,
+					File[].class, keyword);
+		
+		return files;
 	}
 	
 	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
@@ -87,25 +114,36 @@ public class ConsumersService {
 	}
 		
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
-	public FileByUsername[] getFilesByKeyWordsDownloads(String keyword){
+	public List<FileByUsername> getFilesByKeyWordsDownloads(String keyword){
 		RestTemplate restTemplate = new RestTemplate();
 		
 		FileByUsername[] files =  restTemplate.getForObject(
 				uriGetFilesbyKeywordDownloads,
 				FileByUsername[].class, keyword);
 		
-		/*List<String> files_id = new ArrayList<String>();
+		List<String> files_id = new ArrayList<String>();
 		
 		for(FileByUsername f:files) {
 			files_id.add(f.getId());
 		}
 		
-		FileByUsername[] files_sql = restTemplate.getForObject(
+		File[] files_sql = restTemplate.postForObject(
 				uriGetFilesSQL,
-				FileByUsername[].class, files_id);
+				files_id, File[].class);
 		
-						*/	
-		return files;
+		List<FileByUsername> files_downloads = new ArrayList<FileByUsername>();
+		
+		for(int i = 0; i < files_sql.length; i++) {
+			for(int j = 0; j < files.length; j++) {
+				if(files_sql[i].getId().equals(files[j].getId())) {
+					files_downloads.add(new FileByUsername(files[j].getId(), files[j].getTitle(), files[j].getDescription(), files[j].getAdded_date(), "JSON", files[j].getSize(), files_sql[i].getPreviews(), files_sql[i].getDownloads(), ""));
+				}
+			}
+			
+		}
+		files_downloads.sort(Comparator.comparing(FileByUsername::getDownloads).reversed());
+					
+		return files_downloads;
 	}
 		
 	//CF2
@@ -148,8 +186,6 @@ public class ConsumersService {
 
 		//Obtenemos el fichero por Id de MongoDB
 		File file = getFileMongoId(id);
-		System.out.println(file);
-		
 		
 		//Comprobamos que el fichero haya sido publicado de lo contrario lanzamos una excepción
 		if(file.getStatus() != Status.PUBLICADO) {
@@ -157,23 +193,10 @@ public class ConsumersService {
 		}
 		
 		//Obtenemos las 10 primeras observaciones del fichero
-		List<Object> data = file.getData().stream().limit(10).collect(Collectors.toList());
+		List<Object> data2 = file.getData().stream().limit(10).collect(Collectors.toList());
+		updateFileSQLId(id);
 		
-		Integer num_previews=0;
-		//Obtenemos el fichero de SQL con el id
-		File file_sql = getFileSQLId(id);
-		if(file_sql.getPreviews()!=null)
-			num_previews = file_sql.getPreviews();
-		System.out.println("Funciona");
-				
-		//Incrementamos el valor de previews
-		Integer previews = num_previews + 1;
-		file_sql.setPreviews(previews);
-				
-		//Actualizamos el fichero en SQL
-		updateFileSQL(file_sql);
-		
-		return data;
+		return data2;
 	}
 	
 	//CF4

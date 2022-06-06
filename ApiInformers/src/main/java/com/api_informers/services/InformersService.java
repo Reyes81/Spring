@@ -67,34 +67,25 @@ public class InformersService {
 	
 	public Informer newInformer (Informer informer) {
 		
-		System.out.println("Id: " + informer.getId() + "\n" +
-				   "nif: " + informer.getNif() + "\n" +
-				   "name: " + informer.getName() + "\n" +
-				   "status: " + informer.getStatus() + "\n" +
-				   "type: " + informer.getType() + "\n" + 
-				   "quote: " + informer.getQuote() + "\n" + 
-				   "eMail: " + informer.geteMail() + "\n" +
-				   "password: " + informer.getPassword());
-		
 		RestTemplate restTemplate1 = new RestTemplate();
-		
 		RestTemplate restTemplate2 = new RestTemplate();
+		
 		User user = us.createUser(informer.geteMail(),informer.getPassword());
 		
-		User user2 = restTemplate2.postForObject(
+		restTemplate2.postForObject(
 				  uriNewUser,
 				  user,
 				  User.class);
+		
 		String password_encode = new BCryptPasswordEncoder().encode(informer.getPassword());
 		informer.setPassword(password_encode);
-		//informer.setUserId(user2);
 		
-		restTemplate1.postForObject(
+		Informer new_informer = restTemplate1.postForObject(
 				  uriNewInformer,
 				  informer,
 				  Informer.class);
 		
-		return informer;
+		return new_informer;
 	}
 	
 	public Double updateQuote(Double size) {

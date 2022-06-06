@@ -28,8 +28,9 @@ public class InformersBDService {
 	public Informer saveInformer(Informer informer) {
 		User user = us.getUserByUserName(informer.geteMail());
 		informer.setUserId(user);
-		ir.save(informer);
-		return informer;
+		Informer new_informer = ir.save(informer);
+
+		return new_informer;
 	}
 	
 	//VF1. Obtener todos los informadores

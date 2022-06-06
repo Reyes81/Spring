@@ -1,6 +1,7 @@
 package com.SQL_BD.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +33,18 @@ public class FilesBDController {
 	
 	@PostMapping(value="/newFile")
 	public ResponseEntity<File> newFile(@RequestBody File file) {
-		System.out.println(file);
 		fs.newFile(file);
 		return new ResponseEntity<>(file, HttpStatus.OK);
 	}
 	
 	@RequestMapping("/edit")
 	public void editFile(@RequestBody File file) {
-		System.out.println(file);
 		File new_file = fs.updateFile(file);
 		
 	}
 	
 	@RequestMapping("/edit/validator")
 	public ResponseEntity<String> editFileValidator(@RequestBody File file) {
-		System.out.println(file);
 		File new_file = fs.updateFileValidator(file);
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
@@ -56,7 +54,6 @@ public class FilesBDController {
 		
 			for(FileInformers fi:file_informer)
 			{
-				System.out.println(fi);
 				String file_informer_id = fi.getId();
 				File[] files = fs.findInformerByFileId(file_informer_id);
 				
@@ -75,9 +72,15 @@ public class FilesBDController {
 	}
 	
 	@GetMapping("/file/{id}")
-	public ResponseEntity<File> findById(@PathVariable(value = "id") String id) {
+	public File findById(@PathVariable(value = "id") String id) {
 		File file = fs.findById(id);
-		return new ResponseEntity<>(file, HttpStatus.OK);
+		File file2 = new File();
+		file2.setId(file.getId());
+		file2.setDownloads(file.getDownloads());
+		file2.setInformer(file.getInformer());
+		file2.setPreviews(file.getPreviews());
+		file2.setValidator(file.getValidator());
+		return file2;
 	}
 	
 	
@@ -101,16 +104,37 @@ public class FilesBDController {
 			Boolean delete = fs.deleteFile(id);
 	}
 	
-	@GetMapping("/all")
+	@RequestMapping("/all")
 	public List<File> findAllById(@RequestBody List<String> files_id) {
-		
 		List<File> files = new ArrayList<File>();
 		for(String id:files_id) {
-			files.add(fs.findById(id));
+			File file = fs.findById(id);
+			File file_aux = new File();
+			file_aux.setDownloads(file.getDownloads());
+			file_aux.setPreviews(file.getPreviews());
+			file_aux.setInformer(file.getInformer());
+			file_aux.setId(file.getId());
+			files.add(file_aux);
 		}
 		
-		return files;
+		files.sort(Comparator.comparing(File::getDownloads).reversed());
 		
+		return files;
+	}
+	
+	@RequestMapping("/updatePreviews")
+	public ResponseEntity<String> updatePreviews(@RequestBody String id){
+		File file = fs.findById(id);
+		HttpStatus status = HttpStatus.NOT_FOUND;
+
+		if(file != null) {
+			file.setPreviews(file.getPreviews() +1);
+			fs.updateFile(file);
+			status = HttpStatus.OK;
+		}
+		
+		return new ResponseEntity<String>("Previews actualizadas", status);
+	
 	}
 
 

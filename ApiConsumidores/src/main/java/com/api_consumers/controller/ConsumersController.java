@@ -30,14 +30,18 @@ public class ConsumersController {
 	@Autowired
 	ConsumersService cs;
 	
-	//CF1.
-	//Obtener listado ordenado de ficheros por palabra clave (CF1). Se buscarán solo
-	//ficheros con estado publicado, se indicará la palabra clave y se permitirá ordenar por
-	//fecha de creación (de más reciente a más antiguo, opción por defecto), por tamaño
-	//(de más grande a más pequeño) o por número de descargas (de más a menos
-	//veces descargado). Se obtendrá el identificador del fichero, título, descripción,
-	//nombre del productor, fecha de creación, formato, tamaño, número de
-	//previsualizaciones y de descargas. No se requerirá autenticación.
+	//CF1-a.Listado de Ficheros por palabara clave
+	@GetMapping("/files/keywords/{keyword}")
+	public ResponseEntity<File[]> getFilesByKeyWords(@PathVariable(value="keyword") String keyword){
+
+		LOGGER.debug("List of Files by keyword " + keyword + " sorted by date");
+		File[] files = cs.getFilesByKeyWords(keyword);
+		
+		if(files.length == 0)
+			log.info("There are no files with the keyword: " + keyword);
+		
+		return new ResponseEntity<>(files, HttpStatus.OK);
+	}
 	
 	//CF1-a.Listado de Ficheros por palabara clave ordenados por fecha
 	@GetMapping("/files/keywords/fecha/{keyword}")
@@ -45,7 +49,6 @@ public class ConsumersController {
 
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by date");
 		File[] files = cs.getFilesByKeyWordsDate(keyword);
-		System.out.println(files);
 		
 		if(files.length == 0)
 			log.info("There are no files with the keyword: " + keyword);
@@ -67,13 +70,12 @@ public class ConsumersController {
 	}
 	
 	//CF1-c.Listado de Ficheros por palabara clave ordenados por número de descargas
-	@GetMapping("/files/keywords/descargas/{keyword}")
-	public ResponseEntity<FileByUsername[]> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
-
+	@GetMapping("/files/keywords/downloads/{keyword}")
+	public ResponseEntity<List<FileByUsername>> getFilesByKeyWordsDownloads(@PathVariable(value="keyword") String keyword){
 		LOGGER.debug("List of Files by keyword " + keyword + " sorted by downloads");
-		FileByUsername[] files = cs.getFilesByKeyWordsDownloads(keyword);
+		List<FileByUsername> files = cs.getFilesByKeyWordsDownloads(keyword);
 		
-		if(files.length == 0)
+		if(files.size() == 0)
 			log.info("There are no files with the keyword: " + keyword);
 			
 		return new ResponseEntity<>(files, HttpStatus.OK);

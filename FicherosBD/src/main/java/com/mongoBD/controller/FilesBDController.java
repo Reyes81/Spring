@@ -1,5 +1,6 @@
 package com.mongoBD.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.mongoBD.domain.File;
 import com.mongoBD.domain.FileByUsername;
@@ -57,10 +57,15 @@ public class FilesBDController {
 		return file;
 	}
 	
+	@GetMapping("/file/keyword/{keyword}")
+	public List<File> getFilesByKeyWords(@PathVariable(value = "keyword") String keyword) {
+		List<File> files = fs.getFilesByKeyWords(0,keyword);
+		return files;
+	}
+	
 	@GetMapping("/file/keyword/fecha/{keyword}")
 	public List<File> getFilesByKeyWordsDate(@PathVariable(value = "keyword") String keyword) {
 		List<File> files = fs.getFilesByKeyWords(1,keyword);
-		System.out.println(files.size());
 		return files;
 	}
 	
@@ -71,10 +76,15 @@ public class FilesBDController {
 	}
 	
 	@GetMapping("/file/keyword/downloads/{keyword}")
-	public List<File> getFilesByKeyWordsDownloads(@PathVariable(value = "keyword") String keyword) {
-		List<File> files = fs.getFilesByKeyWords(3,keyword);
+	public List<FileByUsername> getFilesByKeyWordsDownloads(@PathVariable(value = "keyword") String keyword) {
+		List<File> files = fs.getFilesByKeyWords(0,keyword);
+		List<FileByUsername> files_username = new ArrayList<FileByUsername>();
 		
-		return files;
+		for(File f:files) {
+			files_username.add(new FileByUsername(f.getId(), f.getTitle(), f.getDescription(), f.getDate(), "JSON", f.getSize(), 0, 0, " "));
+		}
+		
+		return files_username;
 	}
 	
 	

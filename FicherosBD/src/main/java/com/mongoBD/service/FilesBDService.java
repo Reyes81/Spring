@@ -82,17 +82,18 @@ public class FilesBDService {
 	public List<File> getFilesByKeyWords(Integer opcion, String keyword) {
 		
 		List<File> files = null;
-		switch (opcion) {
 		
+		switch (opcion) {
+			case 0:
+				files = fr.findByKeywordsContaining(keyword);
+			break;
 			case 1:
 				files = fr.findByKeywordsContainingOrderByAddeddateDesc(keyword);
-				break;
+			break;
 			
 			case 2:
 				files = fr.findByKeywordsContainingOrderBySizeDesc(keyword);
-				break;
-			case 3:
-				files = fr.findByKeywordsContaining(keyword);
+			break;
 		}
 		
 		return files;
