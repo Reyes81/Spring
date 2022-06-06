@@ -44,11 +44,12 @@ public class InformersService {
 				informer_update.seteMail(informer.geteMail());
 			if(informer.getName()!=null)
 				informer_update.setName(informer_update.getName());
-			if(informer.getPassword()!=null)
-				informer_update.setPassword(informer.getPassword());
+			if(informer.getPassword()!=null) {
+				String password_encode = new BCryptPasswordEncoder().encode(informer.getPassword());
+				informer_update.setPassword(password_encode);
+			}
 			if(informer.getType()!=null)
 				informer_update.setType(informer.getType());
-			
 			RestTemplate restTemplate = new RestTemplate();
 
 			restTemplate.put(

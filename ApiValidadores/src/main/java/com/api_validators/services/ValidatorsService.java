@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
@@ -34,6 +35,7 @@ public class ValidatorsService {
 	static final String uriGetInformersQuote = "http://localhost:8081/api/informadoresBD/informadores/cuota";
 	static final String uriGetAllInformes = "http://localhost:8081/api/informadoresBD/informadores";
 	static final String uriEditInformer = "http://localhost:8081/api/informadoresBD/informadores/modificarInfo";
+	static final String uriEditInformer2 = "http://localhost:8081/api/informadoresBD/informadores/modificarInfoAll";
 	static final String uriDeleteInformer = "http://localhost:8081/api/informadoresBD/informadores/eliminar/{id}";
 	static final String uriSuspendInformer = "http://localhost:8081/api/informadoresBD/informadores/inactivo/{id}";
 	static final String uriValidateInformer = "http://localhost:8081/api/informadoresBD/informadores/validar/{id}";
@@ -154,14 +156,17 @@ public class ValidatorsService {
 		informer_update.seteMail(informer.geteMail());
 		informer_update.setName(informer.getName());
 		informer_update.setNif(informer.getNif());
-		informer_update.setPassword(informer.getPassword());
+		if(informer.getPassword()!=null) {
+			String password_encode = new BCryptPasswordEncoder().encode(informer.getPassword());
+			informer_update.setPassword(password_encode);
+		}
 		informer_update.setQuote(informer.getQuote());
 		informer_update.setStatus(informer.getStatus());
 		informer_update.setType(informer.getType());
 		informer_update.setUserId(informer.getUserId());
 		
 		restTemplate2.put(
-						uriEditInformer,
+						uriEditInformer2,
 						informer_update,
 						Informer.class);
 		

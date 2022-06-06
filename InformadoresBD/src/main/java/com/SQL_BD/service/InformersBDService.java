@@ -176,6 +176,23 @@ public class InformersBDService {
 			return informer_bd;
 		}
 		
+		public Informer updateInformerAll(Informer informer)
+		{
+			Integer id = informer.getId();
+			Informer informer_bd = ir.getById(id);
+			informer_bd.setNif(informer.getNif());
+			informer_bd.setName(informer.getName());
+			informer_bd.setType(informer.getType());
+			informer_bd.seteMail(informer.geteMail());
+			informer_bd.setPassword(informer.getPassword());
+			informer_bd.setQuote(informer.getQuote());
+			informer_bd.setStatus(informer.getStatus());
+			
+			ir.save(informer_bd);
+			
+			return informer_bd;
+		}
+		
 		// Creamos este update porque en el anterior por requisito del proyecto no se puede
 		//actualizar el atributo quote
 		public Informer updateQuote(Informer informer) {

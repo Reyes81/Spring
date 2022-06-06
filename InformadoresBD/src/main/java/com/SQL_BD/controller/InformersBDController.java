@@ -109,6 +109,14 @@ public class InformersBDController {
 		return new ResponseEntity<>("", HttpStatus.OK);
 	}
 	
+	@RequestMapping("/informadores/modificarInfoAll")
+	public ResponseEntity<String> updateInformerAll(@RequestBody Informer informer) {	
+		System.out.println(informer.getName());
+		System.out.println(informer.getUserId());
+		Informer informer_update = is.updateInformerAll(informer);
+		return new ResponseEntity<>("", HttpStatus.OK);
+	}
+	
 	@RequestMapping("/informadores/actualizarCuota")
 	public ResponseEntity<Boolean> updateQuote(@RequestBody Informer informer) {	
 				
