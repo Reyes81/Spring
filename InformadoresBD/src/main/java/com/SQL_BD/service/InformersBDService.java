@@ -165,11 +165,16 @@ public class InformersBDService {
 		{
 			Integer id = informer.getId();
 			Informer informer_bd = ir.getById(id);
-			informer_bd.setNif(informer.getNif());
-			informer_bd.setName(informer.getName());
-			informer_bd.setType(informer.getType());
-			informer_bd.seteMail(informer.geteMail());
-			informer_bd.setPassword(informer.getPassword());
+			if(informer.getNif()!=null)
+				informer_bd.setNif(informer.getNif());
+			if(informer.getName()!=null)
+				informer_bd.setName(informer.getName());
+			if(informer.getType()!=null)
+				informer_bd.setType(informer.getType());
+			if(informer.geteMail()!=null)
+				informer_bd.seteMail(informer.geteMail());
+			if(informer.getPassword()!=null)
+				informer_bd.setPassword(informer.getPassword());
 			
 			ir.save(informer_bd);
 			
@@ -179,14 +184,22 @@ public class InformersBDService {
 		public Informer updateInformerAll(Informer informer)
 		{
 			Integer id = informer.getId();
+			
 			Informer informer_bd = ir.getById(id);
-			informer_bd.setNif(informer.getNif());
-			informer_bd.setName(informer.getName());
-			informer_bd.setType(informer.getType());
-			informer_bd.seteMail(informer.geteMail());
-			informer_bd.setPassword(informer.getPassword());
-			informer_bd.setQuote(informer.getQuote());
-			informer_bd.setStatus(informer.getStatus());
+			if(informer.getNif()!=null)
+				informer_bd.setNif(informer.getNif());
+			if(informer.getName()!=null)
+				informer_bd.setName(informer.getName());
+			if(informer.getType()!=null)
+				informer_bd.setType(informer.getType());
+			if(informer.geteMail()!=null)
+				informer_bd.seteMail(informer.geteMail());
+			if(informer.getPassword()!=null)
+				informer_bd.setPassword(informer.getPassword());
+			if(informer.getQuote()!=null)
+				informer_bd.setQuote(informer.getQuote());
+			if(informer.getStatus()!=null)
+				informer_bd.setStatus(informer.getStatus());
 			
 			ir.save(informer_bd);
 			
